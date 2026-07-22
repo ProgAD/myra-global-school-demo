@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gallery | Myra Global School</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="css/header.css" rel="stylesheet"/>
+<link href="css/footer.css" rel="stylesheet"/>
+<script src="js/nav.js" defer></script>
+<style>
+:root{
+  --primary-container:#002147;--secondary-fixed:#ffe088;--secondary-fixed-dim:#e9c349;
+  --on-surface-variant:#44474e;--on-background:#1e1b18;--on-primary:#ffffff;--primary:#000a1e;
+  --on-secondary-fixed:#241a00;--secondary:#735c00;--surface:#fff8f5;--surface-container-low:#fbf2ed;
+  --surface-container:#f5ece7;--surface-container-high:#efe6e2;--surface-container-highest:#e9e1dc;
+  --surface-container-lowest:#ffffff;--background:#fff8f5;--on-surface:#1e1b18;--on-primary-container:#708ab5;
+  --outline:#74777f;--outline-variant:#c4c6cf;
+  --font-serif:"Source Serif 4", Georgia, serif;--font-sans:"Source Sans 3", system-ui, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}*{margin:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--background);color:var(--on-background);font-family:var(--font-serif);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+img{display:block;max-width:100%;}a{text-decoration:none;color:inherit;}ul{list-style:none;}
+button{font-family:inherit;background:none;border:none;}address{font-style:normal;}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;display:inline-block;vertical-align:middle;}
+.container{max-width:1280px;margin:0 auto;padding-left:64px;padding-right:64px;width:100%;}
+.eyebrow{font-family:var(--font-sans);font-size:14px;font-weight:600;color:var(--secondary);text-transform:uppercase;letter-spacing:.2em;display:block;margin-bottom:12px;}
+.heading-lg{font-family:var(--font-serif);font-size:40px;line-height:48px;font-weight:700;color:var(--primary);margin-bottom:24px;}
+.heading-lg--flush{margin-bottom:0;}
+.btn-fill{background:var(--primary-container);color:var(--on-primary);padding:12px 32px;border-radius:8px;font-family:var(--font-sans);font-size:16px;cursor:pointer;transition:all .2s;}
+.btn-fill:hover{background:var(--primary);}
+.btn-line{background:transparent;border:1px solid var(--primary);color:var(--primary);padding:12px 32px;border-radius:8px;font-family:var(--font-sans);font-size:16px;cursor:pointer;transition:all .2s;}
+.btn-line:hover{background:var(--primary);color:var(--on-primary);}
+
+/* Banner */
+.page-banner{position:relative;width:100%;height:50px;overflow:hidden;display:flex;align-items:center;background:var(--primary-container);}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-family:var(--font-sans);font-size:16px;color:var(--on-primary-container);}
+.breadcrumb a{color:var(--on-primary-container);transition:color .2s;}
+.breadcrumb a:hover{color:var(--secondary-fixed);}
+.breadcrumb .material-symbols-outlined{font-size:18px;}
+.breadcrumb-current{color:var(--secondary-fixed);}
+
+/* Gallery page */
+.gallery-page{padding:80px 0 120px;background:var(--surface);}
+.gallery-head{text-align:center;max-width:768px;margin:0 auto 64px;}
+.gallery-head-text{font-family:var(--font-serif);font-size:20px;line-height:32px;color:var(--on-surface-variant);}
+.album-grid{display:grid;grid-template-columns:1fr;gap:32px;}
+.album-card{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--outline-variant);background:var(--surface-container-lowest);transition:transform .3s, box-shadow .3s;text-decoration:none;}
+.album-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,33,71,.14);}
+.album-cover{position:relative;height:220px;overflow:hidden;}
+.album-cover img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+.album-card:hover .album-cover img{transform:scale(1.08);}
+.album-count{position:absolute;top:12px;right:12px;background:rgba(0,33,71,.85);color:var(--secondary-fixed);font-family:var(--font-sans);font-size:12px;font-weight:600;padding:4px 10px;border-radius:9999px;display:inline-flex;align-items:center;gap:4px;}
+.album-count .material-symbols-outlined{font-size:14px;}
+.album-body{padding:24px;}
+.album-date{font-family:var(--font-sans);font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--secondary);margin-bottom:8px;display:block;}
+.album-title{font-family:var(--font-serif);font-size:22px;line-height:1.3;font-weight:600;color:var(--primary);margin-bottom:8px;}
+.album-desc{font-family:var(--font-serif);font-size:15px;line-height:1.5;color:var(--on-surface-variant);}
+.album-overlay{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;background:rgba(0,33,71,.55);opacity:0;transition:opacity .3s;}
+.album-card:hover .album-overlay{opacity:1;}
+.album-view-btn{display:inline-flex;align-items:center;gap:6px;background:var(--secondary-fixed);color:var(--primary);font-family:var(--font-sans);font-size:14px;font-weight:600;letter-spacing:.03em;padding:10px 22px;border-radius:9999px;transform:translateY(8px);transition:transform .3s;}
+.album-card:hover .album-view-btn{transform:translateY(0);}
+.album-view-btn .material-symbols-outlined{font-size:16px;}
+
+/* CTA */
+.cta-sec{background:var(--surface-container-high);border-top:1px solid var(--outline-variant);}
+.cta-inner{display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:24px;padding:64px 0;}
+.cta-title{font-family:var(--font-serif);font-size:32px;line-height:40px;font-weight:600;color:var(--primary);margin-bottom:8px;}
+.cta-text{font-family:var(--font-serif);font-size:16px;line-height:26px;color:var(--on-surface-variant);}
+.cta-actions{display:flex;gap:16px;flex-shrink:0;}
+
+@media(min-width:768px){
+  .album-grid{grid-template-columns:repeat(2,1fr);}
+  .cta-inner{flex-direction:row;text-align:left;}
+}
+@media(min-width:1024px){
+  .album-grid{grid-template-columns:repeat(3,1fr);}
+}
+</style>
+</head>
+<body>
+<!-- Top Navigation Bar -->
+<nav class="site-nav">
+<div class="container nav-inner">
+<div class="nav-brand">
+<a href="index.html" class="brand-link">
+<img src="logo/horizontal-logo.png" alt="Myra Global School" class="brand-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';"/>
+<span class="brand-name" style="display:none">Myra Global School</span>
+</a>
+</div>
+<div class="nav-menu">
+<a class="nav-link" href="index.html">Home</a>
+<div class="nav-item">
+<a class="nav-link nav-link--caret" href="about.html">About
+<span class="material-symbols-outlined nav-caret">expand_more</span></a>
+<div class="nav-dropdown">
+<div class="nav-dropdown-inner">
+<a class="dropdown-link" href="about.html#mission">Mission</a>
+<a class="dropdown-link" href="about.html#vision">Vision</a>
+</div>
+</div>
+</div>
+<div class="nav-item">
+<a class="nav-link nav-link--caret" href="academics.html">Academics
+<span class="material-symbols-outlined nav-caret">expand_more</span></a>
+<div class="nav-dropdown">
+<div class="nav-dropdown-inner">
+<a class="dropdown-link" href="curriculum.html">Curriculum</a>
+<a class="dropdown-link" href="examinations.html">Examinations</a>
+<a class="dropdown-link" href="facilities.html">Facilities</a>
+<a class="dropdown-link" href="rules.html">Rules &amp; Regulations</a>
+</div>
+</div>
+</div>
+<a class="nav-link" href="admission.html">Admissions</a>
+<a class="nav-link" href="notice.html">Notice</a>
+<a class="nav-link nav-link--active" href="gallery.html">Gallery</a>
+</div>
+<div class="nav-actions">
+<button class="nav-btn nav-btn--outline">Portal Login</button>
+<button class="nav-btn nav-btn--solid">Apply Now</button>
+</div>
+</div>
+</nav>
+
+<!-- Page Banner -->
+<header class="page-banner">
+<div class="container">
+<div class="breadcrumb">
+<a href="index.html">Home</a>
+<span class="material-symbols-outlined">chevron_right</span>
+<span class="breadcrumb-current">Gallery</span>
+</div>
+</div>
+</header>
+
+<!-- GALLERY / ALBUMS -->
+<section class="gallery-page">
+<div class="container">
+<div class="gallery-head">
+<span class="eyebrow">Campus Life</span>
+<h1 class="heading-lg heading-lg--flush">Photo Albums</h1>
+<p class="gallery-head-text" style="margin-top:16px;">Relive the moments that make Myra special. Choose an album to explore photos from our events, celebrations and everyday life.</p>
+</div>
+<div class="album-grid">
+
+<a class="album-card" href="album.html">
+<div class="album-cover">
+<div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>
+<img alt="Annual Day" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaxFf1iR-fZ3ARbf0Jb1PNjorBa8cpgPVL-w_P4OsAfjXdIb8A1E_x95gl_w2j4vW9grj2ypkMgh0yCKFxAjESyp2Ucx4NsnBi5XDuP7ix-Up85kKqoPpxUlzKqRnhXlpTJpv56yXLUhsTit3BEJblNQ91Ww4jEBCL6Zs1nHGWbS7_cgkUZ0mEDgqrtnmZRXATqFK9e2mQ2lqRQKsH_bNLLr2t1jZgnqlrKkc1ULfSMa-7V_H-fGR4HA"/>
+<span class="album-count"><span class="material-symbols-outlined">photo_library</span> 24</span>
+</div>
+<div class="album-body">
+<span class="album-date">December 2024</span>
+<h3 class="album-title">Annual Day Celebration</h3>
+<p class="album-desc">A dazzling evening of music, dance and drama celebrating a year of achievement.</p></div>
+</a>
+
+<a class="album-card" href="album.html">
+<div class="album-cover">
+<div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>
+<img alt="Sports Day" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrAUxLGmK3HTZovHjtQNhyL7wUTcT2jRJ96hODtSIBdo8qX0rVDZxVC80sgUH-7rXb6ST-Qwiwun7ss1-lEEY3GyrCE5hTzOwdYmmM0FdKq2XxQogHlgw_VzqsZ-cOleFWCWBPHyxMhuWz33G967YtwYfeBdKsHdkp25A7OJUvaoxIIHqemZRxxk9SFsNfNvgvPRH6WV9r-jdaAboWc0m9FNQ7HHNZtY5Cnx7dSqzddmLBjWAFw6dn4Q"/>
+<span class="album-count"><span class="material-symbols-outlined">photo_library</span> 36</span>
+</div>
+<div class="album-body">
+<span class="album-date">October 2024</span>
+<h3 class="album-title">Annual Sports Meet</h3>
+<p class="album-desc">Track, field and team spirit as our four houses competed for the championship trophy.</p></div>
+</a>
+
+<a class="album-card" href="album.html">
+<div class="album-cover">
+<div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>
+<img alt="Science Fair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYZVCivML_bItmWzbD5J65HYfCDYnBmHh0oaMBmpOgSRv1ecKJckbpXjmsrSiw07faGmYD7qTgoCy-sWRoG57OPDTCgSS61kw0w0TkUIdqoloksfWuLo88U9MjKZ20w_Jgly9qwtTFiLgSaRh6wPkimPdS6Cy_FM5JP1IO8fNtvfqPfAm63tU93PC_S5QKLUKcJ1TYCp0zpAUR6eB-L6XwfhRrBZCQd0XT1IKKkdJGi-wKRTC6tRQqew"/>
+<span class="album-count"><span class="material-symbols-outlined">photo_library</span> 18</span>
+</div>
+<div class="album-body">
+<span class="album-date">September 2024</span>
+<h3 class="album-title">Science &amp; Innovation Fair</h3>
+<p class="album-desc">Young innovators showcased working models, experiments and bold new ideas.</p></div>
+</a>
+
+<a class="album-card" href="album.html">
+<div class="album-cover">
+<div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>
+<img alt="Graduation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEzSG6mdfW96059TNF1M1hivs6iTXZAr-vLQoKEhcbEjF7aiMXFuPqDTvOOwnwLS14mX2a0qvy96Ziym73h1CwNdqUiJhEMUvC9pvHakyvlukSDnE8A732JP02zde5D3fabGIIhHLU983zv_Nff4n-XdZunzIQpJgvpKuyNUFGokxj4o-ESTmvvx0uEslQ8cYhdbSpa2e-eovTg7Lb7XhXzR3KlgSVgFjYvnt0_mUO2F3494VEtD2g1g"/>
+<span class="album-count"><span class="material-symbols-outlined">photo_library</span> 42</span>
+</div>
+<div class="album-body">
+<span class="album-date">June 2024</span>
+<h3 class="album-title">Graduation Ceremony 2024</h3>
+<p class="album-desc">Celebrating our graduating class as they step into the next chapter of their journey.</p></div>
+</a>
+
+<a class="album-card" href="album.html">
+<div class="album-cover">
+<div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>
+<img alt="Cultural Fest" src="https://lh3.googleusercontent.com/aida/AP1WRLvj2juMHe6Ny1Drz8c5bleO9fp0KfpZtEsdRb8dV9gJQHYn7VM5hdyFS8ogfM_BnBHoew1ubfI-j1pyDVBTU4WSfR6SWpbl44-9NiSAPmFrk1yZRpGYCsZFizVlznlE9WiX7U3zbpWDkc7PcUUElVs97VZ7H4C49cUTtUri1ZOUTea6aDCksnljY-O0PjMziusbGqNDYISAGi13nq8XdaJF3_HG6suvYxrrOEQAwYsf5UYVcaTmV5R380A"/>
+<span class="album-count"><span class="material-symbols-outlined">photo_library</span> 30</span>
+</div>
+<div class="album-body">
+<span class="album-date">March 2024</span>
+<h3 class="album-title">Cultural Fest — Utsav</h3>
+<p class="album-desc">A vibrant celebration of art, heritage and creativity across the campus.</p></div>
+</a>
+
+<a class="album-card" href="album.html">
+<div class="album-cover">
+<div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>
+<img alt="Field Trip" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaxFf1iR-fZ3ARbf0Jb1PNjorBa8cpgPVL-w_P4OsAfjXdIb8A1E_x95gl_w2j4vW9grj2ypkMgh0yCKFxAjESyp2Ucx4NsnBi5XDuP7ix-Up85kKqoPpxUlzKqRnhXlpTJpv56yXLUhsTit3BEJblNQ91Ww4jEBCL6Zs1nHGWbS7_cgkUZ0mEDgqrtnmZRXATqFK9e2mQ2lqRQKsH_bNLLr2t1jZgnqlrKkc1ULfSMa-7V_H-fGR4HA"/>
+<span class="album-count"><span class="material-symbols-outlined">photo_library</span> 27</span>
+</div>
+<div class="album-body">
+<span class="album-date">February 2024</span>
+<h3 class="album-title">Educational Field Trip</h3>
+<p class="album-desc">Learning beyond the classroom on our annual excursion to museums and heritage sites.</p></div>
+</a>
+
+</div>
+</div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="cta-sec">
+<div class="container cta-inner">
+<div>
+<h2 class="cta-title">Want to Be Part of These Moments?</h2>
+<p class="cta-text">Join the Myra family and create memories that last a lifetime.</p>
+</div>
+<div class="cta-actions">
+<button class="btn-fill">Apply Now</button>
+<button class="btn-line">Contact Us</button>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+<div class="container footer-grid">
+<div class="footer-col footer-brand-col">
+<div>
+<img alt="Myra Global School Logo" class="footer-logo" src="logo/horizontal-logo.png" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"/>
+<span class="footer-heading" style="display:none;color:var(--on-primary);font-family:var(--font-serif);font-size:20px;letter-spacing:0;text-transform:none;margin-bottom:8px;">Myra Global School</span>
+<p class="footer-about">Fostering intellectual curiosity and moral character in a global learning community. Empowering students to lead with integrity and purpose since 1974.</p>
+</div>
+<div class="footer-social">
+<a class="social-btn" href="#"><span class="material-symbols-outlined">share</span></a>
+<a class="social-btn" href="#"><span class="material-symbols-outlined">videocam</span></a>
+<a class="social-btn" href="#"><span class="material-symbols-outlined">photo_camera</span></a>
+</div>
+</div>
+<div class="footer-col">
+<h3 class="footer-heading">Academic Excellence</h3>
+<ul class="footer-links">
+<li><a href="academics.html">Academics</a></li>
+<li><a href="curriculum.html">Curriculum</a></li>
+<li><a href="examinations.html">Examinations</a></li>
+<li><a href="admission.html">Admissions Process</a></li>
+<li><a href="notice.html">Notice &amp; News</a></li>
+<li><a href="gallery.html">Gallery</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h3 class="footer-heading">Community &amp; Legal</h3>
+<ul class="footer-links">
+<li><a href="#">Academic Resources</a></li>
+<li><a href="#">Careers at Myra</a></li>
+<li><a href="#">Parent Portal</a></li>
+<li><a href="#">Contact Us</a></li>
+<li><a href="#">Privacy Policy</a></li>
+<li><a href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div class="footer-col footer-contact-col">
+<div>
+<h3 class="footer-heading">Stay Informed</h3>
+<form class="footer-newsletter">
+<div class="newsletter-field">
+<input class="newsletter-input" placeholder="Email Address" type="email"/>
+<button class="newsletter-btn" type="submit"><span class="material-symbols-outlined">arrow_forward</span></button>
+</div>
+<span class="footer-note">Sign up for our monthly academic newsletter.</span>
+</form>
+</div>
+<div class="footer-contact">
+<div class="footer-address-row">
+<span class="material-symbols-outlined footer-loc-ico">location_on</span>
+<address class="footer-address">2150 Torquay Mews,<br/>Mississauga, ON L5N 2M6</address>
+</div>
+<div class="footer-map">
+<div class="footer-map-img" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCC9wkb5cJpu--KeH2ALKMUZqdY1fjydn7su0YqS-ots1OjNUDSHDhPuISmmpQlYArJ_wRjT2vugBAhzp7_L-pN5grRjre2kOaYN8-f3-UWox4Qaf_rWwxLuUZ3okoG0ZhX5PAnKdS7EPRl-GJffs_58nwtpcxBRTv0zTwOw3fmEcgzVO3RYocK09Q1eq3HsG-4e4zwS9EMVswq8kbLJUJIH5YX-MubTpvewA-et_AV8j3wool4nnPnpQ')"></div>
+<div class="footer-map-overlay"><span class="footer-map-pill">VIEW MAP</span></div>
+</div>
+</div>
+</div>
+</div>
+<div class="container footer-bottom">
+<p class="footer-copy">© 2024 Myra Global School. All rights reserved.</p>
+<div class="footer-badges">
+<span class="footer-badge">IB WORLD SCHOOL</span>
+<span class="footer-sep">|</span>
+<span class="footer-badge">CAIS ACCREDITED</span>
+</div>
+</div>
+</footer>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const footerLinks = document.querySelectorAll('footer a');
+            footerLinks.forEach(link => {
+                link.addEventListener('mouseenter', () => { link.style.transform = 'translateX(4px)'; });
+                link.addEventListener('mouseleave', () => { link.style.transform = 'translateX(0)'; });
+            });
+        });
+    </script>
+</body></html>
