@@ -31,8 +31,51 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 .heading-lg--light{color:var(--on-primary);}
 .heading-lg--flush{margin-bottom:0;}
 
+/* Banner */
+.page-banner{position:relative;width:100%;height:50px;overflow:hidden;display:flex;align-items:center;background:var(--primary-container);}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-family:var(--font-sans);font-size:16px;color:var(--on-primary-container);}
+.breadcrumb a{color:var(--on-primary-container);transition:color .2s;}
+.breadcrumb a:hover{color:var(--secondary-fixed);}
+.breadcrumb .material-symbols-outlined{font-size:18px;}
+.breadcrumb-current{color:var(--secondary-fixed);}
+
+/* Admission-status modal */
+.status-modal{position:fixed;inset:0;background:rgba(9,25,50,.6);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px;}
+.status-modal.open{display:flex;}
+.status-box{background:#fff;border-radius:16px;padding:32px;max-width:460px;width:100%;box-shadow:0 30px 60px rgba(0,0,0,.3);position:relative;animation:statusPop .25s ease;}
+@keyframes statusPop{from{transform:translateY(12px);opacity:0;}}
+.status-close{position:absolute;top:12px;right:16px;font-size:30px;line-height:1;color:var(--on-surface-variant);cursor:pointer;background:none;border:none;}
+.status-close:hover{color:var(--primary);}
+.status-title{font-family:var(--font-serif);font-size:24px;font-weight:700;color:var(--primary);margin-bottom:6px;}
+.status-sub{font-family:var(--font-sans);font-size:14px;color:var(--on-surface-variant);margin-bottom:20px;}
+.status-input{width:100%;border:1px solid var(--outline-variant);border-radius:8px;padding:12px 14px;font-family:var(--font-serif);font-size:16px;margin-bottom:16px;}
+.status-input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 1px var(--primary);}
+.status-form-btn{width:100%;}
+.status-result{margin-top:4px;}
+.status-ref{font-family:var(--font-sans);font-size:13px;color:var(--on-surface-variant);margin-bottom:12px;}
+.status-ref strong{color:var(--primary);}
+.status-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:9999px;font-family:var(--font-sans);font-size:14px;font-weight:600;margin-bottom:22px;}
+.status-badge .material-symbols-outlined{font-size:16px;}
+.status-badge--received{background:#e2ecff;color:#2b4c8c;}
+.status-badge--verify{background:#fff3d6;color:#8a6d1a;}
+.status-badge--done{background:#e2f7ec;color:#227a52;}
+.status-steps{margin-bottom:20px;}
+.status-step{display:flex;gap:14px;align-items:flex-start;position:relative;padding-bottom:20px;}
+.status-step:last-child{padding-bottom:0;}
+.status-step:not(:last-child)::before{content:'';position:absolute;left:12px;top:24px;bottom:0;width:2px;background:var(--outline-variant);}
+.status-step.done:not(:last-child)::before{background:var(--primary-container);}
+.status-dot{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--surface-container);border:2px solid var(--outline-variant);color:var(--on-surface-variant);z-index:1;}
+.status-dot .material-symbols-outlined{font-size:15px;}
+.status-step.done .status-dot{background:var(--primary-container);border-color:var(--primary-container);color:var(--secondary-fixed);}
+.status-step.current .status-dot{background:var(--secondary-fixed);border-color:var(--secondary-fixed);color:var(--primary);}
+.status-step-label{font-family:var(--font-sans);font-size:14px;font-weight:600;color:var(--primary);}
+.status-step.pending .status-step-label{color:var(--on-surface-variant);}
+.status-step-note{font-family:var(--font-serif);font-size:13px;color:var(--on-surface-variant);}
+.status-again{margin-top:4px;font-family:var(--font-sans);font-size:14px;font-weight:600;color:var(--primary);cursor:pointer;background:none;border:none;display:inline-flex;align-items:center;gap:4px;}
+.status-again:hover{color:var(--secondary-fixed-dim);}
+
 /* Intro */
-.adm-intro{padding-top:120px;padding-bottom:64px;background:var(--surface);}
+.adm-intro{padding:80px 0 64px;background:var(--surface);}
 .adm-intro-inner{text-align:center;max-width:768px;margin:0 auto;}
 .adm-intro-text{font-family:var(--font-serif);font-size:20px;line-height:32px;color:var(--on-surface-variant);}
 
@@ -54,32 +97,24 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 .fact-title{font-family:var(--font-serif);font-size:22px;font-weight:600;margin-bottom:4px;}
 .fact-text{font-family:var(--font-sans);font-size:14px;color:var(--on-primary-container);}
 
-/* Enquiry form */
-.enquiry-sec{padding:120px 0;background:var(--surface-container-high);border-top:1px solid var(--outline-variant);}
-.enquiry-grid{display:grid;grid-template-columns:1fr;gap:32px;align-items:center;}
-.enquiry-lead{font-family:var(--font-serif);font-size:20px;line-height:32px;color:var(--on-surface-variant);margin-bottom:32px;}
-.enquiry-contacts{display:flex;flex-direction:column;gap:24px;}
-.enquiry-contact{display:flex;align-items:flex-start;gap:16px;}
-.enquiry-contact-ico{color:var(--primary);padding:8px;background:#fff;border-radius:9999px;}
-.enquiry-contact-label{font-family:var(--font-sans);font-size:14px;font-weight:600;letter-spacing:.05em;color:var(--primary);}
-.enquiry-contact-val{color:var(--on-surface-variant);}
-.enquiry-card{background:#fff;padding:40px;box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);border-radius:12px;}
-.enquiry-form{display:grid;grid-template-columns:1fr;gap:24px;}
-.form-field--full{grid-column:1/-1;}
-.form-label{display:block;font-family:var(--font-sans);font-size:14px;font-weight:600;letter-spacing:.05em;color:var(--primary);margin-bottom:8px;}
-.form-input{width:100%;border:1px solid var(--outline-variant);border-radius:8px;padding:12px;font-family:var(--font-serif);font-size:16px;color:var(--on-background);background:#fff;}
-.form-input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 1px var(--primary);}
-.btn-submit{width:100%;background:var(--primary-container);color:var(--on-primary);padding:16px;font-family:var(--font-sans);font-size:14px;font-weight:600;letter-spacing:.05em;cursor:pointer;border-radius:8px;box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);transition:all .2s;}
-.btn-submit:hover{background:var(--primary);}
+/* Buttons */
+.btn-fill{display:inline-block;background:var(--primary-container);color:var(--on-primary);padding:14px 32px;border-radius:8px;font-family:var(--font-sans);font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;text-align:center;}
+.btn-fill:hover{background:var(--primary);}
+.btn-line{display:inline-block;background:transparent;border:1px solid var(--primary);color:var(--primary);padding:14px 32px;border-radius:8px;font-family:var(--font-sans);font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;text-align:center;}
+.btn-line:hover{background:var(--primary);color:var(--on-primary);}
+.adm-actions{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:32px;}
+
+/* CTA band */
+.cta-sec{background:var(--surface-container-high);border-top:1px solid var(--outline-variant);}
+.cta-inner{display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:space-between;gap:24px;padding:64px 0;}
+.cta-title{font-family:var(--font-serif);font-size:32px;line-height:40px;font-weight:600;color:var(--primary);margin-bottom:8px;}
+.cta-text{font-family:var(--font-serif);font-size:16px;line-height:26px;color:var(--on-surface-variant);}
+.cta-actions{display:flex;flex-wrap:wrap;gap:16px;flex-shrink:0;justify-content:center;}
 
 @media(min-width:768px){
-  .steps-grid{grid-template-columns:repeat(2,1fr);}
+  .steps-grid{grid-template-columns:repeat(3,1fr);}
   .facts-grid{grid-template-columns:repeat(4,1fr);}
-  .enquiry-form{grid-template-columns:repeat(2,1fr);}
-}
-@media(min-width:1024px){
-  .steps-grid{grid-template-columns:repeat(4,1fr);}
-  .enquiry-grid{grid-template-columns:5fr 7fr;}
+  .cta-inner{flex-direction:row;text-align:left;}
 }
 </style>
 </head>
@@ -145,7 +180,11 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <div class="adm-intro-inner">
 <span class="eyebrow">Join Our Community</span>
 <h1 class="heading-lg">Admissions 2025–26</h1>
-<p class="adm-intro-text">Give your child an education that inspires. Applications are now open across all grades — from Nursery to Grade 11. Follow our simple four-step process to begin the journey.</p>
+<p class="adm-intro-text">Give your child an education that inspires. Applications are now open across all grades — from Nursery to Grade 11. Follow our simple three-step process to begin the journey.</p>
+<div class="adm-actions">
+<a href="admission/admission-form.html" class="btn-fill">Apply for Admission</a>
+<button type="button" class="btn-line status-btn">Admission Status</button>
+</div>
 </div>
 </div>
 </section>
@@ -160,23 +199,18 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <div class="steps-grid">
 <div class="step">
 <div class="step-num">1</div>
-<h3 class="step-title">Enquire</h3>
-<p class="step-text">Submit the online enquiry form or visit the admissions office to register your interest and receive the prospectus.</p>
+<h3 class="step-title">Apply Online</h3>
+<p class="step-text">Fill in and submit the online admission application form with the student's details.</p>
 </div>
 <div class="step">
 <div class="step-num">2</div>
-<h3 class="step-title">Apply</h3>
-<p class="step-text">Complete the application form and upload the required documents — birth certificate, past records and photographs.</p>
+<h3 class="step-title">Application &amp; Document Verification</h3>
+<p class="step-text">Our admissions team reviews your application and verifies the documents you have uploaded.</p>
 </div>
 <div class="step">
 <div class="step-num">3</div>
-<h3 class="step-title">Assessment</h3>
-<p class="step-text">Attend an interaction session or age-appropriate assessment along with a short parent orientation meeting.</p>
-</div>
-<div class="step">
-<div class="step-num">4</div>
-<h3 class="step-title">Enrol</h3>
-<p class="step-text">On selection, confirm the seat by paying the admission fee and completing the enrolment formalities.</p>
+<h3 class="step-title">School Will Contact You</h3>
+<p class="step-text">Once your application is verified, the school will reach out to you with the next steps.</p>
 </div>
 </div>
 </div>
@@ -214,73 +248,33 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 </div>
 </section>
 
-<!-- ENQUIRY FORM -->
-<section class="enquiry-sec">
-<div class="container">
-<div class="enquiry-grid">
+<!-- CTA BAND -->
+<section class="cta-sec">
+<div class="container cta-inner">
 <div>
-<span class="eyebrow">Get in Touch</span>
-<h2 class="heading-lg">Start Your Application</h2>
-<p class="enquiry-lead">Our admissions team is here to guide you through every step. Fill out the form and we'll be in touch to schedule a campus tour.</p>
-<div class="enquiry-contacts">
-<div class="enquiry-contact">
-<span class="material-symbols-outlined enquiry-contact-ico">call</span>
-<div>
-<div class="enquiry-contact-label">Admissions Hotline</div>
-<div class="enquiry-contact-val">+1 (555) 012-3456</div>
+<h2 class="cta-title">Ready to Join Myra?</h2>
+<p class="cta-text">Start your child's application online, or check the status of an existing one.</p>
 </div>
-</div>
-<div class="enquiry-contact">
-<span class="material-symbols-outlined enquiry-contact-ico">mail</span>
-<div>
-<div class="enquiry-contact-label">Email Us</div>
-<div class="enquiry-contact-val">admissions@myraglobalschool.edu</div>
-</div>
-</div>
-</div>
-</div>
-<div>
-<div class="enquiry-card">
-<form class="enquiry-form">
-<div class="form-field">
-<label class="form-label">Student's Full Name</label>
-<input class="form-input" placeholder="Enter name" type="text"/>
-</div>
-<div class="form-field">
-<label class="form-label">Grade Applying For</label>
-<select class="form-input">
-<option>Select Grade</option>
-<option>Pre-Primary (Nursery – UKG)</option>
-<option>Lower School (Grades 1 – 5)</option>
-<option>Middle School (Grades 6 – 8)</option>
-<option>Upper School (Grades 9 – 11)</option>
-</select>
-</div>
-<div class="form-field">
-<label class="form-label">Parent/Guardian Name</label>
-<input class="form-input" placeholder="Enter name" type="text"/>
-</div>
-<div class="form-field">
-<label class="form-label">Mobile Number</label>
-<input class="form-input" placeholder="+1" type="tel"/>
-</div>
-<div class="form-field form-field--full">
-<label class="form-label">Email Address</label>
-<input class="form-input" placeholder="email@example.com" type="email"/>
-</div>
-<div class="form-field form-field--full">
-<label class="form-label">Any specific questions?</label>
-<textarea class="form-input" placeholder="How can we help you?" rows="4"></textarea>
-</div>
-<div class="form-field--full">
-<button class="btn-submit" type="submit">Submit Application Enquiry</button>
-</div>
-</form>
-</div>
-</div>
+<div class="cta-actions">
+<a href="admission/admission-form.html" class="btn-fill">Apply for Admission</a>
+<button type="button" class="btn-line status-btn">Admission Status</button>
 </div>
 </div>
 </section>
+
+<!-- Admission Status Modal -->
+<div class="status-modal" id="statusModal" aria-hidden="true">
+<div class="status-box">
+<button class="status-close" id="statusClose" aria-label="Close">&times;</button>
+<h3 class="status-title">Check Admission Status</h3>
+<p class="status-sub">Enter your application number or registered phone number.</p>
+<form id="statusForm">
+<input class="status-input" id="statusInput" type="text" placeholder="Application no. / Phone number" required/>
+<button class="btn-fill status-form-btn" type="submit">Check Status</button>
+</form>
+<div class="status-result" id="statusResult" hidden></div>
+</div>
+</div>
 
 <!-- Footer -->
 <footer class="site-footer">
@@ -352,11 +346,90 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 </div>
 </footer>
 <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('footer a').forEach(link => {
-                link.addEventListener('mouseenter', () => { link.style.transform = 'translateX(4px)'; });
-                link.addEventListener('mouseleave', () => { link.style.transform = 'translateX(0)'; });
-            });
-        });
+document.addEventListener('DOMContentLoaded', function () {
+  // Footer link micro-interaction
+  document.querySelectorAll('footer a').forEach(function (link) {
+    link.addEventListener('mouseenter', function () { link.style.transform = 'translateX(4px)'; });
+    link.addEventListener('mouseleave', function () { link.style.transform = 'translateX(0)'; });
+  });
+
+  // ---- Admission status modal ----
+  var modal = document.getElementById('statusModal');
+  if (!modal) return;
+  var closeBtn = document.getElementById('statusClose');
+  var form = document.getElementById('statusForm');
+  var input = document.getElementById('statusInput');
+  var result = document.getElementById('statusResult');
+
+  var STEPS = [
+    { label: 'Application Submitted', note: 'We have received your application.' },
+    { label: 'Document Verification', note: 'Our team is verifying your uploaded documents.' },
+    { label: 'School Will Contact You', note: 'A decision has been made — we will reach out to you soon.' }
+  ];
+  var BADGES = [
+    { cls: 'status-badge--received', ico: 'inventory_2', text: 'Application Received' },
+    { cls: 'status-badge--verify', ico: 'fact_check', text: 'Under Verification' },
+    { cls: 'status-badge--done', ico: 'verified', text: 'Verified — you will be contacted' }
+  ];
+
+  function openModal() {
+    reset();
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    input.focus();
+  }
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  function reset() {
+    result.hidden = true;
+    result.innerHTML = '';
+    form.hidden = false;
+    form.reset();
+  }
+  function stageFor(str) {
+    var s = 0;
+    for (var i = 0; i < str.length; i++) s += str.charCodeAt(i);
+    return s % 3; // demo: derive a stage from the reference so different inputs differ
+  }
+  function render(ref) {
+    var stage = stageFor(ref);
+    var b = BADGES[stage];
+    var steps = '';
+    for (var i = 0; i < STEPS.length; i++) {
+      var cls = i < stage ? 'done' : (i === stage ? 'current' : 'pending');
+      var ico = i < stage ? 'check' : (i === stage ? 'hourglass_top' : 'radio_button_unchecked');
+      steps += '<div class="status-step ' + cls + '">'
+        + '<span class="status-dot"><span class="material-symbols-outlined">' + ico + '</span></span>'
+        + '<div><div class="status-step-label">' + STEPS[i].label + '</div>'
+        + (i === stage ? '<div class="status-step-note">' + STEPS[i].note + '</div>' : '')
+        + '</div></div>';
+    }
+    result.innerHTML =
+      '<div class="status-ref">Reference: <strong>' + ref + '</strong></div>'
+      + '<span class="status-badge ' + b.cls + '"><span class="material-symbols-outlined">' + b.ico + '</span>' + b.text + '</span>'
+      + '<div class="status-steps">' + steps + '</div>'
+      + '<a href="admission/admission-form.html" class="status-again"><span class="material-symbols-outlined" style="font-size:16px;">download</span> Download Admission Form</a>';
+    form.hidden = true;
+    result.hidden = false;
+  }
+
+  document.querySelectorAll('.status-btn').forEach(function (btn) {
+    btn.addEventListener('click', function (e) { e.preventDefault(); openModal(); });
+  });
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+  });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = input.value.trim();
+    if (v) render(v);
+  });
+});
     </script>
 </body></html>
