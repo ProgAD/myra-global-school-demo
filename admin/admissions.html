@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manage Admissions | Admin | Myra Global School</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="admin.css" rel="stylesheet"/>
+<script src="admin.js" defer></script>
+</head>
+<body>
+<div class="admin">
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+<div class="side-brand">
+<a href="dashboard.html" class="side-brand-link">
+<img class="side-logo" src="../logo/horizontal-logo2.png" alt="Myra Global School" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>
+<span class="side-fallback" style="display:none"><span class="crest">MG</span><span class="name">Myra Global<small>Admin Panel</small></span></span>
+</a>
+</div>
+<div class="side-group">
+<div class="side-label">Main</div>
+<a class="nav-a" href="dashboard.html"><span class="material-symbols-outlined">dashboard</span> Dashboard</a>
+<div class="side-label" style="margin-top:18px;">Manage</div>
+<a class="nav-a active" href="admissions.html"><span class="material-symbols-outlined">school</span> Admissions <span class="badge">14</span></a>
+<a class="nav-a" href="notices.html"><span class="material-symbols-outlined">campaign</span> Notices</a>
+<a class="nav-a" href="gallery.html"><span class="material-symbols-outlined">photo_library</span> Gallery</a>
+<a class="nav-a" href="enquiries.html"><span class="material-symbols-outlined">mail</span> Enquiries <span class="badge">9</span></a>
+</div>
+<div class="side-foot">
+<a class="nav-a" href="../index.html" target="_blank"><span class="material-symbols-outlined">open_in_new</span> View Website</a>
+<a class="nav-a" href="#"><span class="material-symbols-outlined">logout</span> Logout</a>
+</div>
+</aside>
+<div class="overlay" id="overlay"></div>
+
+<!-- Main -->
+<div class="main">
+<header class="topbar">
+<button class="hamburger" id="hamburger" aria-label="Menu"><span class="material-symbols-outlined">menu</span></button>
+<h1>Admissions</h1>
+<div class="spacer"></div>
+<button class="icon-btn" aria-label="Notifications"><span class="material-symbols-outlined">notifications</span><span class="dot"></span></button>
+<div class="profile"><span class="avatar">A</span><div class="who"><b>Admin</b><span>Administrator</span></div></div>
+</header>
+
+<div class="content">
+<div class="page-head">
+<div>
+<h2>Manage Admissions</h2>
+<p>Review applications, verify documents and update status.</p>
+</div>
+<button class="btn btn-ghost"><span class="material-symbols-outlined">download</span> Export CSV</button>
+</div>
+
+<div class="toolbar">
+<div class="search"><span class="material-symbols-outlined">search</span><input id="adSearch" type="text" placeholder="Search by name or application no."/></div>
+<div class="spacer"></div>
+<div class="tabs" id="adTabs">
+<button class="tab active" data-f="all">All</button>
+<button class="tab" data-f="received">Received</button>
+<button class="tab" data-f="verify">Under Verification</button>
+<button class="tab" data-f="done">Verified</button>
+</div>
+</div>
+
+<div class="panel">
+<div class="table-wrap">
+<table class="tbl" id="adTable">
+<thead>
+<tr><th>Applicant</th><th>Class</th><th>Contact</th><th>Applied On</th><th>Status</th><th style="text-align:right">Action</th></tr>
+</thead>
+<tbody>
+<tr data-status="verify" data-name="aarav sharma mgs12345678" data-class="Grade 6" data-dob="14 May 2013" data-phone="+91 98765 43210" data-email="rajesh.sharma@example.com">
+<td><div class="u"><span class="ua">AS</span><div><b>Aarav Sharma</b><span>MGS12345678</span></div></div></td>
+<td>Grade 6</td>
+<td><div class="muted">+91 98765 43210<br>rajesh.sharma@example.com</div></td>
+<td>22 Jul 2026</td>
+<td class="st"></td>
+<td><div class="acts" style="justify-content:flex-end">
+<select class="status-select"><option value="received">Received</option><option value="verify" selected>Under Verification</option><option value="done">Verified</option></select>
+<button class="row-act view" title="View"><span class="material-symbols-outlined">visibility</span></button>
+<button class="row-act danger" data-del title="Delete"><span class="material-symbols-outlined">delete</span></button>
+</div></td>
+</tr>
+<tr data-status="done" data-name="isha kumari mgs12345679" data-class="Grade 3" data-dob="02 Jan 2016" data-phone="+91 90000 11111" data-email="isha.k@example.com">
+<td><div class="u"><span class="ua">IK</span><div><b>Isha Kumari</b><span>MGS12345679</span></div></div></td>
+<td>Grade 3</td>
+<td><div class="muted">+91 90000 11111<br>isha.k@example.com</div></td>
+<td>21 Jul 2026</td>
+<td class="st"></td>
+<td><div class="acts" style="justify-content:flex-end">
+<select class="status-select"><option value="received">Received</option><option value="verify">Under Verification</option><option value="done" selected>Verified</option></select>
+<button class="row-act view" title="View"><span class="material-symbols-outlined">visibility</span></button>
+<button class="row-act danger" data-del title="Delete"><span class="material-symbols-outlined">delete</span></button>
+</div></td>
+</tr>
+<tr data-status="received" data-name="reyansh verma mgs12345680" data-class="Nursery" data-dob="11 Aug 2021" data-phone="+91 91234 56780" data-email="verma.family@example.com">
+<td><div class="u"><span class="ua">RV</span><div><b>Reyansh Verma</b><span>MGS12345680</span></div></div></td>
+<td>Nursery</td>
+<td><div class="muted">+91 91234 56780<br>verma.family@example.com</div></td>
+<td>21 Jul 2026</td>
+<td class="st"></td>
+<td><div class="acts" style="justify-content:flex-end">
+<select class="status-select"><option value="received" selected>Received</option><option value="verify">Under Verification</option><option value="done">Verified</option></select>
+<button class="row-act view" title="View"><span class="material-symbols-outlined">visibility</span></button>
+<button class="row-act danger" data-del title="Delete"><span class="material-symbols-outlined">delete</span></button>
+</div></td>
+</tr>
+<tr data-status="verify" data-name="anaya mishra mgs12345681" data-class="Grade 9" data-dob="19 Mar 2010" data-phone="+91 99887 66554" data-email="mishra.a@example.com">
+<td><div class="u"><span class="ua">AM</span><div><b>Anaya Mishra</b><span>MGS12345681</span></div></div></td>
+<td>Grade 9</td>
+<td><div class="muted">+91 99887 66554<br>mishra.a@example.com</div></td>
+<td>20 Jul 2026</td>
+<td class="st"></td>
+<td><div class="acts" style="justify-content:flex-end">
+<select class="status-select"><option value="received">Received</option><option value="verify" selected>Under Verification</option><option value="done">Verified</option></select>
+<button class="row-act view" title="View"><span class="material-symbols-outlined">visibility</span></button>
+<button class="row-act danger" data-del title="Delete"><span class="material-symbols-outlined">delete</span></button>
+</div></td>
+</tr>
+<tr data-status="done" data-name="kabir singh mgs12345682" data-class="Grade 1" data-dob="07 Dec 2019" data-phone="+91 98111 22333" data-email="singh.k@example.com">
+<td><div class="u"><span class="ua">KS</span><div><b>Kabir Singh</b><span>MGS12345682</span></div></div></td>
+<td>Grade 1</td>
+<td><div class="muted">+91 98111 22333<br>singh.k@example.com</div></td>
+<td>19 Jul 2026</td>
+<td class="st"></td>
+<td><div class="acts" style="justify-content:flex-end">
+<select class="status-select"><option value="received">Received</option><option value="verify">Under Verification</option><option value="done" selected>Verified</option></select>
+<button class="row-act view" title="View"><span class="material-symbols-outlined">visibility</span></button>
+<button class="row-act danger" data-del title="Delete"><span class="material-symbols-outlined">delete</span></button>
+</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- View modal -->
+<div class="modal" id="viewModal">
+<div class="modal-box">
+<div class="modal-head"><h3>Application Details</h3><button class="modal-close" data-close><span class="material-symbols-outlined">close</span></button></div>
+<div class="modal-body">
+<div class="field-row">
+<div class="field"><label>Applicant Name</label><div id="vName" class="finput" style="background:var(--bg)">—</div></div>
+<div class="field"><label>Application No</label><div id="vApp" class="finput" style="background:var(--bg)">—</div></div>
+<div class="field"><label>Class</label><div id="vClass" class="finput" style="background:var(--bg)">—</div></div>
+<div class="field"><label>Date of Birth</label><div id="vDob" class="finput" style="background:var(--bg)">—</div></div>
+<div class="field"><label>Phone</label><div id="vPhone" class="finput" style="background:var(--bg)">—</div></div>
+<div class="field"><label>Email</label><div id="vEmail" class="finput" style="background:var(--bg)">—</div></div>
+</div>
+</div>
+<div class="modal-foot"><button class="btn btn-ghost" data-close>Close</button></div>
+</div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var table = document.getElementById('adTable');
+  var rows = Array.prototype.slice.call(table.querySelectorAll('tbody tr'));
+  var STAT = {
+    received: '<span class="badge2 b-new"><span class="material-symbols-outlined">inventory_2</span> Received</span>',
+    verify:   '<span class="badge2 b-verify"><span class="material-symbols-outlined">hourglass_top</span> Under Verification</span>',
+    done:     '<span class="badge2 b-done"><span class="material-symbols-outlined">verified</span> Verified</span>'
+  };
+  // paint badges from data-status
+  rows.forEach(function (r) { r.querySelector('.st').innerHTML = STAT[r.getAttribute('data-status')]; });
+
+  // status change
+  table.addEventListener('change', function (e) {
+    if (!e.target.classList.contains('status-select')) return;
+    var r = e.target.closest('tr');
+    r.setAttribute('data-status', e.target.value);
+    r.querySelector('.st').innerHTML = STAT[e.target.value];
+  });
+
+  // filter tabs + search
+  var filter = 'all', term = '';
+  function apply() {
+    rows.forEach(function (r) {
+      var okF = filter === 'all' || r.getAttribute('data-status') === filter;
+      var okS = !term || r.getAttribute('data-name').indexOf(term) > -1;
+      r.style.display = (okF && okS) ? '' : 'none';
+    });
+  }
+  document.getElementById('adTabs').addEventListener('click', function (e) {
+    var t = e.target.closest('.tab'); if (!t) return;
+    this.querySelectorAll('.tab').forEach(function (x) { x.classList.remove('active'); });
+    t.classList.add('active'); filter = t.getAttribute('data-f'); apply();
+  });
+  document.getElementById('adSearch').addEventListener('input', function () { term = this.value.trim().toLowerCase(); apply(); });
+
+  // view modal
+  var modal = document.getElementById('viewModal');
+  table.addEventListener('click', function (e) {
+    var v = e.target.closest('.view'); if (!v) return;
+    var r = v.closest('tr');
+    document.getElementById('vName').textContent = r.querySelector('.u b').textContent;
+    document.getElementById('vApp').textContent = r.querySelector('.u span').textContent;
+    document.getElementById('vClass').textContent = r.getAttribute('data-class');
+    document.getElementById('vDob').textContent = r.getAttribute('data-dob');
+    document.getElementById('vPhone').textContent = r.getAttribute('data-phone');
+    document.getElementById('vEmail').textContent = r.getAttribute('data-email');
+    modal.classList.add('open');
+  });
+});
+</script>
+</body></html>

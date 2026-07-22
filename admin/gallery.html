@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manage Gallery | Admin | Myra Global School</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="admin.css" rel="stylesheet"/>
+<script src="admin.js" defer></script>
+</head>
+<body>
+<div class="admin">
+
+<aside class="sidebar" id="sidebar">
+<div class="side-brand">
+<a href="dashboard.html" class="side-brand-link">
+<img class="side-logo" src="../logo/horizontal-logo2.png" alt="Myra Global School" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>
+<span class="side-fallback" style="display:none"><span class="crest">MG</span><span class="name">Myra Global<small>Admin Panel</small></span></span>
+</a>
+</div>
+<div class="side-group">
+<div class="side-label">Main</div>
+<a class="nav-a" href="dashboard.html"><span class="material-symbols-outlined">dashboard</span> Dashboard</a>
+<div class="side-label" style="margin-top:18px;">Manage</div>
+<a class="nav-a" href="admissions.html"><span class="material-symbols-outlined">school</span> Admissions <span class="badge">14</span></a>
+<a class="nav-a" href="notices.html"><span class="material-symbols-outlined">campaign</span> Notices</a>
+<a class="nav-a active" href="gallery.html"><span class="material-symbols-outlined">photo_library</span> Gallery</a>
+<a class="nav-a" href="enquiries.html"><span class="material-symbols-outlined">mail</span> Enquiries <span class="badge">9</span></a>
+</div>
+<div class="side-foot">
+<a class="nav-a" href="../index.html" target="_blank"><span class="material-symbols-outlined">open_in_new</span> View Website</a>
+<a class="nav-a" href="#"><span class="material-symbols-outlined">logout</span> Logout</a>
+</div>
+</aside>
+<div class="overlay" id="overlay"></div>
+
+<div class="main">
+<header class="topbar">
+<button class="hamburger" id="hamburger" aria-label="Menu"><span class="material-symbols-outlined">menu</span></button>
+<h1>Gallery</h1>
+<div class="spacer"></div>
+<button class="icon-btn" aria-label="Notifications"><span class="material-symbols-outlined">notifications</span><span class="dot"></span></button>
+<div class="profile"><span class="avatar">A</span><div class="who"><b>Admin</b><span>Administrator</span></div></div>
+</header>
+
+<div class="content">
+<div class="page-head">
+<div>
+<h2>Manage Gallery</h2>
+<p>Create albums and manage photos &amp; videos of school events.</p>
+</div>
+<button class="btn btn-primary" id="addAlbum"><span class="material-symbols-outlined">add_photo_alternate</span> Add Album</button>
+</div>
+
+<div class="alb-grid" id="albGrid">
+
+<div class="alb" data-item data-name="annual day celebration">
+<div class="alb-cover">
+<img alt="Annual Day" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaxFf1iR-fZ3ARbf0Jb1PNjorBa8cpgPVL-w_P4OsAfjXdIb8A1E_x95gl_w2j4vW9grj2ypkMgh0yCKFxAjESyp2Ucx4NsnBi5XDuP7ix-Up85kKqoPpxUlzKqRnhXlpTJpv56yXLUhsTit3BEJblNQ91Ww4jEBCL6Zs1nHGWbS7_cgkUZ0mEDgqrtnmZRXATqFK9e2mQ2lqRQKsH_bNLLr2t1jZgnqlrKkc1ULfSMa-7V_H-fGR4HA"/>
+<span class="alb-count"><span class="material-symbols-outlined">photo_library</span> 24</span>
+<button class="alb-del" data-del title="Delete album"><span class="material-symbols-outlined">delete</span></button>
+<a class="alb-overlay" href="album.html?title=Annual%20Day%20Celebration&amp;date=December%202024&amp;desc=Music%2C%20dance%20and%20drama%20highlights."><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>
+</div>
+<div class="alb-body"><span class="date">December 2024</span><h4>Annual Day Celebration</h4><p>Music, dance and drama highlights.</p></div>
+</div>
+
+<div class="alb" data-item data-name="annual sports meet">
+<div class="alb-cover">
+<img alt="Sports" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrAUxLGmK3HTZovHjtQNhyL7wUTcT2jRJ96hODtSIBdo8qX0rVDZxVC80sgUH-7rXb6ST-Qwiwun7ss1-lEEY3GyrCE5hTzOwdYmmM0FdKq2XxQogHlgw_VzqsZ-cOleFWCWBPHyxMhuWz33G967YtwYfeBdKsHdkp25A7OJUvaoxIIHqemZRxxk9SFsNfNvgvPRH6WV9r-jdaAboWc0m9FNQ7HHNZtY5Cnx7dSqzddmLBjWAFw6dn4Q"/>
+<span class="alb-count"><span class="material-symbols-outlined">photo_library</span> 36</span>
+<button class="alb-del" data-del title="Delete album"><span class="material-symbols-outlined">delete</span></button>
+<a class="alb-overlay" href="album.html?title=Annual%20Sports%20Meet&amp;date=October%202024&amp;desc=Track%2C%20field%20and%20house%20championships."><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>
+</div>
+<div class="alb-body"><span class="date">October 2024</span><h4>Annual Sports Meet</h4><p>Track, field and house championships.</p></div>
+</div>
+
+<div class="alb" data-item data-name="science innovation fair">
+<div class="alb-cover">
+<img alt="Science Fair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYZVCivML_bItmWzbD5J65HYfCDYnBmHh0oaMBmpOgSRv1ecKJckbpXjmsrSiw07faGmYD7qTgoCy-sWRoG57OPDTCgSS61kw0w0TkUIdqoloksfWuLo88U9MjKZ20w_Jgly9qwtTFiLgSaRh6wPkimPdS6Cy_FM5JP1IO8fNtvfqPfAm63tU93PC_S5QKLUKcJ1TYCp0zpAUR6eB-L6XwfhRrBZCQd0XT1IKKkdJGi-wKRTC6tRQqew"/>
+<span class="alb-count"><span class="material-symbols-outlined">photo_library</span> 18</span>
+<button class="alb-del" data-del title="Delete album"><span class="material-symbols-outlined">delete</span></button>
+<a class="alb-overlay" href="album.html?title=Science%20%26%20Innovation%20Fair&amp;date=September%202024&amp;desc=Student%20models%20and%20experiments."><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>
+</div>
+<div class="alb-body"><span class="date">September 2024</span><h4>Science &amp; Innovation Fair</h4><p>Student models and experiments.</p></div>
+</div>
+
+<div class="alb" data-item data-name="graduation ceremony 2024">
+<div class="alb-cover">
+<img alt="Graduation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEzSG6mdfW96059TNF1M1hivs6iTXZAr-vLQoKEhcbEjF7aiMXFuPqDTvOOwnwLS14mX2a0qvy96Ziym73h1CwNdqUiJhEMUvC9pvHakyvlukSDnE8A732JP02zde5D3fabGIIhHLU983zv_Nff4n-XdZunzIQpJgvpKuyNUFGokxj4o-ESTmvvx0uEslQ8cYhdbSpa2e-eovTg7Lb7XhXzR3KlgSVgFjYvnt0_mUO2F3494VEtD2g1g"/>
+<span class="alb-count"><span class="material-symbols-outlined">photo_library</span> 42</span>
+<button class="alb-del" data-del title="Delete album"><span class="material-symbols-outlined">delete</span></button>
+<a class="alb-overlay" href="album.html?title=Graduation%20Ceremony%202024&amp;date=June%202024&amp;desc=Farewell%20to%20the%20graduating%20class."><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>
+</div>
+<div class="alb-body"><span class="date">June 2024</span><h4>Graduation Ceremony 2024</h4><p>Farewell to the graduating class.</p></div>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- Add album modal -->
+<div class="modal" id="albModal">
+<div class="modal-box">
+<div class="modal-head"><h3>Add Album</h3><button class="modal-close" data-close><span class="material-symbols-outlined">close</span></button></div>
+<form id="albForm">
+<div class="modal-body">
+<div class="field"><label>Album Title</label><input class="finput" id="aTitle" type="text" placeholder="e.g. Annual Day Celebration" required/></div>
+<div class="field-row">
+<div class="field"><label>Event Month / Date</label><input class="finput" id="aDate" type="text" placeholder="e.g. December 2024"/></div>
+<div class="field"><label>Cover Image URL</label><input class="finput" id="aCover" type="url" placeholder="https://..."/></div>
+</div>
+<div class="field"><label>Short Description</label><input class="finput" id="aDesc" type="text" placeholder="One line about this album"/></div>
+</div>
+<div class="modal-foot"><button type="button" class="btn btn-ghost" data-close>Cancel</button><button type="submit" class="btn btn-primary">Create Album</button></div>
+</form>
+</div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var grid = document.getElementById('albGrid');
+  var modal = document.getElementById('albModal');
+  var form = document.getElementById('albForm');
+  var PLACEHOLDER = 'https://lh3.googleusercontent.com/aida/AP1WRLvj2juMHe6Ny1Drz8c5bleO9fp0KfpZtEsdRb8dV9gJQHYn7VM5hdyFS8ogfM_BnBHoew1ubfI-j1pyDVBTU4WSfR6SWpbl44-9NiSAPmFrk1yZRpGYCsZFizVlznlE9WiX7U3zbpWDkc7PcUUElVs97VZ7H4C49cUTtUri1ZOUTea6aDCksnljY-O0PjMziusbGqNDYISAGi13nq8XdaJF3_HG6suvYxrrOEQAwYsf5UYVcaTmV5R380A';
+
+  document.getElementById('addAlbum').addEventListener('click', function(){ form.reset(); modal.classList.add('open'); });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var t=document.getElementById('aTitle').value.trim(),
+        d=document.getElementById('aDate').value.trim(),
+        desc=document.getElementById('aDesc').value.trim(),
+        cover=document.getElementById('aCover').value.trim()||PLACEHOLDER;
+    var href='album.html?title='+encodeURIComponent(t)+'&date='+encodeURIComponent(d)+'&desc='+encodeURIComponent(desc);
+    var card=document.createElement('div');
+    card.className='alb'; card.setAttribute('data-item',''); card.setAttribute('data-name', t.toLowerCase());
+    card.innerHTML =
+      '<div class="alb-cover">'+
+        '<img alt="'+t+'" src="'+cover+'"/>'+
+        '<span class="alb-count"><span class="material-symbols-outlined">photo_library</span> 0</span>'+
+        '<button class="alb-del" data-del title="Delete album"><span class="material-symbols-outlined">delete</span></button>'+
+        '<a class="alb-overlay" href="'+href+'"><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>'+
+      '</div>'+
+      '<div class="alb-body"><span class="date">'+(d||'—')+'</span><h4>'+t+'</h4><p>'+desc+'</p></div>';
+    grid.insertBefore(card, grid.firstChild);
+    modal.classList.remove('open');
+  });
+});
+</script>
+</body></html>
