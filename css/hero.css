@@ -1,0 +1,77 @@
+/* ============================================================
+   HERO SECTION  (relies on tokens defined in final.html)
+   ============================================================ */
+.hero{
+  position:relative;
+  width:100%;
+  height:700px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+}
+.hero-bg{
+  position:absolute;
+  inset:0;
+  z-index:0;
+}
+.hero-video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to right, rgba(0,33,71,.8), rgba(0,33,71,0));
+}
+.hero-content-wrap{
+  position:relative;
+  z-index:10;
+  width:100%;
+  color:var(--on-primary);
+}
+.hero-content{max-width:700px;}
+.hero-title{
+  font-family:var(--font-serif);
+  font-size:64px;
+  line-height:72px;
+  letter-spacing:-.02em;
+  font-weight:700;
+  margin-bottom:24px;
+}
+.hero-sub{
+  font-family:var(--font-serif);
+  font-size:20px;
+  line-height:32px;
+  margin-bottom:40px;
+  opacity:.9;
+}
+.hero-actions{
+  display:flex;
+  gap:24px;
+  flex-wrap:wrap;
+}
+.btn-hero{
+  font-family:var(--font-sans);
+  font-size:16px;
+  font-weight:600;
+  letter-spacing:.05em;
+  padding:16px 40px;
+  border:1px solid transparent;
+  cursor:pointer;
+  transition:all .2s;
+}
+.btn-hero--gold{
+  background:var(--secondary-fixed);
+  color:var(--on-secondary-fixed);
+}
+.btn-hero--gold:hover{transform:scale(1.05);}
+.btn-hero--gold:active{transform:scale(.95);}
+.btn-hero--glass{
+  background:rgba(255,255,255,.1);
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+  border-color:rgba(255,255,255,.3);
+  color:#fff;
+}
+.btn-hero--glass:hover{background:rgba(255,255,255,.2);}
