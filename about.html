@@ -148,6 +148,97 @@ address{font-style:normal;}
 .breadcrumb-current{color:var(--secondary-fixed);}
 
 /* ============================================================
+   FACILITIES SECTION
+   ============================================================ */
+.facilities-sec{
+  background:var(--surface-container-lowest);
+  padding:80px 0;
+  overflow:hidden;
+}
+.facilities-head{
+  max-width:800px;
+  margin-bottom:32px;
+}
+.facilities-title{
+  font-family:var(--font-serif);
+  font-size:32px;
+  font-weight:700;
+  color:var(--primary);
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  margin-bottom:16px;
+}
+.facilities-desc{
+  font-family:var(--font-sans);
+  font-size:18px;
+  line-height:1.6;
+  color:var(--on-surface-variant);
+  margin-bottom:24px;
+}
+.btn-view-all{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:#0088cc;
+  color:#ffffff;
+  padding:10px 24px;
+  border-radius:4px;
+  font-family:var(--font-sans);
+  font-size:16px;
+  font-weight:600;
+  transition:background 0.2s;
+}
+.btn-view-all:hover{
+  background:#006699;
+}
+.facilities-grid{
+  display:grid;
+  grid-template-columns:repeat(1, 1fr);
+  gap:20px;
+  margin-top:32px;
+}
+@media(min-width:640px){
+  .facilities-grid{grid-template-columns:repeat(2, 1fr);}
+}
+@media(min-width:1024px){
+  .facilities-grid{grid-template-columns:repeat(4, 1fr);}
+}
+.facility-card{
+  position:relative;
+  border-radius:4px;
+  overflow:hidden;
+  box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);
+  aspect-ratio:4/3;
+}
+.facility-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.facility-badge{
+  position:absolute;
+  top:0;
+  right:0;
+  width:0;
+  height:0;
+  border-style:solid;
+  border-width:0 60px 60px 0;
+  z-index:2;
+}
+.facility-badge--orange{border-color:transparent #f37021 transparent transparent;}
+.facility-badge--red{border-color:transparent #e53935 transparent transparent;}
+.facility-badge--green{border-color:transparent #4caf50 transparent transparent;}
+
+.facility-icon{
+  position:absolute;
+  top:8px;
+  right:8px;
+  color:#ffffff;
+  font-size:20px;
+  z-index:3;
+}
+
+/* ============================================================
    HERITAGE SECTION
    ============================================================ */
 .about-sec{background:var(--surface);}
@@ -348,9 +439,20 @@ address{font-style:normal;}
 </div>
 </div>
 
-<a class="nav-link" href="admission.html">Admissions</a>
+<!-- Admission (dropdown) -->
+<div class="nav-item">
+<a class="nav-link nav-link--caret" href="admission.html">Admissions
+<span class="material-symbols-outlined nav-caret">expand_more</span></a>
+<div class="nav-dropdown">
+<div class="nav-dropdown-inner">
+<a class="dropdown-link" href="admission/admission-form.html">Apply 2026-2027</a>
+</div>
+</div>
+</div>
+
 <a class="nav-link" href="notice.html">Notice</a>
 <a class="nav-link" href="gallery.html">Gallery</a>
+<a class="nav-link" href="career.html">Careers</a>
 </div>
 <div class="nav-actions">
 <button class="nav-btn nav-btn--outline">Portal Login</button>
@@ -369,6 +471,39 @@ address{font-style:normal;}
 </div>
 </div>
 </header>
+
+<!-- FACILITIES SECTION -->
+<section class="facilities-sec">
+<div class="container">
+<div class="facilities-head">
+<h2 class="facilities-title">FACILITIES</h2>
+<p class="facilities-desc">At Myra Global School, education transcends academics, creating an exciting, caring and supportive space where students thrive and all-round development takes centre stage.</p>
+<a href="facilities.html" class="btn-view-all">View All &rarr;</a>
+</div>
+<div class="facilities-grid">
+<div class="facility-card">
+<div class="facility-badge facility-badge--orange"></div>
+<span class="material-symbols-outlined facility-icon">person</span>
+<img src="https://lh3.googleusercontent.com/aida/AP1WRLvj2juMHe6Ny1Drz8c5bleO9fp0KfpZtEsdRb8dV9gJQHYn7VM5hdyFS8ogfM_BnBHoew1ubfI-j1pyDVBTU4WSfR6SWpbl44-9NiSAPmFrk1yZRpGYCsZFizVlznlE9WiX7U3zbpWDkc7PcUUElVs97VZ7H4C49cUTtUri1ZOUTea6aDCksnljY-O0PjMziusbGqNDYISAGi13nq8XdaJF3_HG6suvYxrrOEQAwYsf5UYVcaTmV5R380A" alt="Classrooms" class="facility-img"/>
+</div>
+<div class="facility-card">
+<div class="facility-badge facility-badge--red"></div>
+<span class="material-symbols-outlined facility-icon">science</span>
+<img src="https://lh3.googleusercontent.com/aida/AP1WRLvj2juMHe6Ny1Drz8c5bleO9fp0KfpZtEsdRb8dV9gJQHYn7VM5hdyFS8ogfM_BnBHoew1ubfI-j1pyDVBTU4WSfR6SWpbl44-9NiSAPmFrk1yZRpGYCsZFizVlznlE9WiX7U3zbpWDkc7PcUUElVs97VZ7H4C49cUTtUri1ZOUTea6aDCksnljY-O0PjMziusbGqNDYISAGi13nq8XdaJF3_HG6suvYxrrOEQAwYsf5UYVcaTmV5R380A" alt="Laboratories" class="facility-img"/>
+</div>
+<div class="facility-card">
+<div class="facility-badge facility-badge--green"></div>
+<span class="material-symbols-outlined facility-icon">account_balance</span>
+<img src="https://lh3.googleusercontent.com/aida/AP1WRLvj2juMHe6Ny1Drz8c5bleO9fp0KfpZtEsdRb8dV9gJQHYn7VM5hdyFS8ogfM_BnBHoew1ubfI-j1pyDVBTU4WSfR6SWpbl44-9NiSAPmFrk1yZRpGYCsZFizVlznlE9WiX7U3zbpWDkc7PcUUElVs97VZ7H4C49cUTtUri1ZOUTea6aDCksnljY-O0PjMziusbGqNDYISAGi13nq8XdaJF3_HG6suvYxrrOEQAwYsf5UYVcaTmV5R380A" alt="Library" class="facility-img"/>
+</div>
+<div class="facility-card">
+<div class="facility-badge facility-badge--orange"></div>
+<span class="material-symbols-outlined facility-icon">sports_soccer</span>
+<img src="https://lh3.googleusercontent.com/aida/AP1WRLvj2juMHe6Ny1Drz8c5bleO9fp0KfpZtEsdRb8dV9gJQHYn7VM5hdyFS8ogfM_BnBHoew1ubfI-j1pyDVBTU4WSfR6SWpbl44-9NiSAPmFrk1yZRpGYCsZFizVlznlE9WiX7U3zbpWDkc7PcUUElVs97VZ7H4C49cUTtUri1ZOUTea6aDCksnljY-O0PjMziusbGqNDYISAGi13nq8XdaJF3_HG6suvYxrrOEQAwYsf5UYVcaTmV5R380A" alt="Sports" class="facility-img"/>
+</div>
+</div>
+</div>
+</section>
 
 <!-- HERITAGE SECTION -->
 <section class="section-lg about-sec">

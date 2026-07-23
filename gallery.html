@@ -113,9 +113,29 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 </div>
 </div>
 </div>
-<a class="nav-link" href="admission.html">Admissions</a>
+<!-- Admission (dropdown) -->
+<div class="nav-item">
+<a class="nav-link nav-link--caret" href="admission.html">Admissions
+<span class="material-symbols-outlined nav-caret">expand_more</span></a>
+<div class="nav-dropdown">
+<div class="nav-dropdown-inner">
+<a class="dropdown-link" href="admission/admission-form.html">Apply 2026-2027</a>
+</div>
+</div>
+</div>
 <a class="nav-link" href="notice.html">Notice</a>
-<a class="nav-link nav-link--active" href="gallery.html">Gallery</a>
+<!-- Gallery (dropdown) -->
+<div class="nav-item">
+<a class="nav-link nav-link--caret nav-link--active" href="gallery.html">Gallery
+<span class="material-symbols-outlined nav-caret">expand_more</span></a>
+<div class="nav-dropdown">
+<div class="nav-dropdown-inner">
+<a class="dropdown-link" href="gallery.html#albums">Photo Albums</a>
+<a class="dropdown-link" href="gallery.html#videos">Video Gallery</a>
+</div>
+</div>
+</div>
+<a class="nav-link" href="career.html">Careers</a>
 </div>
 <div class="nav-actions">
 <button class="nav-btn nav-btn--outline">Portal Login</button>
@@ -143,7 +163,7 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <h1 class="heading-lg heading-lg--flush">Photo Albums</h1>
 <p class="gallery-head-text" style="margin-top:16px;">Relive the moments that make Myra special. Choose an album to explore photos from our events, celebrations and everyday life.</p>
 </div>
-<div class="album-grid">
+<div class="album-grid" id="albums">
 
 <a class="album-card" href="album.html">
 <div class="album-cover">
