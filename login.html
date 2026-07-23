@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Portal Sign In | St. Jude's Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+/* ============================================================
+   DESIGN TOKENS — carried over 1:1 from the main site
+   ============================================================ */
+:root{
+  --primary-container:#002147;
+  --secondary-fixed:#ffe088;
+  --secondary-fixed-dim:#e9c349;
+  --on-surface-variant:#44474e;
+  --on-background:#1e1b18;
+  --on-primary:#ffffff;
+  --primary:#000a1e;
+  --on-secondary-fixed:#241a00;
+  --secondary:#735c00;
+  --surface:#fff8f5;
+  --surface-container-low:#fbf2ed;
+  --surface-container:#f5ece7;
+  --surface-container-high:#efe6e2;
+  --surface-container-highest:#e9e1dc;
+  --surface-container-lowest:#ffffff;
+  --background:#fff8f5;
+  --on-surface:#1e1b18;
+  --on-primary-container:#708ab5;
+  --outline:#74777f;
+  --outline-variant:#c4c6cf;
+  --error:#8c1d1d;
+  --font-serif:"Source Serif 4", Georgia, serif;
+  --font-sans:"Source Sans 3", system-ui, sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+*{margin:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--background);
+  color:var(--on-background);
+  font-family:var(--font-serif);
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+img{display:block;max-width:100%;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;cursor:pointer;}
+.material-symbols-outlined{
+  font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
+  display:inline-block;
+  vertical-align:middle;
+  line-height:1;
+}
+
+/* ============================================================
+   SLIM UTILITY NAV — quiet, just enough to place the page
+   ============================================================ */
+.utility-nav{
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 32px;
+  border-bottom:1px solid var(--outline-variant);
+  background:var(--surface);
+}
+.utility-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-family:var(--font-serif);
+  font-weight:700;
+  font-size:18px;
+  color:var(--primary);
+}
+.utility-brand-mark{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--primary-container);
+  color:var(--secondary-fixed);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-serif);font-weight:700;font-size:15px;
+  letter-spacing:.02em;
+}
+.utility-back{
+  display:flex;align-items:center;gap:6px;
+  font-family:var(--font-sans);
+  font-size:14px;font-weight:600;letter-spacing:.03em;
+  color:var(--on-surface-variant);
+  transition:color .2s;
+}
+.utility-back:hover{color:var(--primary);}
+.utility-back .material-symbols-outlined{font-size:18px;}
+
+/* ============================================================
+   SPLIT SCREEN
+   ============================================================ */
+.screen{
+  min-height:calc(100vh - 72px);
+  display:grid;
+  grid-template-columns:1fr;
+}
+
+/* ---------- LEFT: brand / narrative panel ---------- */
+.brand-panel{
+  position:relative;
+  color:var(--on-primary);
+  display:none;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:64px;
+  overflow:hidden;
+  background:var(--primary);
+}
+
+.brand-video-wrap{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+}
+.brand-video{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+}
+.brand-overlay{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:
+    radial-gradient(120% 140% at 15% 0%, rgba(255,224,136,.14), transparent 55%),
+    linear-gradient(165deg, rgba(0,33,71,.88) 0%, rgba(0,10,30,.93) 100%);
+}
+
+/* Signature element: arched-window lattice, referencing the school's
+   real architecture (see .about-sec imagery) rather than a generic pattern */
+.arch-motif{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  opacity:.16;
+  pointer-events:none;
+}
+
+.brand-copy{position:relative;z-index:2;max-width:420px;}
+.brand-eyebrow{
+  font-family:var(--font-sans);
+  font-size:13px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--secondary-fixed);
+  display:block;margin-bottom:20px;
+}
+.brand-heading{
+  font-family:var(--font-serif);
+  font-size:38px;line-height:1.2;font-weight:700;
+  margin-bottom:20px;
+}
+.brand-lead{
+  font-family:var(--font-serif);
+  font-size:17px;line-height:28px;
+  color:rgba(255,255,255,.72);
+}
+
+.brand-quote{
+  position:relative;z-index:2;
+  border-left:2px solid var(--secondary-fixed);
+  padding-left:20px;
+  max-width:380px;
+}
+.brand-quote p{
+  font-family:var(--font-serif);
+  font-style:italic;
+  font-size:16px;line-height:26px;
+  color:rgba(255,255,255,.85);
+  margin-bottom:10px;
+}
+.brand-quote span{
+  font-family:var(--font-sans);
+  font-size:13px;font-weight:600;letter-spacing:.05em;
+  color:var(--secondary-fixed);
+}
+
+.brand-badges{
+  position:relative;z-index:2;
+  display:flex;align-items:center;gap:16px;
+  padding-top:32px;border-top:1px solid rgba(255,255,255,.18);
+}
+.brand-badge{
+  font-family:var(--font-sans);
+  font-size:12px;font-weight:600;letter-spacing:.1em;
+  color:rgba(255,255,255,.6);
+}
+.brand-badge-sep{color:rgba(255,255,255,.3);}
+
+/* ---------- RIGHT: login card ---------- */
+.form-panel{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:48px 24px;
+  background:var(--surface);
+}
+.login-card{width:100%;max-width:420px;}
+
+.login-head{margin-bottom:32px;}
+.login-title{
+  font-family:var(--font-serif);
+  font-size:30px;line-height:1.25;font-weight:700;
+  color:var(--primary);margin-bottom:8px;
+}
+.login-sub{
+  font-family:var(--font-serif);
+  font-size:15px;line-height:24px;
+  color:var(--on-surface-variant);
+}
+
+/* Portal segmented control — three real audiences, not decoration */
+.portal-tabs{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  background:var(--surface-container-high);
+  border-radius:10px;
+  padding:4px;
+  margin-bottom:28px;
+}
+.portal-tab{
+  border:none;background:transparent;
+  padding:10px 8px;border-radius:8px;
+  font-family:var(--font-sans);
+  font-size:13px;font-weight:600;letter-spacing:.03em;
+  color:var(--on-surface-variant);
+  transition:all .2s;
+}
+.portal-tab[aria-selected="true"]{
+  background:var(--surface-container-lowest);
+  color:var(--primary);
+  box-shadow:0 1px 3px rgba(0,10,30,.12);
+}
+
+.login-form{display:flex;flex-direction:column;gap:20px;}
+.form-field{display:flex;flex-direction:column;gap:8px;}
+.form-label{
+  font-family:var(--font-sans);
+  font-size:13px;font-weight:600;letter-spacing:.04em;
+  color:var(--primary);
+}
+.input-wrap{position:relative;}
+.form-input{
+  width:100%;
+  border:1px solid var(--outline-variant);
+  border-radius:8px;
+  padding:13px 14px;
+  padding-right:44px;
+  font-family:var(--font-serif);
+  font-size:16px;
+  color:var(--on-background);
+  background:#fff;
+  transition:border-color .15s, box-shadow .15s;
+}
+.form-input:focus{
+  outline:none;
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(0,33,71,.12);
+}
+.input-icon{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  color:var(--outline);font-size:20px;
+  background:none;border:none;padding:4px;
+}
+.input-icon:hover{color:var(--primary);}
+
+.form-row{
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--font-sans);font-size:14px;
+}
+.remember{
+  display:flex;align-items:center;gap:8px;
+  color:var(--on-surface-variant);
+}
+.remember input{
+  width:16px;height:16px;accent-color:var(--primary-container);
+}
+.forgot-link{
+  color:var(--primary);font-weight:600;letter-spacing:.02em;
+}
+.forgot-link:hover{text-decoration:underline;}
+
+.btn-submit{
+  width:100%;
+  background:var(--primary-container);
+  color:var(--on-primary);
+  border:none;
+  padding:15px;border-radius:8px;
+  font-family:var(--font-sans);
+  font-size:14px;font-weight:600;letter-spacing:.05em;
+  box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);
+  transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-submit:hover{background:var(--primary);}
+.btn-submit .material-symbols-outlined{font-size:20px;}
+
+.divider{
+  display:flex;align-items:center;gap:16px;
+  margin:28px 0;
+  font-family:var(--font-sans);
+  font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--outline);
+}
+.divider::before,.divider::after{
+  content:'';flex:1;height:1px;background:var(--outline-variant);
+}
+
+.apply-cta{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 20px;
+  border:1px solid var(--outline-variant);
+  border-radius:10px;
+  background:var(--surface-container-low);
+}
+.apply-cta-text{font-family:var(--font-sans);font-size:14px;color:var(--on-surface-variant);}
+.apply-cta-text strong{display:block;color:var(--primary);font-family:var(--font-serif);font-size:16px;margin-bottom:2px;}
+.apply-cta-link{
+  font-family:var(--font-sans);
+  font-size:13px;font-weight:700;letter-spacing:.04em;
+  color:var(--primary);
+  display:flex;align-items:center;gap:2px;
+  flex-shrink:0;
+}
+.apply-cta-link .material-symbols-outlined{font-size:16px;}
+
+.login-foot{
+  margin-top:32px;
+  font-family:var(--font-sans);
+  font-size:12px;color:var(--outline);
+  text-align:center;
+}
+.login-foot a{color:var(--on-surface-variant);font-weight:600;}
+.login-foot a:hover{color:var(--primary);}
+
+/* Error state (used on demo submit) */
+.form-error{
+  display:none;
+  align-items:center;gap:8px;
+  background:#fdecec;border:1px solid #f3c9c9;
+  color:var(--error);
+  font-family:var(--font-sans);font-size:13px;font-weight:600;
+  padding:12px 14px;border-radius:8px;
+}
+.form-error.visible{display:flex;}
+.form-error .material-symbols-outlined{font-size:18px;}
+
+@media(min-width:960px){
+  .screen{grid-template-columns:1fr 1fr;}
+  .brand-panel{display:flex;}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition-duration:0.01ms !important;}
+}
+</style>
+</head>
+<body>
+
+<nav class="utility-nav">
+  <a class="utility-brand" href="#">
+    <img src="logo/horizontal-logo.png" width="150px" > </span>
+  </a>
+  <a class="utility-back" href="#">
+    <span class="material-symbols-outlined">arrow_back</span>
+    Back to site
+  </a>
+</nav>
+
+<div class="screen">
+
+  <!-- BRAND PANEL -->
+  <aside class="brand-panel">
+    <div class="brand-video-wrap">
+      <video autoplay="" class="brand-video" id="brandVideo" loop="" muted="" playsinline="" poster="https://lh3.googleusercontent.com/aida/AP1WRLvj2juMHe6Ny1Drz8c5bleO9fp0KfpZtEsdRb8dV9gJQHYn7VM5hdyFS8ogfM_BnBHoew1ubfI-j1pyDVBTU4WSfR6SWpbl44-9NiSAPmFrk1yZRpGYCsZFizVlznlE9WiX7U3zbpWDkc7PcUUElVs97VZ7H4C49cUTtUri1ZOUTea6aDCksnljY-O0PjMziusbGqNDYISAGi13nq8XdaJF3_HG6suvYxrrOEQAwYsf5UYVcaTmV5R380A">
+        <source src="assets/videos/hero.mp4" type="video/mp4"/>
+      </video>
+    </div>
+    <div class="brand-overlay"></div>
+    <svg class="arch-motif" preserveAspectRatio="xMidYMid slice" viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern height="200" id="arches" patternUnits="userSpaceOnUse" width="150">
+          <path d="M 10 200 L 10 90 A 65 65 0 0 1 140 90 L 140 200" fill="none" stroke="#ffe088" stroke-width="1.5"/>
+          <path d="M 40 200 L 40 100 A 35 35 0 0 1 110 100 L 110 200" fill="none" stroke="#ffe088" stroke-width="1"/>
+        </pattern>
+      </defs>
+      <rect fill="url(#arches)" height="800" width="600"/>
+    </svg>
+
+    <div class="brand-copy">
+      <span class="brand-eyebrow">Community Portal</span>
+      <h1 class="brand-heading">Your gateway to the St. Jude's community.</h1>
+      <p class="brand-lead">One secure sign-in for report cards, fee statements, timetables, and school announcements — built for parents, students, and staff alike.</p>
+    </div>
+
+    <div class="brand-quote">
+      <p>"Founded in 1974, we've grown from a single classroom into a global learning community — the portal is how we stay close, wherever families are."</p>
+      <span>OFFICE OF THE REGISTRAR</span>
+    </div>
+
+    <div class="brand-badges">
+      <span class="brand-badge">IB WORLD SCHOOL</span>
+      <span class="brand-badge-sep">|</span>
+      <span class="brand-badge">CAIS ACCREDITED</span>
+    </div>
+  </aside>
+
+  <!-- FORM PANEL -->
+  <main class="form-panel">
+    <div class="login-card">
+
+      <div class="login-head">
+        <h2 class="login-title">Sign in to your portal</h2>
+        <p class="login-sub">Enter your credentials to continue.</p>
+      </div>
+
+      <div aria-label="Select portal type" class="portal-tabs" role="tablist">
+        <button aria-selected="true" class="portal-tab" data-portal="student" role="tab" type="button">Student</button>
+        <button aria-selected="false" class="portal-tab" data-portal="school" role="tab" type="button">School</button>
+      </div>
+
+      <form class="login-form" id="loginForm" novalidate="">
+        <div class="form-error" id="formError">
+          <span class="material-symbols-outlined">error</span>
+          <span>Incorrect User ID or password. Please try again.</span>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="userId">User ID</label>
+          <div class="input-wrap">
+            <input autocomplete="username" class="form-input" id="userId" placeholder="e.g. STU-2025-0142" required="" type="text"/>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="password">Password</label>
+          <div class="input-wrap">
+            <input autocomplete="current-password" class="form-input" id="password" placeholder="Enter your password" required="" type="password"/>
+            <button aria-label="Show password" class="input-icon" id="togglePassword" type="button">
+              <span class="material-symbols-outlined" id="toggleIcon">visibility</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="remember">
+            <input type="checkbox"/>
+            Remember me
+          </label>
+          <a class="forgot-link" href="#">Forgot password?</a>
+        </div>
+
+        <button class="btn-submit" type="submit">
+          Sign In
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+      </form>
+</div>
+
+<script>
+  // Respect reduced-motion preference for the background video
+  const brandVideo = document.getElementById('brandVideo');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (brandVideo && prefersReducedMotion.matches) {
+    brandVideo.pause();
+    brandVideo.removeAttribute('autoplay');
+  }
+
+  // Portal tab switching
+  const tabs = document.querySelectorAll('.portal-tab');
+  const userIdInput = document.getElementById('userId');
+  const placeholders = {
+    student: 'e.g. STU-2025-0142',
+    school: 'e.g. STAFF-0042'
+  };
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
+      tab.setAttribute('aria-selected', 'true');
+      userIdInput.placeholder = placeholders[tab.dataset.portal] || 'Enter your User ID';
+    });
+  });
+
+  // Password visibility toggle
+  const toggleBtn = document.getElementById('togglePassword');
+  const toggleIcon = document.getElementById('toggleIcon');
+  const passwordInput = document.getElementById('password');
+  toggleBtn.addEventListener('click', () => {
+    const isPassword = passwordInput.type === 'password';
+    passwordInput.type = isPassword ? 'text' : 'password';
+    toggleIcon.textContent = isPassword ? 'visibility_off' : 'visibility';
+    toggleBtn.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+  });
+
+  // Demo submit handling (no backend wired up)
+  const form = document.getElementById('loginForm');
+  const errorBox = document.getElementById('formError');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    errorBox.classList.toggle('visible');
+  });
+</script>
+
+</body>
+</html>
