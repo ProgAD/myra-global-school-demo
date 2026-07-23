@@ -81,49 +81,7 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 </head>
 <body>
 <!-- Top Navigation Bar -->
-<nav class="site-nav">
-<div class="container nav-inner">
-<div class="nav-brand">
-<a href="index.html" class="brand-link">
-<img src="logo/horizontal-logo.png" alt="Myra Global School" class="brand-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';"/>
-<span class="brand-name" style="display:none">Myra Global School</span>
-</a>
-</div>
-<div class="nav-menu">
-<a class="nav-link" href="index.html">Home</a>
-<div class="nav-item">
-<a class="nav-link nav-link--caret" href="about.html">About
-<span class="material-symbols-outlined nav-caret">expand_more</span></a>
-<div class="nav-dropdown">
-<div class="nav-dropdown-inner">
-<a class="dropdown-link" href="about.html#mission">Mission</a>
-<a class="dropdown-link" href="about.html#vision">Vision</a>
-</div>
-</div>
-</div>
-<div class="nav-item">
-<a class="nav-link nav-link--caret" href="academics.html">Academics
-<span class="material-symbols-outlined nav-caret">expand_more</span></a>
-<div class="nav-dropdown">
-<div class="nav-dropdown-inner">
-<a class="dropdown-link" href="curriculum.html">Curriculum</a>
-<a class="dropdown-link" href="examinations.html">Examinations</a>
-<a class="dropdown-link" href="facilities.html">Facilities</a>
-<a class="dropdown-link" href="rules.html">Rules &amp; Regulations</a>
-</div>
-</div>
-</div>
-<a class="nav-link" href="admission.html">Admissions</a>
-<a class="nav-link" href="notice.html">Notice</a>
-<a class="nav-link nav-link--active" href="gallery.html">Gallery</a>
-</div>
-<div class="nav-actions">
-<button class="nav-btn nav-btn--outline">Portal Login</button>
-<button class="nav-btn nav-btn--solid">Apply Now</button>
-</div>
-</div>
-</nav>
-
+<?php include 'components/header.php';?>
 <!-- Page Banner -->
 <header class="page-banner">
 <div class="container">
@@ -236,74 +194,7 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 </section>
 
 <!-- Footer -->
-<footer class="site-footer">
-<div class="container footer-grid">
-<div class="footer-col footer-brand-col">
-<div>
-<img alt="Myra Global School Logo" class="footer-logo" src="logo/horizontal-logo.png" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"/>
-<span class="footer-heading" style="display:none;color:var(--on-primary);font-family:var(--font-serif);font-size:20px;letter-spacing:0;text-transform:none;margin-bottom:8px;">Myra Global School</span>
-<p class="footer-about">Fostering intellectual curiosity and moral character in a global learning community. Empowering students to lead with integrity and purpose since 1974.</p>
-</div>
-<div class="footer-social">
-<a class="social-btn" href="#"><span class="material-symbols-outlined">share</span></a>
-<a class="social-btn" href="#"><span class="material-symbols-outlined">videocam</span></a>
-<a class="social-btn" href="#"><span class="material-symbols-outlined">photo_camera</span></a>
-</div>
-</div>
-<div class="footer-col">
-<h3 class="footer-heading">Academic Excellence</h3>
-<ul class="footer-links">
-<li><a href="academics.html">Academics</a></li>
-<li><a href="curriculum.html">Curriculum</a></li>
-<li><a href="examinations.html">Examinations</a></li>
-<li><a href="admission.html">Admissions Process</a></li>
-<li><a href="notice.html">Notice &amp; News</a></li>
-<li><a href="gallery.html">Gallery</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h3 class="footer-heading">Community &amp; Legal</h3>
-<ul class="footer-links">
-<li><a href="#">Academic Resources</a></li>
-<li><a href="#">Careers at Myra</a></li>
-<li><a href="#">Parent Portal</a></li>
-<li><a href="#">Contact Us</a></li>
-<li><a href="#">Privacy Policy</a></li>
-<li><a href="#">Terms of Service</a></li>
-</ul>
-</div>
-<div class="footer-col footer-contact-col">
-<div>
-<h3 class="footer-heading">Stay Informed</h3>
-<form class="footer-newsletter">
-<div class="newsletter-field">
-<input class="newsletter-input" placeholder="Email Address" type="email"/>
-<button class="newsletter-btn" type="submit"><span class="material-symbols-outlined">arrow_forward</span></button>
-</div>
-<span class="footer-note">Sign up for our monthly academic newsletter.</span>
-</form>
-</div>
-<div class="footer-contact">
-<div class="footer-address-row">
-<span class="material-symbols-outlined footer-loc-ico">location_on</span>
-<address class="footer-address">2150 Torquay Mews,<br/>Mississauga, ON L5N 2M6</address>
-</div>
-<div class="footer-map">
-<div class="footer-map-img" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCC9wkb5cJpu--KeH2ALKMUZqdY1fjydn7su0YqS-ots1OjNUDSHDhPuISmmpQlYArJ_wRjT2vugBAhzp7_L-pN5grRjre2kOaYN8-f3-UWox4Qaf_rWwxLuUZ3okoG0ZhX5PAnKdS7EPRl-GJffs_58nwtpcxBRTv0zTwOw3fmEcgzVO3RYocK09Q1eq3HsG-4e4zwS9EMVswq8kbLJUJIH5YX-MubTpvewA-et_AV8j3wool4nnPnpQ')"></div>
-<div class="footer-map-overlay"><span class="footer-map-pill">VIEW MAP</span></div>
-</div>
-</div>
-</div>
-</div>
-<div class="container footer-bottom">
-<p class="footer-copy">© 2024 Myra Global School. All rights reserved.</p>
-<div class="footer-badges">
-<span class="footer-badge">IB WORLD SCHOOL</span>
-<span class="footer-sep">|</span>
-<span class="footer-badge">CAIS ACCREDITED</span>
-</div>
-</div>
-</footer>
+<?php include 'components/footer.php'; ?>
 <script>
         document.addEventListener('DOMContentLoaded', () => {
             const footerLinks = document.querySelectorAll('footer a');
