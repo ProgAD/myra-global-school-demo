@@ -1,3 +1,4 @@
+<?php $page_name = 'career'; ?>
 <!DOCTYPE html>
 <html class="scroll-smooth" lang="en"><head>
 <meta charset="utf-8"/>
@@ -201,6 +202,27 @@ address{font-style:normal;}
   transition: background .2s;
 }
 .btn-apply:hover { background: var(--primary-container); }
+.job-dept{display:inline-block;font-family:var(--font-sans);font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--secondary);margin-bottom:6px;}
+
+/* States */
+.jobs-state{text-align:center;padding:56px 20px;color:var(--on-surface-variant);background:var(--surface-container-lowest);border-radius:8px;}
+.jobs-state .material-symbols-outlined{font-size:52px;color:var(--outline-variant);}
+.jobs-state h3{font-family:var(--font-serif);font-size:20px;font-weight:700;color:var(--primary);margin-top:10px;}
+.jobs-state p{margin-top:6px;font-size:15px;}
+.j-spin{width:32px;height:32px;border:3px solid var(--outline-variant);border-top-color:var(--primary-container);border-radius:50%;animation:jspin .7s linear infinite;margin:0 auto;}
+@keyframes jspin{to{transform:rotate(360deg);}}
+
+/* Form feedback */
+.form-alert{display:none;align-items:flex-start;gap:10px;font-family:var(--font-sans);font-size:14px;font-weight:600;padding:14px 16px;border-radius:8px;margin-bottom:8px;grid-column:1/-1;}
+.form-alert.visible{display:flex;}
+.form-alert.err{background:#fdecec;border:1px solid #f3c9c9;color:#8c1d1d;}
+.form-alert.ok{background:#e2f7ec;border:1px solid #b6e4cb;color:#227a52;}
+.form-alert .material-symbols-outlined{font-size:20px;flex-shrink:0;}
+.form-field.has-error .form-input{border-color:#c0392b;}
+.field-err{display:none;font-family:var(--font-sans);font-size:13px;font-weight:600;color:#c0392b;margin-top:6px;}
+.form-field.has-error .field-err{display:block;}
+.file-name-lbl{display:block;margin-top:8px;font-family:var(--font-sans);font-size:13px;font-weight:600;color:#227a52;word-break:break-all;}
+.btn-submit-app:disabled{opacity:.85;cursor:progress;}
 
 /* APPLICATION FORM SECTION */
 .apply-sec { background: var(--surface-container-high); border-top: 1px solid var(--outline-variant); }
@@ -289,63 +311,34 @@ View Current Openings <span class="material-symbols-outlined">arrow_downward</sp
 </div>
 
 <!-- Filter Bar -->
-<div class="job-filter-bar">
-<button class="filter-btn active" onclick="filterJobs('all')">All Positions</button>
-<button class="filter-btn" onclick="filterJobs('academic')">Academic Faculty</button>
-<button class="filter-btn" onclick="filterJobs('admin')">Administration</button>
-<button class="filter-btn" onclick="filterJobs('support')">Support Staff</button>
+<div class="job-filter-bar" id="jobFilters">
+<button class="filter-btn active" type="button" data-dept="all">All Positions</button>
+<button class="filter-btn" type="button" data-dept="academic-faculty">Academic Faculty</button>
+<button class="filter-btn" type="button" data-dept="administration">Administration</button>
+<button class="filter-btn" type="button" data-dept="support-staff">Support Staff</button>
+<button class="filter-btn" type="button" data-dept="other">Other</button>
+</div>
+
+<!-- Loading -->
+<div class="jobs-state" id="jobsLoading"><div class="j-spin"></div><p style="margin-top:14px">Loading open positions…</p></div>
+
+<!-- Empty -->
+<div class="jobs-state" id="jobsEmpty" style="display:none">
+<span class="material-symbols-outlined">work_off</span>
+<h3>No Vacancies Available</h3>
+<p id="jobsEmptyHint">There are currently no open positions. Please check back later.</p>
+</div>
+
+<!-- Error -->
+<div class="jobs-state" id="jobsError" style="display:none">
+<span class="material-symbols-outlined">error</span>
+<h3>Could not load positions</h3>
+<p id="jobsErrorMsg">Please try again in a moment.</p>
+<button class="btn-line" id="jobsRetry" style="margin-top:16px;padding:10px 24px;border-radius:6px;">Retry</button>
 </div>
 
 <!-- Openings List -->
-<div class="jobs-list">
-<div class="job-card" data-category="academic">
-<div>
-<h3 class="job-title">Upper School Mathematics Teacher (IB / AP)</h3>
-<div class="job-meta">
-<span class="job-meta-item"><span class="material-symbols-outlined">work</span> Full-Time</span>
-<span class="job-meta-item"><span class="material-symbols-outlined">location_on</span> Main Campus</span>
-<span class="job-meta-item"><span class="material-symbols-outlined">menu_book</span> High School</span>
-</div>
-</div>
-<a href="#apply" class="btn-apply">Apply Now</a>
-</div>
-
-<div class="job-card" data-category="academic">
-<div>
-<h3 class="job-title">Lower School Homeroom Educator (Grade 3)</h3>
-<div class="job-meta">
-<span class="job-meta-item"><span class="material-symbols-outlined">work</span> Full-Time</span>
-<span class="job-meta-item"><span class="material-symbols-outlined">location_on</span> Primary Wing</span>
-<span class="job-meta-item"><span class="material-symbols-outlined">child_care</span> Primary</span>
-</div>
-</div>
-<a href="#apply" class="btn-apply">Apply Now</a>
-</div>
-
-<div class="job-card" data-category="admin">
-<div>
-<h3 class="job-title">Admissions & Outreach Counselor</h3>
-<div class="job-meta">
-<span class="job-meta-item"><span class="material-symbols-outlined">work</span> Full-Time</span>
-<span class="job-meta-item"><span class="material-symbols-outlined">location_on</span> Administration Office</span>
-<span class="job-meta-item"><span class="material-symbols-outlined">badge</span> Executive</span>
-</div>
-</div>
-<a href="#apply" class="btn-apply">Apply Now</a>
-</div>
-
-<div class="job-card" data-category="support">
-<div>
-<h3 class="job-title">Head Football & Athletics Coach</h3>
-<div class="job-meta">
-<span class="job-meta-item"><span class="material-symbols-outlined">work</span> Full-Time / Seasonal</span>
-<span class="job-meta-item"><span class="material-symbols-outlined">location_on</span> Sports Complex</span>
-<span class="job-meta-item"><span class="material-symbols-outlined">sports_soccer</span> Athletics</span>
-</div>
-</div>
-<a href="#apply" class="btn-apply">Apply Now</a>
-</div>
-</div>
+<div class="jobs-list" id="jobsList" style="display:none"></div>
 </div>
 </section>
 
@@ -358,49 +351,60 @@ View Current Openings <span class="material-symbols-outlined">arrow_downward</sp
 <p style="color: var(--on-surface-variant);">Didn't find an exact fit? Send us a general application for future consideration.</p>
 </div>
 <div class="apply-card">
-<form class="apply-form">
-<div class="form-field">
+<form class="apply-form" id="applyForm" enctype="multipart/form-data" novalidate>
+
+<div class="form-alert err" id="applyErr"><span class="material-symbols-outlined">error</span><span id="applyErrMsg"></span></div>
+<div class="form-alert ok" id="applyOk"><span class="material-symbols-outlined">check_circle</span><span id="applyOkMsg"></span></div>
+
+<div class="form-field" data-field="first_name">
 <label class="form-label">First Name *</label>
-<input class="form-input" placeholder="John" required type="text"/>
+<input class="form-input" id="firstName" placeholder="John" required type="text"/>
+<span class="field-err"></span>
 </div>
-<div class="form-field">
+<div class="form-field" data-field="last_name">
 <label class="form-label">Last Name *</label>
-<input class="form-input" placeholder="Doe" required type="text"/>
+<input class="form-input" id="lastName" placeholder="Doe" required type="text"/>
+<span class="field-err"></span>
 </div>
-<div class="form-field">
+<div class="form-field" data-field="email">
 <label class="form-label">Email Address *</label>
-<input class="form-input" placeholder="john.doe@example.com" required type="email"/>
+<input class="form-input" id="applyEmail" placeholder="john.doe@example.com" required type="email"/>
+<span class="field-err"></span>
 </div>
-<div class="form-field">
+<div class="form-field" data-field="phone">
 <label class="form-label">Phone Number *</label>
-<input class="form-input" placeholder="+1 (555) 000-0000" required type="tel"/>
+<input class="form-input" id="applyPhone" placeholder="+91 90000 00000" required type="tel"/>
+<span class="field-err"></span>
 </div>
-<div class="form-field form-field--full">
+<div class="form-field" data-field="vacancy_id">
 <label class="form-label">Position of Interest *</label>
-<select class="form-input" required>
+<select class="form-input" id="applyPosition" required>
 <option value="">Select a Position</option>
-<option>Upper School Mathematics Teacher (IB / AP)</option>
-<option>Lower School Homeroom Educator (Grade 3)</option>
-<option>Admissions & Outreach Counselor</option>
-<option>Head Football & Athletics Coach</option>
-<option>General / Future Consideration</option>
 </select>
+<span class="field-err"></span>
 </div>
-<div class="form-field form-field--full">
+<div class="form-field" data-field="experience">
+<label class="form-label">Total Experience</label>
+<input class="form-input" id="applyExp" placeholder="e.g. 5 years / Fresher" type="text" maxlength="50"/>
+<span class="field-err"></span>
+</div>
+<div class="form-field form-field--full" data-field="resume">
 <label class="form-label">Resume / CV Upload *</label>
-<div class="file-upload-box" onclick="document.getElementById('resume-file').click()">
+<div class="file-upload-box" id="resumeDrop">
 <span class="material-symbols-outlined file-upload-icon">upload_file</span>
 <p style="font-family: var(--font-sans); font-weight: 600; color: var(--primary);">Click to upload your Resume or CV</p>
-<p style="font-size: 12px; color: var(--outline);">Accepted formats: PDF, DOCX (Max 10MB)</p>
-<input id="resume-file" style="display:none;" type="file"/>
+<p style="font-size: 12px; color: var(--outline);">Accepted formats: PDF, DOC, DOCX (Max 10 MB)</p>
+<input id="resumeFile" style="display:none;" type="file" accept=".pdf,.doc,.docx"/>
+<span class="file-name-lbl" id="resumeName"></span>
 </div>
+<span class="field-err"></span>
 </div>
-<div class="form-field form-field--full">
+<div class="form-field form-field--full" data-field="additional_info">
 <label class="form-label">Cover Letter / Statement of Intent</label>
-<textarea class="form-input" placeholder="Tell us about your teaching philosophy and experience..." rows="4"></textarea>
+<textarea class="form-input" id="applyNote" placeholder="Tell us about your teaching philosophy and experience..." rows="4"></textarea>
 </div>
 <div class="form-field--full">
-<button class="btn-submit-app" type="submit">Submit Application</button>
+<button class="btn-submit-app" id="applySubmit" type="submit">Submit Application</button>
 </div>
 </form>
 </div>
@@ -411,27 +415,184 @@ View Current Openings <span class="material-symbols-outlined">arrow_downward</sp
 <?php include 'components/footer.php';?>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const footerLinks = document.querySelectorAll('footer a');
-        footerLinks.forEach(link => {
-            link.addEventListener('mouseenter', () => { link.style.transform = 'translateX(4px)'; });
-            link.addEventListener('mouseleave', () => { link.style.transform = 'translateX(0)'; });
-        });
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('footer a').forEach(function (link) {
+    link.addEventListener('mouseenter', function () { link.style.transform = 'translateX(4px)'; });
+    link.addEventListener('mouseleave', function () { link.style.transform = 'translateX(0)'; });
+  });
+
+  var VAC_API = 'actions/careers/vacancies.php';
+  var APPLY_API = 'actions/careers/apply.php';
+
+  var list    = document.getElementById('jobsList');
+  var loading = document.getElementById('jobsLoading');
+  var empty   = document.getElementById('jobsEmpty');
+  var errBox  = document.getElementById('jobsError');
+  var posSelect = document.getElementById('applyPosition');
+  var dept = 'all';
+  var openVacancies = [];   // for the position dropdown (always all open)
+
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c];
     });
+  }
+  function show(w){
+    loading.style.display = w==='loading'?'':'none';
+    empty.style.display   = w==='empty'  ?'':'none';
+    errBox.style.display  = w==='error'  ?'':'none';
+    list.style.display    = w==='list'   ?'flex':'none';
+  }
 
-    function filterJobs(category) {
-        const buttons = document.querySelectorAll('.filter-btn');
-        buttons.forEach(btn => btn.classList.remove('active'));
-        event.target.classList.add('active');
+  function jobCard(v){
+    return '<div class="job-card">'
+      + '<div>'
+      + '<span class="job-dept">'+esc(v.dept_label)+'</span>'
+      + '<h3 class="job-title">'+esc(v.title)+'</h3>'
+      + '<div class="job-meta">'
+      +   '<span class="job-meta-item"><span class="material-symbols-outlined">work</span> '+esc(v.type_label)+'</span>'
+      +   '<span class="job-meta-item"><span class="material-symbols-outlined">group</span> '+esc(v.openings)+' opening'+(v.openings===1?'':'s')+'</span>'
+      +   (v.deadline ? '<span class="job-meta-item"><span class="material-symbols-outlined">event</span> Apply by '+esc(v.deadline)+'</span>' : '')
+      + '</div></div>'
+      + '<a href="#apply" class="btn-apply" data-vac="'+v.id+'">Apply Now</a>'
+      + '</div>';
+  }
 
-        const cards = document.querySelectorAll('.job-card');
-        cards.forEach(card => {
-            if (category === 'all' || card.dataset.category === category) {
-                card.style.display = 'flex';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
+  function loadJobs(){
+    show('loading');
+    var qs = new URLSearchParams({ dept: dept });
+    fetch(VAC_API + '?' + qs.toString(), { headers:{ 'Accept':'application/json' } })
+      .then(function (r) { return r.json().then(function (d) { return { ok:r.ok, d:d }; }); })
+      .then(function (res) {
+        if (!res.ok || !res.d.success) throw new Error(res.d.message || 'Request failed');
+        var rows = res.d.rows || [];
+        if (!rows.length) {
+          document.getElementById('jobsEmptyHint').textContent = (dept === 'all')
+            ? 'There are currently no open positions. Please check back later.'
+            : 'No open positions in this department right now.';
+          show('empty');
+          return;
+        }
+        list.innerHTML = rows.map(jobCard).join('');
+        show('list');
+      })
+      .catch(function (err) {
+        document.getElementById('jobsErrorMsg').textContent = err.message || 'Please try again in a moment.';
+        show('error');
+      });
+  }
+
+  // The position dropdown always lists ALL open vacancies (independent of the filter)
+  function loadPositions(){
+    fetch(VAC_API + '?dept=all', { headers:{ 'Accept':'application/json' } })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d.success) return;
+        openVacancies = d.rows || [];
+        posSelect.innerHTML = '<option value="">Select a Position</option>' +
+          openVacancies.map(function (v) {
+            return '<option value="'+v.id+'">'+esc(v.title)+' — '+esc(v.dept_label)+'</option>';
+          }).join('');
+      })
+      .catch(function () {});
+  }
+
+  document.getElementById('jobFilters').addEventListener('click', function (e) {
+    var b = e.target.closest('.filter-btn'); if (!b) return;
+    this.querySelectorAll('.filter-btn').forEach(function (x) { x.classList.remove('active'); });
+    b.classList.add('active');
+    dept = b.getAttribute('data-dept');
+    loadJobs();
+  });
+
+  document.getElementById('jobsRetry').addEventListener('click', loadJobs);
+
+  // "Apply Now" on a card -> preselect it in the form and scroll down
+  list.addEventListener('click', function (e) {
+    var a = e.target.closest('.btn-apply'); if (!a) return;
+    var id = a.getAttribute('data-vac');
+    if (id) posSelect.value = id;
+  });
+
+  /* -------------------- Apply form -------------------- */
+  var form = document.getElementById('applyForm');
+  var fileInput = document.getElementById('resumeFile');
+  var submitBtn = document.getElementById('applySubmit');
+  var errAlert = document.getElementById('applyErr');
+  var okAlert  = document.getElementById('applyOk');
+
+  document.getElementById('resumeDrop').addEventListener('click', function () { fileInput.click(); });
+  fileInput.addEventListener('change', function () {
+    document.getElementById('resumeName').textContent = this.files && this.files.length ? this.files[0].name : '';
+  });
+
+  function clearErrors(){
+    errAlert.classList.remove('visible'); okAlert.classList.remove('visible');
+    form.querySelectorAll('.form-field.has-error').forEach(function (f) {
+      f.classList.remove('has-error');
+      var m = f.querySelector('.field-err'); if (m) m.textContent = '';
+    });
+  }
+  // backend uses combined `name`; map its field keys back onto the form wrappers
+  var FIELD_MAP = { name:'first_name', email:'email', phone:'phone', vacancy_id:'vacancy_id', experience:'experience', resume:'resume' };
+  function showErrors(message, errors){
+    document.getElementById('applyErrMsg').textContent = message || 'Please correct the highlighted fields.';
+    errAlert.classList.add('visible');
+    var first = null;
+    Object.keys(errors || {}).forEach(function (key) {
+      var wrapKey = FIELD_MAP[key] || key;
+      var wrap = form.querySelector('[data-field="'+wrapKey+'"]');
+      if (!wrap) return;
+      wrap.classList.add('has-error');
+      var m = wrap.querySelector('.field-err'); if (m) m.textContent = errors[key];
+      if (!first) first = wrap;
+    });
+    (first || errAlert).scrollIntoView({ behavior:'smooth', block:'center' });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearErrors();
+
+    var first = document.getElementById('firstName').value.trim();
+    var last  = document.getElementById('lastName').value.trim();
+
+    var fd = new FormData();
+    fd.append('name', (first + ' ' + last).trim());
+    fd.append('email', document.getElementById('applyEmail').value.trim());
+    fd.append('phone', document.getElementById('applyPhone').value.trim());
+    fd.append('experience', document.getElementById('applyExp').value.trim());
+    fd.append('vacancy_id', posSelect.value);
+    fd.append('additional_info', document.getElementById('applyNote').value.trim());
+    if (fileInput.files && fileInput.files.length) fd.append('resume', fileInput.files[0]);
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    fetch(APPLY_API, { method:'POST', body: fd })
+      .then(function (r) { return r.json().then(function (d) { return { ok:r.ok, d:d }; }); })
+      .then(function (res) {
+        if (res.d && res.d.success) {
+          form.reset();
+          document.getElementById('resumeName').textContent = '';
+          document.getElementById('applyOkMsg').textContent = res.d.message || 'Your application has been submitted successfully.';
+          okAlert.classList.add('visible');
+          okAlert.scrollIntoView({ behavior:'smooth', block:'center' });
+        } else {
+          showErrors(res.d && res.d.message, res.d && res.d.errors);
+        }
+      })
+      .catch(function () {
+        showErrors('Could not reach the server. Please try again.', {});
+      })
+      .finally(function () {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Application';
+      });
+  });
+
+  loadJobs();
+  loadPositions();
+});
 </script>
 </body></html>

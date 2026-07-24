@@ -1,3 +1,4 @@
+<?php $page_name = 'about'; ?>
 <!DOCTYPE html>
 <html class="scroll-smooth" lang="en"><head>
 <meta charset="utf-8"/>

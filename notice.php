@@ -1,3 +1,4 @@
+<?php $page_name = 'notice'; ?>
 <!DOCTYPE html>
 <html class="scroll-smooth" lang="en"><head>
 <meta charset="utf-8"/>
@@ -62,6 +63,29 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 .notice-link{font-family:var(--font-sans);font-size:14px;font-weight:600;letter-spacing:.05em;color:var(--primary);display:inline-flex;align-items:center;gap:4px;align-self:flex-start;}
 .notice-link:hover{text-decoration:underline;}
 .notice-link .material-symbols-outlined{font-size:14px;}
+.notice-attach{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px;}
+.notice-chip{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-sans);font-size:13px;font-weight:600;padding:5px 11px;border-radius:8px;border:1px solid var(--outline-variant);color:var(--primary);transition:.2s;}
+.notice-chip:hover{background:var(--surface-container);border-color:var(--primary);}
+.notice-chip .material-symbols-outlined{font-size:15px;}
+
+/* Toolbar: search + time filters */
+.notice-toolbar{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;margin-bottom:40px;}
+.notice-search{position:relative;flex:1;min-width:240px;max-width:420px;}
+.notice-search .material-symbols-outlined{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--on-surface-variant);font-size:20px;pointer-events:none;}
+.notice-search input{width:100%;border:1px solid var(--outline-variant);border-radius:9999px;padding:12px 16px 12px 44px;font-family:var(--font-serif);font-size:16px;background:var(--surface-container-lowest);}
+.notice-search input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 1px var(--primary);}
+.notice-filters{display:flex;gap:8px;flex-wrap:wrap;background:var(--surface-container-low);border:1px solid var(--outline-variant);border-radius:9999px;padding:5px;}
+.range-btn{font-family:var(--font-sans);font-size:14px;font-weight:600;padding:8px 18px;border-radius:9999px;color:var(--on-surface-variant);cursor:pointer;transition:.2s;background:none;border:none;}
+.range-btn:hover{color:var(--primary);}
+.range-btn.active{background:var(--primary-container);color:var(--on-primary);}
+
+/* States */
+.notice-state{text-align:center;padding:64px 20px;color:var(--on-surface-variant);}
+.notice-state .material-symbols-outlined{font-size:56px;color:var(--outline-variant);}
+.notice-state h3{font-family:var(--font-serif);font-size:22px;font-weight:700;color:var(--primary);margin-top:12px;}
+.notice-state p{margin-top:8px;}
+.n-spin{width:34px;height:34px;border:3px solid var(--outline-variant);border-top-color:var(--primary-container);border-radius:50%;animation:nspin .7s linear infinite;margin:0 auto;}
+@keyframes nspin{to{transform:rotate(360deg);}}
 
 /* CTA */
 .cta-sec{background:var(--surface-container-high);border-top:1px solid var(--outline-variant);}
@@ -87,7 +111,7 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <header class="page-banner">
 <div class="container">
 <div class="breadcrumb">
-<a href="index.html">Home</a>
+<a href="index.php">Home</a>
 <span class="material-symbols-outlined">chevron_right</span>
 <span class="breadcrumb-current">Notice</span>
 </div>
@@ -102,57 +126,40 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <h1 class="heading-lg heading-lg--flush">Notice &amp; News</h1>
 <p class="notice-head-text" style="margin-top:16px;">The latest circulars, announcements and events from across the Myra Global School community.</p>
 </div>
-<div class="notice-grid">
 
-<div class="notice-card notice-card--secondary">
-<span class="notice-tag notice-tag--new">New</span>
-<span class="notice-date">October 24, 2024</span>
-<h3 class="notice-card-title">Admissions Open for 2025–26</h3>
-<p class="notice-card-text">Registration is now live for Nursery to Grade 11. Apply online or visit the admissions office for assistance.</p>
-<a class="notice-link" href="admission.html">Apply Now <span class="material-symbols-outlined">arrow_forward</span></a>
+<!-- Toolbar: search + time range filters -->
+<div class="notice-toolbar">
+<div class="notice-search">
+<span class="material-symbols-outlined">search</span>
+<input id="ntSearch" type="text" placeholder="Search notices…" aria-label="Search notices"/>
+</div>
+<div class="notice-filters" id="ntFilters">
+<button class="range-btn active" type="button" data-range="week">This Week</button>
+<button class="range-btn" type="button" data-range="month">This Month</button>
+<button class="range-btn" type="button" data-range="year">This Year</button>
+</div>
 </div>
 
-<div class="notice-card">
-<span class="notice-tag notice-tag--exam">Examination</span>
-<span class="notice-date">October 22, 2024</span>
-<h3 class="notice-card-title">Half-Yearly Examination Schedule</h3>
-<p class="notice-card-text">The datesheet for the half-yearly examinations has been published. Please check the student portal for section-wise timings.</p>
-<a class="notice-link" href="#">Download Schedule <span class="material-symbols-outlined">open_in_new</span></a>
+<!-- Loading -->
+<div class="notice-state" id="ntLoading"><div class="n-spin"></div><p style="margin-top:14px">Loading notices…</p></div>
+
+<!-- Empty -->
+<div class="notice-state" id="ntEmpty" style="display:none">
+<span class="material-symbols-outlined">campaign</span>
+<h3>No Notices Right Now</h3>
+<p id="ntEmptyHint">There are no notices for this week. Try a wider range.</p>
 </div>
 
-<div class="notice-card notice-card--secondary">
-<span class="notice-tag notice-tag--event">Event</span>
-<span class="notice-date">October 18, 2024</span>
-<h3 class="notice-card-title">Annual Sports Day — 25th October</h3>
-<p class="notice-card-text">All students are to report by 7:30 AM in their house colours. Parents are cordially invited to attend.</p>
-<a class="notice-link" href="gallery.php">View Past Events <span class="material-symbols-outlined">photo_library</span></a>
+<!-- Error -->
+<div class="notice-state" id="ntError" style="display:none">
+<span class="material-symbols-outlined">error</span>
+<h3>Could not load notices</h3>
+<p id="ntErrorMsg">Please try again in a moment.</p>
+<button class="btn-line" id="ntRetry" style="margin-top:16px">Retry</button>
 </div>
 
-<div class="notice-card">
-<span class="notice-tag notice-tag--event">Event</span>
-<span class="notice-date">October 12, 2024</span>
-<h3 class="notice-card-title">Parent–Teacher Symposium</h3>
-<p class="notice-card-text">Join us for an evening of dialogue regarding our new experimental STEM curriculum enhancements.</p>
-<a class="notice-link" href="#">Register Attendance <span class="material-symbols-outlined">arrow_forward</span></a>
-</div>
+<div class="notice-grid" id="ntGrid" style="display:none"></div>
 
-<div class="notice-card notice-card--secondary">
-<span class="notice-tag notice-tag--general">Notice</span>
-<span class="notice-date">October 08, 2024</span>
-<h3 class="notice-card-title">Merit Scholarship Applications</h3>
-<p class="notice-card-text">Applications for the Merit-Based Leadership Scholarship for Grade 9 students are now open until the end of the month.</p>
-<a class="notice-link" href="#">Apply Now <span class="material-symbols-outlined">edit</span></a>
-</div>
-
-<div class="notice-card">
-<span class="notice-tag notice-tag--general">Notice</span>
-<span class="notice-date">October 02, 2024</span>
-<h3 class="notice-card-title">Revised Library Timings</h3>
-<p class="notice-card-text">The school library will remain open until 5:00 PM on all working days to support students during the examination season.</p>
-<a class="notice-link" href="#">Read More <span class="material-symbols-outlined">arrow_forward</span></a>
-</div>
-
-</div>
 </div>
 </section>
 
@@ -173,12 +180,108 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <!-- Footer -->
 <?php include 'components/footer.php';?>
 <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const footerLinks = document.querySelectorAll('footer a');
-            footerLinks.forEach(link => {
-                link.addEventListener('mouseenter', () => { link.style.transform = 'translateX(4px)'; });
-                link.addEventListener('mouseleave', () => { link.style.transform = 'translateX(0)'; });
-            });
-        });
-    </script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('footer a').forEach(function (link) {
+    link.addEventListener('mouseenter', function () { link.style.transform = 'translateX(4px)'; });
+    link.addEventListener('mouseleave', function () { link.style.transform = 'translateX(0)'; });
+  });
+
+  var API = 'actions/notices/list.php';
+  var grid    = document.getElementById('ntGrid');
+  var loading = document.getElementById('ntLoading');
+  var empty   = document.getElementById('ntEmpty');
+  var errBox  = document.getElementById('ntError');
+  var range = 'week', q = '';
+
+  var RANGE_WORD = { week: 'this week', month: 'this month', year: 'this year' };
+
+  // map a category to a colour group + display label
+  var CAT_GROUP = {
+    examination:'exam', result:'exam', academic:'exam',
+    event:'event', sports:'event', holiday:'event',
+    admission:'new', scholarship:'new',
+    circular:'general', announcement:'general', fee:'general', emergency:'general',
+    recruitment:'general', tender:'general', other:'general'
+  };
+
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c];
+    });
+  }
+  function show(w){
+    loading.style.display = w==='loading'?'':'none';
+    empty.style.display   = w==='empty'  ?'':'none';
+    errBox.style.display  = w==='error'  ?'':'none';
+    grid.style.display    = w==='grid'   ?'grid':'none';
+  }
+  function cap(s){ return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+
+  function attachHtml(docs, links){
+    var chips = [];
+    (docs || []).forEach(function (d) {
+      chips.push('<a class="notice-chip" href="'+esc(d.url)+'" target="_blank" rel="noopener"><span class="material-symbols-outlined">description</span>'+esc(d.name)+'</a>');
+    });
+    (links || []).forEach(function (l) {
+      chips.push('<a class="notice-chip" href="'+esc(l.url)+'" target="_blank" rel="noopener"><span class="material-symbols-outlined">link</span>'+esc(l.title)+'</a>');
+    });
+    return chips.length ? '<div class="notice-attach">'+chips.join('')+'</div>' : '';
+  }
+
+  function cardHtml(n, i){
+    var group = CAT_GROUP[n.category] || 'general';
+    var secondary = (i % 2 === 0) ? ' notice-card--secondary' : '';
+    return '<div class="notice-card'+secondary+'">'
+      + '<span class="notice-tag notice-tag--'+group+'">'+esc(cap(n.category))+'</span>'
+      + '<span class="notice-date">'+esc(n.date)+'</span>'
+      + '<h3 class="notice-card-title">'+esc(n.title)+'</h3>'
+      + '<p class="notice-card-text">'+esc(n.content)+'</p>'
+      + attachHtml(n.documents, n.links)
+      + '</div>';
+  }
+
+  function load(){
+    show('loading');
+    var qs = new URLSearchParams({ range: range, q: q });
+    fetch(API + '?' + qs.toString(), { headers:{ 'Accept':'application/json' } })
+      .then(function (r) { return r.json().then(function (d) { return { ok:r.ok, d:d }; }); })
+      .then(function (res) {
+        if (!res.ok || !res.d.success) throw new Error(res.d.message || 'Request failed');
+        var rows = res.d.rows || [];
+        if (!rows.length) {
+          document.getElementById('ntEmptyHint').textContent = q
+            ? 'No notices match your search for ' + RANGE_WORD[range] + '.'
+            : 'There are no notices for ' + RANGE_WORD[range] + '. Try a wider range.';
+          show('empty');
+          return;
+        }
+        grid.innerHTML = rows.map(cardHtml).join('');
+        show('grid');
+      })
+      .catch(function (err) {
+        document.getElementById('ntErrorMsg').textContent = err.message || 'Please try again in a moment.';
+        show('error');
+      });
+  }
+
+  document.getElementById('ntFilters').addEventListener('click', function (e) {
+    var b = e.target.closest('.range-btn'); if (!b) return;
+    this.querySelectorAll('.range-btn').forEach(function (x) { x.classList.remove('active'); });
+    b.classList.add('active');
+    range = b.getAttribute('data-range');
+    load();
+  });
+
+  var timer = null;
+  document.getElementById('ntSearch').addEventListener('input', function () {
+    var v = this.value.trim();
+    clearTimeout(timer);
+    timer = setTimeout(function () { q = v; load(); }, 300);
+  });
+
+  document.getElementById('ntRetry').addEventListener('click', load);
+
+  load();
+});
+</script>
 </body></html>
