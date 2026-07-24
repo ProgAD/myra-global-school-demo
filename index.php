@@ -319,14 +319,28 @@ address{font-style:normal;}
 .gallery-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
+  grid-auto-rows:180px;
   gap:16px;
-  aspect-ratio:16/9;
 }
-.gallery-item{position:relative;overflow:hidden;border-radius:8px;}
-.gallery-item--big{grid-column:span 2;grid-row:span 2;}
-.gallery-item--wide{grid-column:span 2;}
+.gallery-item{position:relative;overflow:hidden;border-radius:8px;display:block;background:var(--surface-container);}
+/* collage span helpers (index-assigned by JS per album count) */
+.g-big{grid-column:span 2;grid-row:span 2;}
+.g-wide{grid-column:span 2;}
+.g-full{grid-column:1/-1;grid-row:span 2;}
+.g-sm{grid-column:span 1;}
+.g-half{grid-column:span 2;grid-row:span 2;}
 .gallery-img{width:100%;height:100%;object-fit:cover;transition:transform .7s;}
 .gallery-item:hover .gallery-img{transform:scale(1.1);}
+.gallery-cover-empty{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--surface-container);color:var(--outline-variant);}
+.gallery-cover-empty .material-symbols-outlined{font-size:46px;}
+/* skeleton loaders */
+.gallery-skel{border-radius:8px;background:linear-gradient(90deg,var(--surface-container) 25%,var(--surface-container-high) 37%,var(--surface-container) 63%);background-size:400% 100%;animation:gskel 1.4s ease infinite;}
+@keyframes gskel{0%{background-position:100% 0;}100%{background-position:-100% 0;}}
+/* empty / error state */
+.gallery-state{grid-column:1/-1;text-align:center;padding:56px 20px;color:var(--on-surface-variant);}
+.gallery-state .material-symbols-outlined{font-size:52px;color:var(--outline-variant);}
+.gallery-state h3{font-family:var(--font-serif);font-size:20px;font-weight:700;color:var(--primary);margin-top:10px;}
+.gallery-state p{margin-top:6px;font-size:15px;}
 .gallery-caption{
   position:absolute;
   inset:0;
@@ -362,6 +376,119 @@ address{font-style:normal;}
   transition:all .2s;
 }
 .btn-outline-primary:hover{background:var(--primary);color:var(--on-primary);}
+
+/* ============================================================
+   FACILITIES SECTION  (copied from sheet.html)
+   ============================================================ */
+.facilities-sec {
+  background: var(--surface-container-high);
+  padding: 60px 0 80px;
+}
+.facilities-head {
+  margin-bottom: 24px;
+}
+.facilities-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #333333;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+.facilities-desc {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555555;
+  max-width: 1000px;
+  margin-bottom: 24px;
+}
+.facilities-btn {
+  background-color: #0088cc;
+  color: #ffffff;
+  padding: 10px 22px;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s;
+}
+.facilities-btn:hover {
+  background-color: #006699;
+}
+.facilities-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-top: 32px;
+}
+.facility-card {
+  position: relative;
+  overflow: hidden;
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+.facility-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 10, 30, 0.82);
+  color: #ffffff;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(10px);
+  z-index: 4;
+}
+.facility-card:hover .facility-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+.facility-overlay-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--secondary-fixed);
+}
+.facility-overlay-desc {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.4;
+  color: #e2e8f0;
+}
+.facility-badge-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 55px 55px 0;
+  z-index: 2;
+}
+.facility-badge-corner--blue { border-color: transparent #0056b3 transparent transparent; }
+.facility-badge-corner--green { border-color: transparent #2ecc71 transparent transparent; }
+.facility-badge-corner--orange { border-color: transparent #e67e22 transparent transparent; }
+.facility-badge-corner--red { border-color: transparent #e74c3c transparent transparent; }
+.facility-badge-icon {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  color: #ffffff;
+  font-size: 20px;
+  z-index: 3;
+}
 
 /* ============================================================
    ENQUIRY FORM
@@ -456,12 +583,21 @@ address{font-style:normal;}
   .notice-grid{grid-template-columns:repeat(3,1fr);}
   .about-grid{grid-template-columns:1fr 1fr;}
   .mv-grid{grid-template-columns:1fr 1fr;}
-  .gallery-grid{grid-template-columns:repeat(4,1fr);}
+  .gallery-grid{grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;}
   .enquiry-form{grid-template-columns:repeat(2,1fr);}
 }
 @media(min-width:1024px){
   .about-badge{display:block;}
   .enquiry-grid{grid-template-columns:5fr 7fr;}
+}
+@media (max-width:1024px){
+  .facilities-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width:768px){
+  .facilities-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width:480px){
+  .facilities-grid { grid-template-columns: 1fr; }
 }
 
 /* ============================================================
@@ -624,29 +760,134 @@ address{font-style:normal;}
 <h2 class="heading-lg heading-lg--tight">Life at Myra Global School</h2>
 <p class="gallery-sub">A glimpse into the daily experiences, celebrations, and achievements of our vibrant student community.</p>
 </div>
-<div class="gallery-grid">
-<div class="gallery-item gallery-item--big">
-<img alt="Graduation ceremony" class="gallery-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaxFf1iR-fZ3ARbf0Jb1PNjorBa8cpgPVL-w_P4OsAfjXdIb8A1E_x95gl_w2j4vW9grj2ypkMgh0yCKFxAjESyp2Ucx4NsnBi5XDuP7ix-Up85kKqoPpxUlzKqRnhXlpTJpv56yXLUhsTit3BEJblNQ91Ww4jEBCL6Zs1nHGWbS7_cgkUZ0mEDgqrtnmZRXATqFK9e2mQ2lqRQKsH_bNLLr2t1jZgnqlrKkc1ULfSMa-7V_H-fGR4HA"/>
-<div class="gallery-caption"><span class="gallery-caption-pill">Academic Convocation</span></div>
-</div>
-<div class="gallery-item">
-<img alt="Classroom learning" class="gallery-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYZVCivML_bItmWzbD5J65HYfCDYnBmHh0oaMBmpOgSRv1ecKJckbpXjmsrSiw07faGmYD7qTgoCy-sWRoG57OPDTCgSS61kw0w0TkUIdqoloksfWuLo88U9MjKZ20w_Jgly9qwtTFiLgSaRh6wPkimPdS6Cy_FM5JP1IO8fNtvfqPfAm63tU93PC_S5QKLUKcJ1TYCp0zpAUR6eB-L6XwfhRrBZCQd0XT1IKKkdJGi-wKRTC6tRQqew"/>
-<div class="gallery-caption"><span class="gallery-caption-pill">Modern Classrooms</span></div>
-</div>
-<div class="gallery-item">
-<img alt="Sports field" class="gallery-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrAUxLGmK3HTZovHjtQNhyL7wUTcT2jRJ96hODtSIBdo8qX0rVDZxVC80sgUH-7rXb6ST-Qwiwun7ss1-lEEY3GyrCE5hTzOwdYmmM0FdKq2XxQogHlgw_VzqsZ-cOleFWCWBPHyxMhuWz33G967YtwYfeBdKsHdkp25A7OJUvaoxIIHqemZRxxk9SFsNfNvgvPRH6WV9r-jdaAboWc0m9FNQ7HHNZtY5Cnx7dSqzddmLBjWAFw6dn4Q"/>
-<div class="gallery-caption"><span class="gallery-caption-pill">Athletics</span></div>
-</div>
-<div class="gallery-item gallery-item--wide">
-<img alt="Library" class="gallery-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEzSG6mdfW96059TNF1M1hivs6iTXZAr-vLQoKEhcbEjF7aiMXFuPqDTvOOwnwLS14mX2a0qvy96Ziym73h1CwNdqUiJhEMUvC9pvHakyvlukSDnE8A732JP02zde5D3fabGIIhHLU983zv_Nff4n-XdZunzIQpJgvpKuyNUFGokxj4o-ESTmvvx0uEslQ8cYhdbSpa2e-eovTg7Lb7XhXzR3KlgSVgFjYvnt0_mUO2F3494VEtD2g1g"/>
-<div class="gallery-caption"><span class="gallery-caption-pill">The Great Library</span></div>
-</div>
+<div class="gallery-grid" id="galleryGrid" data-loading="true">
+<div class="gallery-item g-big"><div class="gallery-skel" style="width:100%;height:100%;"></div></div>
+<div class="gallery-item g-sm"><div class="gallery-skel" style="width:100%;height:100%;"></div></div>
+<div class="gallery-item g-sm"><div class="gallery-skel" style="width:100%;height:100%;"></div></div>
+<div class="gallery-item g-wide"><div class="gallery-skel" style="width:100%;height:100%;"></div></div>
 </div>
 <div class="gallery-cta">
-<button class="btn-outline-primary">View Full Gallery</button>
+<a class="btn-outline-primary" href="gallery.php" style="display:inline-block;">View Full Gallery</a>
 </div>
 </div>
 </section>
+<!-- FACILITIES SECTION -->
+<section class="facilities-sec">
+  <div class="container">
+    <div class="facilities-head">
+      <h2 class="facilities-title">FACILITIES</h2>
+      <p class="facilities-desc">
+        At Myra Global School, education transcends academics, creating an exciting, caring and supportive space where students thrive and all-round development takes centre stage.
+      </p>
+      <a href="#" class="facilities-btn">
+        View All &rarr;
+      </a>
+    </div>
+
+    <div class="facilities-grid">
+      <!-- Card 1: Hands-on / Experiential Learning -->
+      <div class="facility-card" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAYZVCivML_bItmWzbD5J65HYfCDYnBmHh0oaMBmpOgSRv1ecKJckbpXjmsrSiw07faGmYD7qTgoCy-sWRoG57OPDTCgSS61kw0w0TkUIdqoloksfWuLo88U9MjKZ20w_Jgly9qwtTFiLgSaRh6wPkimPdS6Cy_FM5JP1IO8fNtvfqPfAm63tU93PC_S5QKLUKcJ1TYCp0zpAUR6eB-L6XwfhRrBZCQd0XT1IKKkdJGi-wKRTC6tRQqew');">
+        <div class="facility-badge-corner facility-badge-corner--blue"></div>
+        <span class="material-symbols-outlined facility-badge-icon">groups</span>
+        <div class="facility-overlay">
+          <h3 class="facility-overlay-title">Interactive Learning</h3>
+          <p class="facility-overlay-desc">Hands-on practical models and collaborative activity-based learning modules designed for early development.</p>
+        </div>
+      </div>
+
+      <!-- Card 2: Performing Arts & Music Room -->
+      <div class="facility-card" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&q=80');">
+        <div class="facility-badge-corner facility-badge-corner--green"></div>
+        <span class="material-symbols-outlined facility-badge-icon">sports_gymnastics</span>
+        <div class="facility-overlay">
+          <h3 class="facility-overlay-title">Music & Culture</h3>
+          <p class="facility-overlay-desc">Dedicated acoustic spaces for classical music, Indian percussion, and group vocal training.</p>
+        </div>
+      </div>
+
+      <!-- Card 3: Smart Classroom -->
+      <div class="facility-card" style="background-image: url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&q=80');">
+        <div class="facility-badge-corner facility-badge-corner--orange"></div>
+        <span class="material-symbols-outlined facility-badge-icon">co_present</span>
+        <div class="facility-overlay">
+          <h3 class="facility-overlay-title">Digital Classrooms</h3>
+          <p class="facility-overlay-desc">Equipped with interactive smart displays, audio-visual technology, and comfortable seating arrangements.</p>
+        </div>
+      </div>
+
+      <!-- Card 4: Science & Chemistry Lab -->
+      <div class="facility-card" style="background-image: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=80');">
+        <div class="facility-badge-corner facility-badge-corner--red"></div>
+        <span class="material-symbols-outlined facility-badge-icon">science</span>
+        <div class="facility-overlay">
+          <h3 class="facility-overlay-title">Science Laboratories</h3>
+          <p class="facility-overlay-desc">Modern science apparatus for physics, chemistry, and biology experimental learning under expert supervision.</p>
+        </div>
+      </div>
+
+      <!-- Card 5: Library & Reading Room -->
+      <div class="facility-card" style="background-image: url('https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=600&q=80');">
+        <div class="facility-badge-corner facility-badge-corner--blue"></div>
+        <span class="material-symbols-outlined facility-badge-icon">menu_book</span>
+        <div class="facility-overlay">
+          <h3 class="facility-overlay-title">Knowledge Center</h3>
+          <p class="facility-overlay-desc">Extensive collection of books, research journals, and digital archives promoting reading habits.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Life at Myra: dynamic albums collage -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var grid = document.getElementById('galleryGrid');
+  if (!grid) return;
+
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c];
+    });
+  }
+
+  // collage span classes per album count, by card index
+  var LAYOUTS = {
+    1: ['g-full'],
+    2: ['g-half', 'g-half'],
+    3: ['g-big', 'g-wide', 'g-wide'],
+    4: ['g-big', 'g-sm', 'g-sm', 'g-wide']
+  };
+
+  function cardHtml(a, cls){
+    var media = a.cover_url
+      ? '<img class="gallery-img" alt="' + esc(a.title) + '" src="' + esc(a.cover_url) + '"/>'
+      : '<div class="gallery-cover-empty"><span class="material-symbols-outlined">image</span></div>';
+    return '<a class="gallery-item ' + cls + '" href="album.php?id=' + a.id + '">'
+      + media
+      + '<div class="gallery-caption"><span class="gallery-caption-pill">' + esc(a.title) + '</span></div>'
+      + '</a>';
+  }
+
+  fetch('actions/homepage/latest_albums.php?limit=4', { headers: { 'Accept': 'application/json' } })
+    .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+    .then(function (res) {
+      if (!res.ok || !res.d.success) throw new Error(res.d.message || 'Request failed');
+      var rows = res.d.rows || [];
+      grid.removeAttribute('data-loading');
+      if (!rows.length) {
+        grid.innerHTML = '<div class="gallery-state"><span class="material-symbols-outlined">photo_library</span>'
+          + '<h3>No Albums Yet</h3><p>Photos from our events and campus life will appear here soon.</p></div>';
+        return;
+      }
+      var layout = LAYOUTS[Math.min(rows.length, 4)] || LAYOUTS[4];
+      grid.innerHTML = rows.map(function (a, i) { return cardHtml(a, layout[i] || 'g-sm'); }).join('');
+    })
+    .catch(function () {
+      grid.removeAttribute('data-loading');
+      grid.innerHTML = '<div class="gallery-state"><span class="material-symbols-outlined">error</span>'
+        + '<h3>Could not load gallery</h3><p>Please refresh the page or try again in a moment.</p></div>';
+    });
+});
+</script>
 <!-- BEYOND ACADEMICS -->
 <section class="ba-wrapper" aria-label="Beyond Academics">
   <span class="ba-frame-top" aria-hidden="true"></span>

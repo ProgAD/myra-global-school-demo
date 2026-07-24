@@ -319,7 +319,7 @@ address{font-style:normal;}
 <header class="page-banner">
 <div class="container">
 <div class="breadcrumb">
-<a href="index.html">Home</a>
+<a href="index.php">Home</a>
 <span class="material-symbols-outlined">chevron_right</span>
 <span class="breadcrumb-current">About</span>
 </div>
