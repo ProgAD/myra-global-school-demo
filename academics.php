@@ -147,6 +147,39 @@ address{font-style:normal;}
 .breadcrumb-current{color:var(--secondary-fixed);}
 
 /* ============================================================
+   ACADEMICS HERO SLIDESHOW
+   ============================================================ */
+.acad-hero{position:relative;height:540px;overflow:hidden;background:var(--primary-container);}
+.acad-hero-slides{position:absolute;inset:0;}
+.acad-hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;animation:acadHeroFade 24s infinite;}
+.acad-hero-slide:nth-child(1){animation-delay:0s;}
+.acad-hero-slide:nth-child(2){animation-delay:6s;}
+.acad-hero-slide:nth-child(3){animation-delay:12s;}
+.acad-hero-slide:nth-child(4){animation-delay:18s;}
+@keyframes acadHeroFade{0%{opacity:0;}2%{opacity:1;}25%{opacity:1;}27%{opacity:0;}100%{opacity:0;}}
+.acad-hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(0,10,30,.88) 0%,rgba(0,20,45,.62) 58%,rgba(0,20,45,.35) 100%);}
+.acad-hero-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;max-width:680px;}
+.acad-hero-title{font-family:var(--font-serif);font-size:56px;line-height:1.1;font-weight:700;color:var(--on-primary);margin-bottom:16px;}
+.acad-hero-sub{font-family:var(--font-serif);font-size:19px;line-height:30px;color:rgba(255,255,255,.85);}
+.acad-hero-dots{position:absolute;left:0;right:0;bottom:24px;z-index:2;display:flex;justify-content:center;gap:10px;}
+.acad-hero-dots span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.4);animation:acadDot 24s infinite;}
+.acad-hero-dots span:nth-child(1){animation-delay:0s;}
+.acad-hero-dots span:nth-child(2){animation-delay:6s;}
+.acad-hero-dots span:nth-child(3){animation-delay:12s;}
+.acad-hero-dots span:nth-child(4){animation-delay:18s;}
+@keyframes acadDot{0%,25%{background:var(--secondary-fixed);}27%,100%{background:rgba(255,255,255,.4);}}
+@media(prefers-reduced-motion:reduce){
+  .acad-hero-slide{animation:none;}
+  .acad-hero-slide:nth-child(1){opacity:1;}
+  .acad-hero-dots{display:none;}
+}
+@media(max-width:767px){
+  .acad-hero{height:440px;}
+  .acad-hero-title{font-size:38px;}
+  .acad-hero-sub{font-size:16px;line-height:26px;}
+}
+
+/* ============================================================
    INTRO SECTION
    ============================================================ */
 .acad-intro{padding-top:120px;padding-bottom:64px;background:var(--surface);}
@@ -156,19 +189,23 @@ address{font-style:normal;}
 /* ============================================================
    ACADEMIC OPTIONS GRID
    ============================================================ */
-.acad-options{padding-bottom:120px;background:var(--surface);}
+.acad-options{padding:96px 0 120px;background:var(--surface);}
 .acad-grid{display:grid;grid-template-columns:1fr;gap:32px;}
 .acad-card{
   border:1px solid var(--outline-variant);
-  padding:48px;
   border-radius:12px;
   background:var(--surface-container-lowest);
   display:flex;
   flex-direction:column;
+  overflow:hidden;
   transition:border-color .3s, box-shadow .3s;
 }
 .acad-card:hover{border-color:var(--primary);box-shadow:0 4px 20px rgba(0,33,71,.08);}
-.acad-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;}
+.acad-card-media{height:200px;overflow:hidden;background:var(--surface-container);}
+.acad-card-media img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+.acad-card:hover .acad-card-media img{transform:scale(1.06);}
+.acad-card-body{padding:40px;display:flex;flex-direction:column;flex:1;}
+.acad-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;}
 .acad-card-ico{
   width:64px;
   height:64px;
@@ -231,15 +268,21 @@ address{font-style:normal;}
 </div>
 </header>
 
-<!-- INTRO SECTION -->
-<section class="acad-intro">
-<div class="container">
-<div class="acad-intro-inner">
-<span class="eyebrow">Learning at Myra</span>
-<h1 class="heading-lg">Academics</h1>
-<p class="acad-intro-text">Explore the pillars of our academic programme. From a future-ready curriculum to world-class facilities, every aspect is designed to nurture curious, confident and capable learners.</p>
+<!-- ACADEMICS HERO SLIDESHOW -->
+<section class="acad-hero">
+<div class="acad-hero-slides">
+<div class="acad-hero-slide" style="background-image:url('https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1600&q=80')"></div>
+<div class="acad-hero-slide" style="background-image:url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1600&q=80')"></div>
+<div class="acad-hero-slide" style="background-image:url('https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=1600&q=80')"></div>
+<div class="acad-hero-slide" style="background-image:url('https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1600&q=80')"></div>
 </div>
+<div class="acad-hero-overlay"></div>
+<div class="container acad-hero-content">
+<span class="eyebrow eyebrow--gold">Learning at Myra</span>
+<h1 class="acad-hero-title">Academics</h1>
+<p class="acad-hero-sub">From hands-on lab work to reading, sports and creative play, learning at Myra Global School comes alive — nurturing curious, confident and capable young minds.</p>
 </div>
+<div class="acad-hero-dots" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
 </section>
 
 <!-- ACADEMIC OPTIONS GRID -->
@@ -248,43 +291,55 @@ address{font-style:normal;}
 <div class="acad-grid">
 
 <!-- Curriculum -->
-<a href="curriculum.html" class="acad-card">
+<a href="academics/curriculum.php" class="acad-card">
+<div class="acad-card-media"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80" alt="Curriculum" loading="lazy"/></div>
+<div class="acad-card-body">
 <div class="acad-card-top">
 <span class="acad-card-ico"><span class="material-symbols-outlined">menu_book</span></span>
 <span class="material-symbols-outlined acad-card-arrow">arrow_forward</span>
 </div>
 <h3 class="acad-card-title">Curriculum</h3>
 <p class="acad-card-text">A balanced, inquiry-driven curriculum from Lower to Upper School, blending core academics with critical thinking and life skills.</p>
+</div>
 </a>
 
 <!-- Examinations -->
-<a href="examinations.html" class="acad-card">
+<a href="academics/examinations.php" class="acad-card">
+<div class="acad-card-media"><img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80" alt="Examinations" loading="lazy"/></div>
+<div class="acad-card-body">
 <div class="acad-card-top">
 <span class="acad-card-ico"><span class="material-symbols-outlined">assignment</span></span>
 <span class="material-symbols-outlined acad-card-arrow">arrow_forward</span>
 </div>
 <h3 class="acad-card-title">Examinations</h3>
 <p class="acad-card-text">Continuous assessment, transparent evaluation and detailed progress reporting that support every learner's growth.</p>
+</div>
 </a>
 
 <!-- Facilities -->
-<a href="facilities.html" class="acad-card">
+<a href="academics/facilities.php" class="acad-card">
+<div class="acad-card-media"><img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80" alt="Facilities" loading="lazy"/></div>
+<div class="acad-card-body">
 <div class="acad-card-top">
 <span class="acad-card-ico"><span class="material-symbols-outlined">apartment</span></span>
 <span class="material-symbols-outlined acad-card-arrow">arrow_forward</span>
 </div>
 <h3 class="acad-card-title">Facilities</h3>
 <p class="acad-card-text">Smart classrooms, science &amp; computer labs, libraries, sports grounds and secure transport — everything learning needs.</p>
+</div>
 </a>
 
 <!-- Rules & Regulations -->
-<a href="rules.html" class="acad-card">
+<a href="academics/rules-regulations.php" class="acad-card">
+<div class="acad-card-media"><img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=800&q=80" alt="Rules and Regulations" loading="lazy"/></div>
+<div class="acad-card-body">
 <div class="acad-card-top">
 <span class="acad-card-ico"><span class="material-symbols-outlined">gavel</span></span>
 <span class="material-symbols-outlined acad-card-arrow">arrow_forward</span>
 </div>
 <h3 class="acad-card-title">Rules &amp; Regulations</h3>
 <p class="acad-card-text">A clear framework of discipline, uniform code and conduct that nurtures respect, responsibility and a safe community.</p>
+</div>
 </a>
 
 </div>
@@ -327,7 +382,7 @@ address{font-style:normal;}
 <p class="cta-text">Our school team is happy to guide you through admissions and more.</p>
 </div>
 <div class="cta-actions">
-<button class="btn-fill" onclick="window.location.href='admission.php'">Apply Now</button>
+<button class="btn-fill" onclick="window.location.href='admission.php'">Admission Open</button>
 <button class="btn-line" onclick="window.location.href='index.php/#enquiry'">Contact Us</button>
 </div>
 </div>

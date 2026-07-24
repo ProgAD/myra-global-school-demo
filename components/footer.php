@@ -1,9 +1,10 @@
+<?php $base = $base ?? ''; /* '' for root pages, '../' for subfolder pages */ ?>
 <footer class="site-footer">
   <div class="container footer-grid">
   <!-- Column 1: Brand & Mission -->
   <div class="footer-col footer-brand-col">
   <div>
-  <img alt="Myra Global School Logo" class="footer-logo" src="logo/square-logo.png"/>
+  <img alt="Myra Global School Logo" class="footer-logo" src="<?= $base ?>logo/square-logo.png"/>
   <p class="footer-about">
                           Nurturing intellectual curiosity, creativity and strong values in a caring learning community. Empowering students to grow into confident, responsible global citizens since 2001.
                       </p>
@@ -24,29 +25,29 @@
   <div class="footer-col">
   <h3 class="footer-heading">Academics &amp; Admissions</h3>
   <ul class="footer-links">
-  <li><a href="about.php">About Us</a></li>
-  <li><a href="academics.php">Academics</a></li>
-  <li><a href="admission.php">Admissions</a></li>
-  <li><a href="admission/admission-form.php">Apply Online</a></li>
-  <li><a href="admission.php">Check Application Status</a></li>
+  <li><a href="<?= $base ?>about.php">About Us</a></li>
+  <li><a href="<?= $base ?>academics.php">Academics</a></li>
+  <li><a href="<?= $base ?>admission.php">Admissions</a></li>
+  <li><a href="<?= $base ?>admission/admission-form.php">Apply Online</a></li>
+  <li><a href="<?= $base ?>admission.php">Check Application Status</a></li>
   </ul>
   </div>
   <!-- Column 3: Quick Links -->
   <div class="footer-col">
   <h3 class="footer-heading">Quick Links</h3>
   <ul class="footer-links">
-  <li><a href="notice.php">Notice Board</a></li>
-  <li><a href="gallery.php">Photo Gallery</a></li>
-  <li><a href="career.php">Careers at Myra</a></li>
-  <li><a href="login.html">Parent / Student Portal</a></li>
-  <li><a href="index.php#enquiry">Contact Us</a></li>
+  <li><a href="<?= $base ?>notice.php">Notice Board</a></li>
+  <li><a href="<?= $base ?>gallery.php">Photo Gallery</a></li>
+  <li><a href="<?= $base ?>career.php">Careers at Myra</a></li>
+  <li><a href="<?= $base ?>login.html">Parent / Student Portal</a></li>
+  <li><a href="<?= $base ?>index.php#enquiry">Contact Us</a></li>
   </ul>
   </div>
   <!-- Column 4: Contact & Newsletter -->
   <div class="footer-col footer-contact-col">
   <div>
   <h3 class="footer-heading">Have a Question?</h3>
-  <a class="footer-ask-btn" href="index.php#enquiry">
+  <a class="footer-ask-btn" href="<?= $base ?>index.php#enquiry">
   <span class="material-symbols-outlined">chat_bubble</span>
   Ask Query
   </a>

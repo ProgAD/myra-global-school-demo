@@ -293,6 +293,26 @@ address{font-style:normal;}
 .cta-actions{display:flex;gap:16px;flex-shrink:0;}
 
 /* ============================================================
+   EXPLORE MARQUEE
+   ============================================================ */
+.explore-sec{background:var(--surface-container);padding:88px 0;overflow:hidden;}
+.explore-head{text-align:center;max-width:720px;margin:0 auto 48px;padding:0 24px;}
+.explore-sub{font-family:var(--font-serif);font-size:17px;line-height:28px;color:var(--on-surface-variant);}
+.marquee{position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);}
+.marquee-track{display:flex;gap:24px;width:max-content;padding:12px 0;animation:marquee 34s linear infinite;}
+.marquee:hover .marquee-track{animation-play-state:paused;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.explore-card{flex:0 0 auto;width:220px;background:var(--surface-container-lowest);border:1px solid var(--outline-variant);border-radius:14px;padding:36px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;transition:transform .3s,border-color .3s,box-shadow .3s;}
+.explore-card:hover{transform:translateY(-6px);border-color:var(--primary);box-shadow:0 12px 30px rgba(0,33,71,.12);}
+.explore-ico{width:72px;height:72px;border-radius:50%;background:var(--primary-container);color:var(--secondary-fixed);display:flex;align-items:center;justify-content:center;transition:all .3s;}
+.explore-card:hover .explore-ico{background:var(--secondary-fixed);color:var(--primary);}
+.explore-ico .material-symbols-outlined{font-size:36px;}
+.explore-title{font-family:var(--font-serif);font-size:19px;font-weight:600;color:var(--primary);}
+.explore-link{display:inline-flex;align-items:center;gap:4px;font-family:var(--font-sans);font-size:13px;font-weight:600;letter-spacing:.03em;color:var(--secondary);}
+.explore-link .material-symbols-outlined{font-size:15px;}
+@media(prefers-reduced-motion:reduce){.marquee-track{animation:none;}}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media(min-width:768px){
@@ -430,68 +450,33 @@ address{font-style:normal;}
 </div>
 </section>
 
-<!-- ACHIEVEMENTS / STATS SECTION -->
-<section class="stats-sec">
-<div class="container">
-<div class="stats-head">
-<span class="eyebrow eyebrow--tight eyebrow--gold">Our Milestones</span>
-<h2 class="heading-lg heading-lg--light heading-lg--flush">Achievements at a Glance</h2>
+<!-- EXPLORE (auto-scrolling marquee) -->
+<section class="explore-sec">
+<div class="explore-head">
+<span class="eyebrow eyebrow--tight">Discover More</span>
+<h2 class="heading-lg heading-lg--flush">Explore Myra Global School</h2>
+<p class="explore-sub" style="margin-top:16px;">Take a closer look at what we offer — tap any card to learn more.</p>
 </div>
-<div class="stats-grid">
-<div class="stat">
-<div class="stat-num">50+</div>
-<div class="stat-label">Years of Excellence</div>
-</div>
-<div class="stat">
-<div class="stat-num">100%</div>
-<div class="stat-label">Graduation Rate</div>
-</div>
-<div class="stat">
-<div class="stat-num">12:1</div>
-<div class="stat-label">Student-Teacher Ratio</div>
-</div>
-<div class="stat">
-<div class="stat-num">45+</div>
-<div class="stat-label">Clubs &amp; Activities</div>
-</div>
-</div>
-</div>
-</section>
-
-<!-- LEADERSHIP MESSAGE SECTION -->
-<section class="section-lg leader-sec">
-<div class="container">
-<div class="leader-grid">
-<div class="leader-media">
-<div class="leader-photo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCnLQoBiW2ppMiEXqiOlcTO5hCufB4J_koqwOi7Qez_8Pp7VJ92yeu370SoS5ZbTzTCQauPLjkRWAuKlhIW-DhrI95424vvXYeXKoAcmNVnzkh7eenQ17MCAyrdT_cC8MBD3Owajn-ZqXjL8poHdO4ELvWvJe7invlpvY5hDsNpmL726QtDkgWDROIA6_6PPZ950v2tkwunSFZ7cb0XN6FYHhHeyI0dKlbMkr5fnCb7HfEmJtbPI4I_kQ')"></div>
-<div class="leader-quote-badge">
-<span class="material-symbols-outlined">format_quote</span>
-</div>
-</div>
-<div class="leader-body">
-<span class="eyebrow">Leadership Statement</span>
-<h2 class="heading-lg">A Message from Our Principal</h2>
-<p class="leader-quote">"We don't just teach subjects; we inspire minds. Our mission is to create an environment where every student feels seen, challenged, and empowered to reach their highest potential."</p>
-<p class="leader-text">For over half a century, Myra Global School has stood as a beacon of academic excellence. Our curriculum is designed to foster critical thinking, global awareness, and a lifelong passion for discovery. We warmly invite you to become part of our storied legacy.</p>
-<div>
-<div class="leader-name">Dr. Elena Richardson</div>
-<div class="leader-role">Principal</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-
-<!-- CTA STRIP -->
-<section class="cta-sec">
-<div class="container cta-inner">
-<div>
-<h2 class="cta-title">Ready to Begin Your Journey?</h2>
-<p class="cta-text">Discover how Myra Global School can shape your child's future.</p>
-</div>
-<div class="cta-actions">
-<button class="btn-fill">Apply Now</button>
-<button class="btn-line">Contact Us</button>
+<div class="marquee">
+<div class="marquee-track">
+<?php
+$explore = [
+  ['href' => 'academics/curriculum.php',        'ico' => 'menu_book',      'title' => 'Curriculum'],
+  ['href' => 'academics/examinations.php',      'ico' => 'assignment',     'title' => 'Examinations'],
+  ['href' => 'academics/facilities.php',        'ico' => 'apartment',      'title' => 'Facilities'],
+  ['href' => 'academics/rules-regulations.php', 'ico' => 'gavel',          'title' => 'Rules & Regulations'],
+  ['href' => 'gallery.php',                     'ico' => 'photo_library',  'title' => 'Gallery'],
+];
+/* Rendered twice for a seamless right-to-left loop. */
+for ($pass = 0; $pass < 2; $pass++):
+  foreach ($explore as $e): ?>
+<a class="explore-card" href="<?= $e['href'] ?>"<?= $pass ? ' aria-hidden="true" tabindex="-1"' : '' ?>>
+<span class="explore-ico"><span class="material-symbols-outlined"><?= $e['ico'] ?></span></span>
+<span class="explore-title"><?= $e['title'] ?></span>
+<span class="explore-link">Explore <span class="material-symbols-outlined">arrow_forward</span></span>
+</a>
+<?php endforeach;
+endfor; ?>
 </div>
 </div>
 </section>
