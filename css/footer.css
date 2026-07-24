@@ -4,7 +4,7 @@
 .site-footer{
   width:100%;
   background-color:var(--primary-container);
-  background-image:linear-gradient(rgba(0,33,71,.9),rgba(0,33,71,.9)),url('https://lh3.googleusercontent.com/aida-public/AB6AXuB_E-Arznyfw_UeumTZkCDC4trkt5-3O3D4F7cwZNw7zq6aenTsbnledzjsdxdfxDKDpZI54Ao8QSvn0XsSefQX7LLv86jknUG5XdfNTzNFHEFzyjoaii3vQwN9WDFYNKGcH7mZTouYcp5-jQQBg5QbitW_VqE9BXCEPEAusZs7wJw_V4zTE5i8CmzKPsnZ6z8PWISQJWA5V_oD2tQe9S-9s52PF8yoVhx9e8yKrJUEnocvoInwlSR2Fg');
+  background-image:linear-gradient(rgba(0,33,71,.82),rgba(0,33,71,.82)),url('../assets/images/school.png');
   background-size:cover;
   background-position:center;
   padding-top:24px;
@@ -103,6 +103,29 @@
   color:var(--on-primary-container);
   opacity:.7;
 }
+.footer-ask-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:transparent;
+  border:1.5px solid var(--secondary-fixed);
+  color:#ffffff;
+  font-family:var(--font-sans);
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:.03em;
+  padding:11px 22px;
+  border-radius:8px;
+  transition:all .2s;
+}
+.footer-ask-btn .material-symbols-outlined{font-size:18px;color:#ffffff;}
+.footer-ask-btn:hover{
+  background:var(--secondary-fixed);
+  color:var(--primary);
+  transform:translateY(-2px);
+  box-shadow:0 6px 16px rgba(255,224,136,.35);
+}
+.footer-ask-btn:hover .material-symbols-outlined{color:var(--primary);}
 
 /* Contact / map */
 .footer-contact{

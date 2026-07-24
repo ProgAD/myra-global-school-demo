@@ -203,6 +203,8 @@ address{font-style:normal;}
 .ann-viewall{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-family:var(--font-sans);font-size:14px;font-weight:600;letter-spacing:.03em;color:var(--primary);border:1px solid var(--primary);border-radius:8px;padding:9px 18px;transition:.2s;}
 .ann-viewall:hover{background:var(--primary);color:var(--on-primary);}
 .ann-viewall .material-symbols-outlined{font-size:16px;}
+.notice-viewall-bottom{display:none;margin-top:32px;text-align:center;}
+.notice-viewall-bottom .ann-viewall{margin-left:0;}
 
 /* Notice "Read more" modal (shared style) */
 .nmodal{position:fixed;inset:0;background:rgba(9,25,50,.6);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px;}
@@ -600,6 +602,43 @@ address{font-style:normal;}
   .facilities-grid { grid-template-columns: 1fr; }
 }
 
+/* ---- Mobile phones ---- */
+@media (max-width:767px){
+  .container{padding-left:20px;padding-right:20px;}
+  .section-lg{padding:72px 0;}
+  .heading-lg{font-size:28px;line-height:36px;margin-bottom:20px;}
+
+  /* Notice: hide top "View All", show centered one at the end */
+  .notice-sec{padding:48px 0;}
+  .notice-head{gap:12px;margin-bottom:24px;}
+  .notice-head-title{font-size:24px;line-height:30px;}
+  .ann-viewall--top{display:none;}
+  .notice-viewall-bottom{display:block;}
+
+  /* About */
+  .about-grid{gap:40px;}
+  .about-img{height:320px;}
+  .about-lead{font-size:18px;line-height:28px;}
+
+  /* Mission & Vision */
+  .mv-card{padding:36px 28px;}
+
+  /* Gallery */
+  .gallery-head{margin-bottom:40px;}
+  .gallery-grid{grid-auto-rows:150px;}
+
+  /* Facilities */
+  .facilities-sec{padding:48px 0 56px;}
+
+  /* Enquiry */
+  .enquiry-card{padding:28px 24px;}
+}
+@media (max-width:400px){
+  .facilities-grid{grid-template-columns:1fr;}
+  .gallery-grid{grid-template-columns:1fr;grid-auto-rows:190px;}
+  .g-big,.g-half,.g-wide,.g-full,.g-sm{grid-column:1/-1;grid-row:auto;}
+}
+
 /* ============================================================
    BEYOND ACADEMICS  (copied from sheet.html)
    ============================================================ */
@@ -712,10 +751,13 @@ address{font-style:normal;}
 <div class="notice-head">
 <span class="material-symbols-outlined notice-head-ico">notifications_active</span>
 <h2 class="notice-head-title">Official Announcements</h2>
-<a class="ann-viewall" href="notice.php">View All <span class="material-symbols-outlined">arrow_forward</span></a>
+<a class="ann-viewall ann-viewall--top" href="notice.php">View All <span class="material-symbols-outlined">arrow_forward</span></a>
 </div>
 <div class="notice-grid" id="annGrid" data-loading="true">
 <div class="notice-card"><p class="notice-card-text" style="margin:0;">Loading announcements…</p></div>
+</div>
+<div class="notice-viewall-bottom">
+<a class="ann-viewall" href="notice.php">View All Notices <span class="material-symbols-outlined">arrow_forward</span></a>
 </div>
 </div>
 </section>
@@ -731,7 +773,7 @@ address{font-style:normal;}
 <h2 class="heading-lg">Building Excellence, Inspiring Generations</h2>
 <p class="about-lead">Established in 1985, Myra Globe School is committed to providing quality education through academic excellence, innovative learning, and strong values. With a legacy of holistic development, leadership, and creativity, we continue to nurture confident learners prepared for success in a global world.</p>
 <p class="about-text">Myra Globe School is committed to excellence in education, fostering creativity, integrity, and innovation. We empower students with the knowledge, confidence, and values to become responsible global citizens and future leaders.</p>
-<button class="btn-solid-primary">Know more</button>
+<a class="btn-solid-primary" href="about.php" style="display:inline-block;">Know more</a>
 </div>
 </div>
 </div>
@@ -1067,7 +1109,7 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 </script>
 <!-- ENQUIRY FORM SECTION -->
-<section class="section-lg enquiry-sec">
+<section class="section-lg enquiry-sec" id="enquiry">
 <div class="container">
 <div class="enquiry-grid">
 <div class="enquiry-info">
@@ -1078,7 +1120,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <span class="material-symbols-outlined enquiry-contact-ico">call</span>
 <div>
 <div class="enquiry-contact-label">Admissions Hotline</div>
-<div class="enquiry-contact-val">+1 (555) 012-3456</div>
+<div class="enquiry-contact-val">+91 9023762633</div>
 </div>
 </div>
 <div class="enquiry-contact">

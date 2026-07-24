@@ -293,42 +293,42 @@ address{font-style:normal;}
 
 <!-- STATS STRIP -->
 <section class="stats-sec">
-<div class="container">
-<div class="stats-head">
-<span class="eyebrow eyebrow--gold">Academic Strength</span>
-<h2 class="heading-lg heading-lg--light heading-lg--flush">Excellence by the Numbers</h2>
-</div>
-<div class="stats-grid">
-<div class="stat">
-<div class="stat-num">100%</div>
-<div class="stat-label">Graduation Rate</div>
-</div>
-<div class="stat">
-<div class="stat-num">12:1</div>
-<div class="stat-label">Student-Teacher Ratio</div>
-</div>
-<div class="stat">
-<div class="stat-num">30+</div>
-<div class="stat-label">Subjects Offered</div>
-</div>
-<div class="stat">
-<div class="stat-num">45+</div>
-<div class="stat-label">Clubs &amp; Activities</div>
-</div>
-</div>
-</div>
+  <div class="container">
+  <div class="stats-head">
+  <span class="eyebrow eyebrow--gold">Academic Strength</span>
+  <h2 class="heading-lg heading-lg--light heading-lg--flush">Excellence by the Numbers</h2>
+  </div>
+  <div class="stats-grid">
+  <div class="stat">
+  <div class="stat-num">100%</div>
+  <div class="stat-label">Board Exam Pass Rate</div>
+  </div>
+  <div class="stat">
+  <div class="stat-num">25:1</div>
+  <div class="stat-label">Student-Teacher Ratio</div>
+  </div>
+  <div class="stat">
+  <div class="stat-num">15+</div>
+  <div class="stat-label">Co-Curricular Activities</div>
+  </div>
+  <div class="stat">
+  <div class="stat-num">20+</div>
+  <div class="stat-label">Sports & Clubs</div>
+  </div>
+  </div>
+  </div>
 </section>
 
 <!-- CTA STRIP -->
 <section class="cta-sec">
 <div class="container cta-inner">
 <div>
-<h2 class="cta-title">Have a Question About Our Programmes?</h2>
-<p class="cta-text">Our academic team is happy to guide you through curriculum, exams and more.</p>
+<h2 class="cta-title">Have a Question ?</h2>
+<p class="cta-text">Our school team is happy to guide you through admissions and more.</p>
 </div>
 <div class="cta-actions">
-<button class="btn-fill">Apply Now</button>
-<button class="btn-line">Contact Us</button>
+<button class="btn-fill" onclick="window.location.href='admission.php'">Apply Now</button>
+<button class="btn-line" onclick="window.location.href='index.php/#enquiry'">Contact Us</button>
 </div>
 </div>
 </section>
