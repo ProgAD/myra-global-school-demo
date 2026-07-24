@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>St. Jude's Academy | Excellence in Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="css/header.css" rel="stylesheet"/>
+<link href="css/hero.css" rel="stylesheet"/>
+<link href="css/footer.css" rel="stylesheet"/>
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root{
+  --primary-container:#002147;
+  --secondary-fixed:#ffe088;
+  --secondary-fixed-dim:#e9c349;
+  --on-surface-variant:#44474e;
+  --on-background:#1e1b18;
+  --on-primary:#ffffff;
+  --primary:#000a1e;
+  --on-secondary-fixed:#241a00;
+  --secondary:#735c00;
+  --surface:#fff8f5;
+  --surface-container-low:#fbf2ed;
+  --surface-container:#f5ece7;
+  --surface-container-high:#efe6e2;
+  --surface-container-highest:#e9e1dc;
+  --surface-container-lowest:#ffffff;
+  --background:#fff8f5;
+  --on-surface:#1e1b18;
+  --on-primary-container:#708ab5;
+  --outline:#74777f;
+  --outline-variant:#c4c6cf;
+  --font-serif:"Source Serif 4", Georgia, serif;
+  --font-sans:"Source Sans 3", system-ui, sans-serif;
+}
+
+/* ============================================================
+   RESET / BASE
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;}
+*{margin:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--background);
+  color:var(--on-background);
+  font-family:var(--font-serif);
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%;}
+a{text-decoration:none;color:inherit;}
+ul{list-style:none;}
+button{font-family:inherit;background:none;border:none;}
+address{font-style:normal;}
+
+.material-symbols-outlined{
+  font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
+  display:inline-block;
+  vertical-align:middle;
+}
+
+/* ============================================================
+   LAYOUT HELPERS
+   ============================================================ */
+.container{
+  max-width:1280px;
+  margin-left:auto;
+  margin-right:auto;
+  padding-left:64px;
+  padding-right:64px;
+  width:100%;
+}
+.section-lg{padding:120px 0;}
+
+.eyebrow{
+  font-family:var(--font-sans);
+  font-size:14px;
+  font-weight:600;
+  color:var(--secondary);
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  display:block;
+  margin-bottom:16px;
+}
+.heading-lg{
+  font-family:var(--font-serif);
+  font-size:40px;
+  line-height:48px;
+  font-weight:700;
+  color:var(--primary);
+  margin-bottom:24px;
+}
+.heading-lg--light{color:var(--on-primary);}
+.heading-lg--tight{margin-bottom:16px;}
+
+/* ============================================================
+   NEWS TICKER
+   ============================================================ */
+.ticker{
+  background:var(--secondary-fixed);
+  color:var(--on-secondary-fixed);
+  padding:8px 0;
+  overflow:hidden;
+  border-bottom:1px solid var(--outline-variant);
+}
+.ticker-inner{display:flex;align-items:center;}
+.ticker-label{
+  font-family:var(--font-sans);
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  margin-right:16px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+.ticker-ico{font-size:18px;}
+.ticker-wrap{overflow:hidden;white-space:nowrap;flex-grow:1;}
+.ticker-content{
+  display:inline-block;
+  animation:ticker 30s linear infinite;
+  font-family:var(--font-sans);
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:.05em;
+}
+@keyframes ticker{
+  0%{transform:translateX(100%);}
+  100%{transform:translateX(-100%);}
+}
+
+/* ============================================================
+   NOTICE SECTION
+   ============================================================ */
+.notice-sec{
+  padding:64px 0;
+  background:var(--surface-container-low);
+  border-bottom:1px solid var(--outline-variant);
+}
+.notice-head{display:flex;align-items:center;gap:16px;margin-bottom:32px;}
+.notice-head-ico{color:var(--primary);font-size:30px;}
+.notice-head-title{
+  font-family:var(--font-serif);
+  font-size:32px;
+  line-height:40px;
+  font-weight:600;
+  color:var(--primary);
+}
+.notice-grid{display:grid;grid-template-columns:1fr;gap:32px;}
+.notice-card{
+  background:var(--surface-container-lowest);
+  padding:32px;
+  border-left:4px solid var(--primary);
+  box-shadow:0 1px 2px 0 rgba(0,0,0,.05);
+  transition:box-shadow .2s;
+}
+.notice-card:hover{box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);}
+.notice-card--secondary{border-left-color:var(--secondary);}
+.notice-date{
+  font-family:var(--font-sans);
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:.05em;
+  color:var(--on-surface-variant);
+  display:block;
+  margin-bottom:8px;
+}
+.notice-card-title{
+  font-family:var(--font-serif);
+  font-size:20px;
+  line-height:1.3;
+  font-weight:600;
+  color:var(--primary);
+  margin-bottom:12px;
+}
+.notice-card-text{
+  font-family:var(--font-serif);
+  font-size:16px;
+  line-height:26px;
+  color:var(--on-surface-variant);
+  margin-bottom:16px;
+}
+.notice-link{
+  font-family:var(--font-sans);
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:.05em;
+  color:var(--primary);
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+}
+.notice-link:hover{text-decoration:underline;}
+.notice-link-ico{font-size:14px;}
+
+/* ============================================================
+   ABOUT SECTION
+   ============================================================ */
+.about-sec{background:var(--surface);}
+.about-grid{display:grid;grid-template-columns:1fr;gap:120px;align-items:center;}
+.about-media{position:relative;}
+.about-img{
+  width:100%;
+  height:500px;
+  object-fit:cover;
+  border-radius:8px;
+  box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 8px 10px -6px rgba(0,0,0,.1);
+}
+.about-badge{
+  position:absolute;
+  bottom:-40px;
+  right:-40px;
+  background:var(--primary-container);
+  padding:48px;
+  color:var(--on-primary);
+  border-radius:8px;
+  display:none;
+}
+.about-badge-num{font-family:var(--font-serif);font-size:64px;line-height:72px;font-weight:700;}
+.about-badge-label{
+  font-family:var(--font-sans);
+  font-size:14px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  opacity:.7;
+}
+.about-lead{
+  font-family:var(--font-serif);
+  font-size:20px;
+  line-height:32px;
+  color:var(--on-surface-variant);
+  margin-bottom:24px;
+}
+.about-text{
+  font-family:var(--font-serif);
+  font-size:16px;
+  line-height:26px;
+  color:var(--on-surface-variant);
+  margin-bottom:32px;
+}
+.btn-solid-primary{
+  background:var(--primary);
+  color:var(--on-primary);
+  padding:12px 32px;
+  font-family:var(--font-sans);
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:.05em;
+  cursor:pointer;
+  transition:all .2s;
+}
+.btn-solid-primary:hover{background:rgba(0,10,30,.9);}
+
+/* ============================================================
+   MISSION & VISION
+   ============================================================ */
+.mv-sec{background:var(--surface-container);}
+.mv-grid{display:grid;grid-template-columns:1fr;gap:32px;}
+.mv-card{
+  padding:64px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  height:100%;
+  border-radius:12px;
+}
+.mv-card--dark{background:var(--primary-container);color:var(--on-primary);}
+.mv-card--light{background:var(--surface-container-lowest);border:1px solid var(--outline-variant);}
+.mv-ico{font-size:48px;margin-bottom:24px;}
+.mv-ico--gold{color:var(--secondary-fixed);}
+.mv-ico--primary{color:var(--primary);}
+.mv-text{font-family:var(--font-serif);font-size:20px;line-height:32px;}
+.mv-card--dark .mv-text{opacity:.8;font-style:italic;}
+.mv-card--light .mv-text{color:var(--on-surface-variant);}
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+.gallery-sec{background:var(--surface);}
+.gallery-head{text-align:center;margin-bottom:64px;}
+.gallery-sub{
+  font-family:var(--font-serif);
+  font-size:16px;
+  line-height:26px;
+  color:var(--on-surface-variant);
+  max-width:672px;
+  margin:0 auto;
+}
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+  aspect-ratio:16/9;
+}
+.gallery-item{position:relative;overflow:hidden;border-radius:8px;}
+.gallery-item--big{grid-column:span 2;grid-row:span 2;}
+.gallery-item--wide{grid-column:span 2;}
+.gallery-img{width:100%;height:100%;object-fit:cover;transition:transform .7s;}
+.gallery-item:hover .gallery-img{transform:scale(1.1);}
+.gallery-caption{
+  position:absolute;
+  inset:0;
+  background:rgba(0,10,30,.2);
+  opacity:0;
+  transition:opacity .3s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.gallery-item:hover .gallery-caption{opacity:1;}
+.gallery-caption-pill{
+  background:rgba(255,255,255,.9);
+  padding:8px 16px;
+  font-family:var(--font-sans);
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:.05em;
+  border-radius:4px;
+  color:var(--primary);
+}
+.gallery-cta{margin-top:48px;text-align:center;}
+.btn-outline-primary{
+  border:2px solid var(--primary);
+  color:var(--primary);
+  padding:12px 32px;
+  font-family:var(--font-sans);
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:.05em;
+  background:transparent;
+  cursor:pointer;
+  transition:all .2s;
+}
+.btn-outline-primary:hover{background:var(--primary);color:var(--on-primary);}
+
+/* ============================================================
+   ENQUIRY FORM
+   ============================================================ */
+.enquiry-sec{background:var(--surface-container-high);border-top:1px solid var(--outline-variant);}
+.enquiry-grid{display:grid;grid-template-columns:1fr;gap:32px;align-items:center;}
+.enquiry-lead{
+  font-family:var(--font-serif);
+  font-size:20px;
+  line-height:32px;
+  color:var(--on-surface-variant);
+  margin-bottom:32px;
+}
+.enquiry-contacts{display:flex;flex-direction:column;gap:24px;}
+.enquiry-contact{display:flex;align-items:flex-start;gap:16px;}
+.enquiry-contact-ico{color:var(--primary);padding:8px;background:#fff;border-radius:9999px;}
+.enquiry-contact-label{
+  font-family:var(--font-sans);
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:.05em;
+  color:var(--primary);
+}
+.enquiry-contact-val{color:var(--on-surface-variant);}
+.enquiry-card{
+  background:#fff;
+  padding:40px;
+  box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);
+  border-radius:12px;
+}
+.enquiry-form{display:grid;grid-template-columns:1fr;gap:24px;}
+.form-field--full{grid-column:1/-1;}
+.form-label{
+  display:block;
+  font-family:var(--font-sans);
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:.05em;
+  color:var(--primary);
+  margin-bottom:8px;
+}
+.form-input{
+  width:100%;
+  border:1px solid var(--outline-variant);
+  border-radius:8px;
+  padding:12px;
+  font-family:var(--font-serif);
+  font-size:16px;
+  color:var(--on-background);
+  background:#fff;
+}
+.form-input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 1px var(--primary);}
+.btn-submit{
+  width:100%;
+  background:var(--primary-container);
+  color:var(--on-primary);
+  padding:16px;
+  font-family:var(--font-sans);
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:.05em;
+  cursor:pointer;
+  border-radius:8px;
+  box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);
+  transition:all .2s;
+}
+.btn-submit:hover{background:var(--primary);}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(min-width:768px){
+  .notice-grid{grid-template-columns:repeat(3,1fr);}
+  .about-grid{grid-template-columns:1fr 1fr;}
+  .mv-grid{grid-template-columns:1fr 1fr;}
+  .gallery-grid{grid-template-columns:repeat(4,1fr);}
+  .enquiry-form{grid-template-columns:repeat(2,1fr);}
+}
+@media(min-width:1024px){
+  .about-badge{display:block;}
+  .enquiry-grid{grid-template-columns:5fr 7fr;}
+}
+</style>
+</head>
+<body>
+<!-- Top Navigation Bar -->
+<nav class="site-nav">
+<div class="container nav-inner">
+<div class="nav-brand">
+<a href="#" class="brand-link">
+<img src="logo/horizontal-logo.png" alt="Myra Global School" class="brand-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';"/>
+<span class="brand-name" style="display:none">Myra Global School</span>
+</a>
+</div>
+<div class="nav-menu">
+<a class="nav-link nav-link--active" href="#">Home</a>
+
+<!-- About (dropdown) -->
+<div class="nav-item">
+<a class="nav-link nav-link--caret" href="about.html">About
+<span class="material-symbols-outlined nav-caret">expand_more</span></a>
+<div class="nav-dropdown">
+<div class="nav-dropdown-inner">
+<a class="dropdown-link" href="#">Mission</a>
+<a class="dropdown-link" href="#">Vision</a>
+</div>
+</div>
+</div>
+
+<!-- Academics (dropdown) -->
+<div class="nav-item">
+<a class="nav-link nav-link--caret" href="academics.html">Academics
+<span class="material-symbols-outlined nav-caret">expand_more</span></a>
+<div class="nav-dropdown">
+<div class="nav-dropdown-inner">
+<a class="dropdown-link" href="#">Curriculum</a>
+<a class="dropdown-link" href="#">Examinations</a>
+<a class="dropdown-link" href="#">Facilities</a>
+</div>
+</div>
+</div>
+
+<a class="nav-link" href="#">Admissions</a>
+<a class="nav-link" href="#">News</a>
+<a class="nav-link" href="#">Gallery</a>
+</div>
+<div class="nav-actions">
+<button class="nav-btn nav-btn--outline">Portal Login</button>
+<button class="nav-btn nav-btn--solid">Apply Now</button>
+</div>
+</div>
+</nav>
+<!-- News Ticker -->
+<div class="ticker">
+<div class="container ticker-inner">
+<span class="ticker-label">
+<span class="material-symbols-outlined ticker-ico">campaign</span> Latest Updates:
+            </span>
+<div class="ticker-wrap">
+<div class="ticker-content">
+                    • Admissions for the Academic Year 2024-25 are now open for all grades.     • St. Jude's ranks Top 10 in National Science Fair results.     • Annual Alumni Homecoming scheduled for October 15th.     • New state-of-the-art Robotics Lab inaugurated by the Education Minister.
+                </div>
+</div>
+</div>
+</div>
+<!-- Hero Section -->
+<header class="hero">
+<div class="hero-bg">
+<video class="hero-video" autoplay muted loop playsinline poster="">
+<source src="assets/videos/hero.mp4" type="video/mp4"/>
+</video>
+<div class="hero-overlay"></div>
+</div>
+<div class="container hero-content-wrap">
+<div class="hero-content">
+<h1 class="hero-title">Where Tradition Meets Innovation</h1>
+<p class="hero-sub">Cultivating intellectual curiosity and moral character in the leaders of tomorrow. Join a community dedicated to academic excellence and personal growth.</p>
+<div class="hero-actions">
+<button class="btn-hero btn-hero--gold">Admission Now</button>
+<button class="btn-hero btn-hero--glass">Virtual Campus Tour</button>
+</div>
+</div>
+</div>
+</header>
+<!-- NOTICE SECTION -->
+<section class="notice-sec">
+<div class="container">
+<div class="notice-head">
+<span class="material-symbols-outlined notice-head-ico">notifications_active</span>
+<h2 class="notice-head-title">Official Announcements</h2>
+</div>
+<div class="notice-grid">
+<div class="notice-card">
+<span class="notice-date">October 24, 2024</span>
+<h3 class="notice-card-title">Entrance Examination Schedule</h3>
+<p class="notice-card-text">Dates for the Spring 2025 intake entrance exams have been finalized. Please check your portal for details.</p>
+<a class="notice-link" href="#">Download Schedule <span class="material-symbols-outlined notice-link-ico">open_in_new</span></a>
+</div>
+<div class="notice-card notice-card--secondary">
+<span class="notice-date">October 20, 2024</span>
+<h3 class="notice-card-title">Parent-Teacher Symposium</h3>
+<p class="notice-card-text">Join us for an evening of dialogue regarding our new experimental STEM curriculum enhancements.</p>
+<a class="notice-link" href="#">Register Attendance <span class="material-symbols-outlined notice-link-ico">arrow_forward</span></a>
+</div>
+<div class="notice-card">
+<span class="notice-date">October 15, 2024</span>
+<h3 class="notice-card-title">Scholarship Applications</h3>
+<p class="notice-card-text">Applications for the Merit-Based Leadership Scholarship for Grade 9 students are now open.</p>
+<a class="notice-link" href="#">Apply Now <span class="material-symbols-outlined notice-link-ico">edit</span></a>
+</div>
+</div>
+</div>
+</section>
+<!-- ABOUT SECTION -->
+<section class="section-lg about-sec">
+<div class="container">
+<div class="about-grid">
+<div class="about-media">
+<img alt="St. Jude's Historic Campus" class="about-img" src="assets/image/ChatGPT Image Jul 23, 2026, 11_43_36 AM.png"/>
+</div>
+<div class="about-copy">
+<span class="eyebrow">Our Legacy</span>
+<h2 class="heading-lg">Building Excellence, Inspiring Generations</h2>
+<p class="about-lead">Established in 1985, Myra Globe School is committed to providing quality education through academic excellence, innovative learning, and strong values. With a legacy of holistic development, leadership, and creativity, we continue to nurture confident learners prepared for success in a global world.</p>
+<p class="about-text">Myra Globe School is committed to excellence in education, fostering creativity, integrity, and innovation. We empower students with the knowledge, confidence, and values to become responsible global citizens and future leaders.</p>
+<button class="btn-solid-primary">Know more</button>
+</div>
+</div>
+</div>
+</section>
+<!-- MISSION & VISION SECTION -->
+<section class="section-lg mv-sec">
+<div class="container">
+<div class="mv-grid">
+<div class="mv-card mv-card--dark">
+<span class="material-symbols-outlined mv-ico mv-ico--gold">psychology</span>
+<h3 class="heading-lg heading-lg--light">Our Mission</h3>
+<p class="mv-text">"To empower students with the knowledge, skills, and character necessary to excel in a rapidly changing global society, through a curriculum that emphasizes critical thinking, creativity, and compassionate leadership."</p>
+</div>
+<div class="mv-card mv-card--light">
+<span class="material-symbols-outlined mv-ico mv-ico--primary">visibility</span>
+<h3 class="heading-lg">Our Vision</h3>
+<p class="mv-text">"To be a global leader in transformative education, where tradition and innovation converge to inspire generations of thinkers who solve the world's most pressing challenges with wisdom and empathy."</p>
+</div>
+</div>
+</div>
+</section>
+<!-- GALLERY SECTION -->
+<section class="section-lg gallery-sec">
+<div class="container">
+<div class="gallery-head">
+<h2 class="heading-lg heading-lg--tight">Life at Myra's</h2>
+<p class="gallery-sub">A glimpse into the daily experiences, celebrations, and achievements of our vibrant student community.</p>
+</div>
+<div class="gallery-grid">
+<div class="gallery-item gallery-item--big">
+<img alt="Graduation ceremony" class="gallery-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaxFf1iR-fZ3ARbf0Jb1PNjorBa8cpgPVL-w_P4OsAfjXdIb8A1E_x95gl_w2j4vW9grj2ypkMgh0yCKFxAjESyp2Ucx4NsnBi5XDuP7ix-Up85kKqoPpxUlzKqRnhXlpTJpv56yXLUhsTit3BEJblNQ91Ww4jEBCL6Zs1nHGWbS7_cgkUZ0mEDgqrtnmZRXATqFK9e2mQ2lqRQKsH_bNLLr2t1jZgnqlrKkc1ULfSMa-7V_H-fGR4HA"/>
+<div class="gallery-caption"><span class="gallery-caption-pill">Academic Convocation</span></div>
+</div>
+<div class="gallery-item">
+<img alt="Classroom learning" class="gallery-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYZVCivML_bItmWzbD5J65HYfCDYnBmHh0oaMBmpOgSRv1ecKJckbpXjmsrSiw07faGmYD7qTgoCy-sWRoG57OPDTCgSS61kw0w0TkUIdqoloksfWuLo88U9MjKZ20w_Jgly9qwtTFiLgSaRh6wPkimPdS6Cy_FM5JP1IO8fNtvfqPfAm63tU93PC_S5QKLUKcJ1TYCp0zpAUR6eB-L6XwfhRrBZCQd0XT1IKKkdJGi-wKRTC6tRQqew"/>
+<div class="gallery-caption"><span class="gallery-caption-pill">Modern Classrooms</span></div>
+</div>
+<div class="gallery-item">
+<img alt="Sports field" class="gallery-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrAUxLGmK3HTZovHjtQNhyL7wUTcT2jRJ96hODtSIBdo8qX0rVDZxVC80sgUH-7rXb6ST-Qwiwun7ss1-lEEY3GyrCE5hTzOwdYmmM0FdKq2XxQogHlgw_VzqsZ-cOleFWCWBPHyxMhuWz33G967YtwYfeBdKsHdkp25A7OJUvaoxIIHqemZRxxk9SFsNfNvgvPRH6WV9r-jdaAboWc0m9FNQ7HHNZtY5Cnx7dSqzddmLBjWAFw6dn4Q"/>
+<div class="gallery-caption"><span class="gallery-caption-pill">Athletics</span></div>
+</div>
+<div class="gallery-item gallery-item--wide">
+<img alt="Library" class="gallery-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEzSG6mdfW96059TNF1M1hivs6iTXZAr-vLQoKEhcbEjF7aiMXFuPqDTvOOwnwLS14mX2a0qvy96Ziym73h1CwNdqUiJhEMUvC9pvHakyvlukSDnE8A732JP02zde5D3fabGIIhHLU983zv_Nff4n-XdZunzIQpJgvpKuyNUFGokxj4o-ESTmvvx0uEslQ8cYhdbSpa2e-eovTg7Lb7XhXzR3KlgSVgFjYvnt0_mUO2F3494VEtD2g1g"/>
+<div class="gallery-caption"><span class="gallery-caption-pill">The Great Library</span></div>
+</div>
+</div>
+<div class="gallery-cta">
+<button class="btn-outline-primary">View Full Gallery</button>
+</div>
+</div>
+</section>
+<!-- BEYOND ACADEMICS -->
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beyond Academics — Section Component</title>
+<style>
+  :root{
+    --ink:#1F2A37;
+    --ink-soft:#4B5768;
+    --orange:#002147;
+    --orange-dark:#00152e;
+    --line:#e9c349;
+    --card-line:#EAECEF;
+    --blue:#002147;
+    --cream:#fff8f5;
+    --radius:2px;
+    --transition:420ms cubic-bezier(.65,0,.35,1);
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    font-family:'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+    background:#fff8f5;
+    color:var(--ink);
+  }
+
+  .ba-wrapper{
+    max-width:1280px;
+    margin:0 auto;
+    padding:80px 24px 100px;
+    position:relative;
+  }
+
+  /* ---- decorative corner frame, matches reference screenshot ---- */
+  .ba-frame-top{
+    position:absolute;
+    top:0;
+    left:24px;
+    width:calc(100% - 48px);
+    height:1px;
+    background:var(--line);
+  }
+  .ba-frame-left{
+    position:absolute;
+    top:0;
+    left:24px;
+    width:1px;
+    height:130px;
+    background:var(--line);
+  }
+  .ba-frame-left-lower{
+    position:absolute;
+    left:120px;
+    width:1px;
+    height:110px;
+    background:var(--line);
+  }
+
+  .ba-grid{
+    display:grid;
+    grid-template-columns:300px 1fr;
+    gap:56px;
+    align-items:start;
+    padding-top:56px;
+  }
+
+  /* ---------------- Left column ---------------- */
+  .ba-left{
+    padding-top:8px;
+  }
+  .ba-eyebrow{
+    font-family:Georgia, 'Times New Roman', serif;
+    font-weight:700;
+    font-size:26px;
+    line-height:1.25;
+    color:var(--ink);
+    margin:0 0 4px;
+    letter-spacing:.5px;
+  }
+  .ba-eyebrow span{
+    display:block;
+    color:var(--orange);
+  }
+  .ba-desc{
+    margin:22px 0 32px;
+    font-size:15px;
+    line-height:1.7;
+    color:var(--ink-soft);
+    max-width:320px;
+  }
+
+  .ba-nav{
+    display:flex;
+    gap:14px;
+  }
+  .ba-nav button{
+    width:44px;
+    height:44px;
+    border:1.5px solid var(--orange);
+    background:transparent;
+    border-radius:var(--radius);
+    color:var(--orange);
+    font-size:18px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:background var(--transition), color var(--transition), transform 160ms ease;
+  }
+  .ba-nav button:hover{
+    background:var(--orange);
+    color:#fff;
+  }
+  .ba-nav button:active{
+    transform:scale(.94);
+  }
+  .ba-nav button:focus-visible{
+    outline:2px solid var(--orange-dark);
+    outline-offset:3px;
+  }
+  .ba-nav button:disabled{
+    opacity:.35;
+    cursor:not-allowed;
+    background:transparent;
+    color:var(--orange);
+  }
+
+  /* ---------------- Right column / carousel ---------------- */
+  .ba-carousel{
+    position:relative;
+    overflow:hidden;
+  }
+  .ba-track{
+    display:flex;
+    transition:transform var(--transition);
+    will-change:transform;
+  }
+  .ba-card{
+    flex:0 0 calc((100% - 2 * 32px) / 3);
+    margin-right:32px;
+    border:1px solid var(--card-line);
+    display:flex;
+    flex-direction:column;
+  }
+  .ba-card:last-child{ margin-right:0; }
+
+  .ba-card-img{
+    width:100%;
+    aspect-ratio:4/3;
+    object-fit:cover;
+    display:block;
+    background:#eee;
+  }
+  .ba-card-body{
+    padding:20px 22px 24px;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+  }
+  .ba-card-title{
+    font-family:Georgia, 'Times New Roman', serif;
+    font-size:20px;
+    font-weight:600;
+    color:#3E4C5E;
+    margin:0 0 8px;
+    padding-bottom:10px;
+    border-bottom:2px solid var(--orange);
+    display:inline-block;
+    width:fit-content;
+  }
+  .ba-card-text{
+    font-size:14px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    margin:6px 0 20px;
+    flex:1;
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+  .ba-readmore{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    align-self:flex-start;
+    background:var(--orange);
+    color:#fff;
+    font-size:14px;
+    font-weight:600;
+    text-decoration:none;
+    padding:11px 20px;
+    border-radius:var(--radius);
+    border:none;
+    cursor:pointer;
+    transition:background 200ms ease, transform 160ms ease;
+  }
+  .ba-readmore:hover{ background:var(--orange-dark); }
+  .ba-readmore:active{ transform:scale(.97); }
+  .ba-readmore svg{ transition:transform 200ms ease; }
+  .ba-readmore:hover svg{ transform:translateX(3px); }
+
+  /* dots (mobile-friendly progress indicator) */
+  .ba-dots{
+    display:none;
+    justify-content:center;
+    gap:8px;
+    margin-top:24px;
+  }
+  .ba-dots button{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    border:none;
+    background:var(--card-line);
+    cursor:pointer;
+    padding:0;
+  }
+  .ba-dots button.active{ background:var(--orange); width:22px; border-radius:5px; transition:width 200ms ease; }
+
+  /* ---- floating scroll-to-top button ---- */
+  .ba-scrolltop{
+    position:fixed;
+    right:28px;
+    bottom:28px;
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    background:var(--blue);
+    color:#fff;
+    border:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow:0 6px 18px rgba(30,136,199,.35);
+    opacity:0;
+    pointer-events:none;
+    transform:translateY(8px);
+    transition:opacity 250ms ease, transform 250ms ease;
+    z-index:50;
+  }
+  .ba-scrolltop.show{
+    opacity:1;
+    pointer-events:auto;
+    transform:translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .ba-track, .ba-readmore, .ba-readmore svg, .ba-nav button, .ba-scrolltop{ transition:none !important; }
+  }
+
+  /* ---------------- Responsive ---------------- */
+  @media (max-width:960px){
+    .ba-grid{
+      grid-template-columns:1fr;
+      gap:32px;
+    }
+    .ba-desc{ max-width:none; }
+    .ba-card{
+      flex:0 0 calc((100% - 24px) / 2);
+      margin-right:24px;
+    }
+  }
+
+  @media (max-width:640px){
+    .ba-wrapper{ padding:56px 18px 80px; }
+    .ba-card{
+      flex:0 0 100%;
+      margin-right:0;
+    }
+    .ba-dots{ display:flex; }
+    .ba-nav{ display:none; } /* dots take over primary nav on small screens */
+  }
+</style>
+</head>
+<body>
+
+<section class="ba-wrapper" aria-label="Beyond Academics">
+  <span class="ba-frame-top" aria-hidden="true"></span>
+  <span class="ba-frame-left" aria-hidden="true"></span>
+
+  <div class="ba-grid">
+
+    <!-- LEFT: heading, copy, nav controls -->
+    <div class="ba-left">
+      <h2 class="ba-eyebrow">BEYOND<span>ACADEMICS</span></h2>
+      <p class="ba-desc">
+        DPS Patna offers a range of extracurricular activities to help
+        students develop their interests and talents.
+      </p>
+      <div class="ba-nav">
+        <button type="button" id="baPrev" aria-label="Previous activities">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 5L8 12L15 19" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button type="button" id="baNext" aria-label="Next activities">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT: carousel -->
+    <div class="ba-carousel">
+      <div class="ba-track" id="baTrack">
+        <!-- cards injected by JS -->
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ba-dots" id="baDots"></div>
+</section>
+
+<button class="ba-scrolltop" id="baScrollTop" aria-label="Scroll to top">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M12 5L6 11M12 5L18 11" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<script>
+(function(){
+  // ---- Replace this data with your real activities/images/links ----
+  const cards = [
+    {
+      img: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=80",
+      title: "SLP",
+      text: "The Student Leadership Programme (SLP) is a comprehensive life skills initiative designed to build confidence and responsibility in every learner.",
+      link: "#"
+    },
+    {
+      img: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&q=80",
+      title: "Sports",
+      text: "Sports is an integral part of the curriculum, promoting overall health, teamwork and well-being among students of every age group.",
+      link: "#"
+    },
+    {
+      img: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80",
+      title: "Read Programme",
+      text: "Reading presents an excellent opportunity to experience new worlds, build vocabulary and cultivate a lifelong love of learning.",
+      link: "#"
+    },
+    {
+      img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&q=80",
+      title: "Art & Craft",
+      text: "Creative expression through art and craft helps students explore imagination while developing fine motor and design skills.",
+      link: "#"
+    },
+    {
+      img: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=600&q=80",
+      title: "Music",
+      text: "Our music programme nurtures rhythm, discipline and self-expression through vocal training and instrumental practice.",
+      link: "#"
+    },
+    {
+      img: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600&q=80",
+      title: "Field Trips",
+      text: "Curated field trips connect classroom learning to the real world, building curiosity beyond the four walls of school.",
+      link: "#"
+    }
+  ];
+
+  const track   = document.getElementById('baTrack');
+  const prevBtn = document.getElementById('baPrev');
+  const nextBtn = document.getElementById('baNext');
+  const dotsBox = document.getElementById('baDots');
+
+  let perView = getPerView();
+  let index = 0; // index of the left-most visible card
+
+  function getPerView(){
+    const w = window.innerWidth;
+    if (w <= 640) return 1;
+    if (w <= 960) return 2;
+    return 3;
+  }
+
+  function render(){
+    track.innerHTML = cards.map(c => `
+      <article class="ba-card">
+        <img class="ba-card-img" src="${c.img}" alt="${c.title}" loading="lazy">
+        <div class="ba-card-body">
+          <h3 class="ba-card-title">${c.title}</h3>
+          <p class="ba-card-text">${c.text}</p>
+          <a class="ba-readmore" href="${c.link}">
+            Read More
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </article>
+    `).join('');
+    buildDots();
+    update();
+  }
+
+  function buildDots(){
+    const maxIndex = Math.max(cards.length - perView, 0);
+    dotsBox.innerHTML = '';
+    for(let i=0;i<=maxIndex;i++){
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Go to slide ' + (i+1));
+      b.addEventListener('click', () => { index = i; update(); });
+      dotsBox.appendChild(b);
+    }
+  }
+
+  function update(){
+    const maxIndex = Math.max(cards.length - perView, 0);
+    index = Math.min(Math.max(index, 0), maxIndex);
+
+    const cardEl = track.querySelector('.ba-card');
+    if (!cardEl) return;
+    const cardWidth = cardEl.getBoundingClientRect().width;
+    const gap = 32;
+    track.style.transform = `translateX(-${index * (cardWidth + gap)}px)`;
+
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === maxIndex;
+
+    [...dotsBox.children].forEach((d,i) => d.classList.toggle('active', i === index));
+  }
+
+  prevBtn.addEventListener('click', () => { index--; update(); });
+  nextBtn.addEventListener('click', () => { index++; update(); });
+
+  // touch swipe support
+  let startX = 0, dragging = false;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; dragging = true; }, {passive:true});
+  track.addEventListener('touchend', e => {
+    if(!dragging) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if (dx > 50) { index--; update(); }
+    else if (dx < -50) { index++; update(); }
+    dragging = false;
+  });
+
+  window.addEventListener('resize', () => {
+    const newPerView = getPerView();
+    if (newPerView !== perView){
+      perView = newPerView;
+      buildDots();
+    }
+    update();
+  });
+
+  render();
+
+  // ---- scroll-to-top button ----
+  const scrollBtn = document.getElementById('baScrollTop');
+  window.addEventListener('scroll', () => {
+    scrollBtn.classList.toggle('show', window.scrollY > 300);
+  });
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top:0, behavior:'smooth' });
+  });
+})();
+</script>
+
+</body>
+</html>
+<!-- ENQUIRY FORM SECTION -->
+<section class="section-lg enquiry-sec">
+<div class="container">
+<div class="enquiry-grid">
+<div class="enquiry-info">
+<h2 class="heading-lg">Have Questions?</h2>
+<p class="enquiry-lead">Share your inquiry with us, and our dedicated team will be happy to provide personalized guidance, answer your questions, and help you explore the opportunities at Myra Globe School.</p>
+<div class="enquiry-contacts">
+<div class="enquiry-contact">
+<span class="material-symbols-outlined enquiry-contact-ico">call</span>
+<div>
+<div class="enquiry-contact-label">Admissions Hotline</div>
+<div class="enquiry-contact-val">+1 (555) 012-3456</div>
+</div>
+</div>
+<div class="enquiry-contact">
+<span class="material-symbols-outlined enquiry-contact-ico">mail</span>
+<div>
+<div class="enquiry-contact-label">Email Us</div>
+<div class="enquiry-contact-val">admissions@myraglobalschool.edu</div>
+</div>
+</div>
+</div>
+</div>
+<div class="enquiry-form-wrap">
+<div class="enquiry-card">
+<form class="enquiry-form">
+<div class="form-group full-width" style="width:210%;">
+<label class="form-label">Name</label>
+<input class="form-input" placeholder="Enter name" type="text"/>
+</div>
+<div class="form-field">
+</div>
+<div class="form-field">
+<label class="form-label">Contact Number</label>
+<input class="form-input" placeholder="Enter name" type="text"/>
+</div>
+<div class="form-field">
+<label class="form-label">Email Address</label>
+<input class="form-input" placeholder="email@example.com" type="email"/>
+</div>
+<div class="form-field form-field--full">
+<label class="form-label">Any specific questions?</label>
+<textarea class="form-input" placeholder="How can we help you?" rows="4"></textarea>
+</div>
+<div class="form-field--full">
+<button class="btn-submit" type="submit">Submit Enquiry</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="site-footer">
+<div class="container footer-grid">
+<!-- Column 1: Brand & Mission -->
+<div class="footer-col footer-brand-col">
+<div>
+<img alt="St. Jude's Academy Logo" class="footer-logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEeuDGcai-BspSwlHm1IKVxjoeb1aJ22MSkEom_2CfWlC3PDxSySpy3vlpLi6BduTSjZCTEOQNC75sSI6TjXUx2rtbxKCBnoRu1hd2IKFZraMVVzXK6jTMjhVWVWwC5nwyiPHDHEJETD3L4nbONzXURQUfVKybR0uxminVwv2UptSx12w42z-4rhPD_3TECCbrHaRaR8Kz1VECQ-pUEN2fSFG_vKIImMN4MYFyH7rH-p1r3VUNN72kxA"/>
+<p class="footer-about">
+                        Fostering intellectual curiosity and moral character in a global learning community. Empowering students to lead with integrity and purpose since 1994.
+                    </p>
+</div>
+<div class="footer-social">
+<a class="social-btn" href="#"><span class="material-symbols-outlined">share</span></a>
+<a class="social-btn" href="#"><span class="material-symbols-outlined">videocam</span></a>
+<a class="social-btn" href="#"><span class="material-symbols-outlined">photo_camera</span></a>
+</div>
+</div>
+<!-- Column 2: Admissions & Academics -->
+<div class="footer-col">
+<h3 class="footer-heading">Academic Excellence</h3>
+<ul class="footer-links">
+<li><a href="#">Lower School (JK-Grade 6)</a></li>
+<li><a href="#">Upper School (Grades 7-12)</a></li>
+<li><a href="#">International Baccalaureate</a></li>
+<li><a href="#">Admissions Process</a></li>
+<li><a href="#">Tuition &amp; Financial Aid</a></li>
+<li><a href="#">Apply Now</a></li>
+</ul>
+</div>
+<!-- Column 3: Resources & Legal -->
+<div class="footer-col">
+<h3 class="footer-heading">Community &amp; Legal</h3>
+<ul class="footer-links">
+<li><a href="#">Academic Resources</a></li>
+<li><a href="#">Careers at St. Jude's</a></li>
+<li><a href="#">Parent Portal</a></li>
+<li><a href="#">Contact Us</a></li>
+<li><a href="#">Privacy Policy</a></li>
+<li><a href="#">Terms of Service</a></li>
+</ul>
+</div>
+<!-- Column 4: Contact & Newsletter -->
+<div class="footer-col footer-contact-col">
+<div>
+<h3 class="footer-heading">Stay Informed</h3>
+<form class="footer-newsletter">
+<div class="newsletter-field">
+<input class="newsletter-input" placeholder="Email Address" type="email"/>
+<button class="newsletter-btn" type="submit">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<span class="footer-note">Sign up for our monthly academic newsletter.</span>
+</form>
+</div>
+<div class="footer-contact">
+<div class="footer-address-row">
+<span class="material-symbols-outlined footer-loc-ico">location_on</span>
+<address class="footer-address">
+                            2150 Torquay Mews,<br/>
+                            Mississauga, ON L5N 2M6
+                        </address>
+</div>
+<div class="footer-map">
+<div class="footer-map-img" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCC9wkb5cJpu--KeH2ALKMUZqdY1fjydn7su0YqS-ots1OjNUDSHDhPuISmmpQlYArJ_wRjT2vugBAhzp7_L-pN5grRjre2kOaYN8-f3-UWox4Qaf_rWwxLuUZ3okoG0ZhX5PAnKdS7EPRl-GJffs_58nwtpcxBRTv0zTwOw3fmEcgzVO3RYocK09Q1eq3HsG-4e4zwS9EMVswq8kbLJUJIH5YX-MubTpvewA-et_AV8j3wool4nnPnpQ')"></div>
+<div class="footer-map-overlay">
+<span class="footer-map-pill">VIEW MAP</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Bottom Bar -->
+<div class="container footer-bottom">
+<p class="footer-copy">
+                © 2024 St. Jude's Academy. All rights reserved.
+            </p>
+<div class="footer-badges">
+<span class="footer-badge">IB WORLD SCHOOL</span>
+<span class="footer-sep">|</span>
+<span class="footer-badge">CAIS ACCREDITED</span>
+</div>
+</div>
+</footer>
+<!-- Interactive Layer for Micro-interactions -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', () => {
+                    input.parentElement.classList.add('academic-shadow');
+                });
+                input.addEventListener('blur', () => {
+                    input.parentElement.classList.remove('academic-shadow');
+                });
+            });
+
+            // Smooth Hover transitions for footer links
+            const footerLinks = document.querySelectorAll('footer a');
+            footerLinks.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    link.style.transform = 'translateX(4px)';
+                });
+                link.addEventListener('mouseleave', () => {
+                    link.style.transform = 'translateX(0)';
+                });
+            });
+        });
+    </script>
+</body></html>

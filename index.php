@@ -429,6 +429,25 @@ address{font-style:normal;}
   transition:all .2s;
 }
 .btn-submit:hover{background:var(--primary);}
+.btn-submit:disabled{opacity:.6;cursor:not-allowed;}
+.form-input.is-invalid{border-color:#d92d20;box-shadow:0 0 0 1px #d92d20;}
+.enq-error{display:none;font-family:var(--font-sans);font-size:12px;font-weight:600;color:#d92d20;margin-top:6px;}
+.enq-error.show{display:block;}
+
+/* Enquiry success popup */
+.enq-modal{position:fixed;inset:0;background:rgba(9,25,50,.6);display:none;align-items:center;justify-content:center;z-index:1200;padding:20px;}
+.enq-modal.open{display:flex;}
+.enq-modal-box{background:#fff;border-radius:16px;max-width:420px;width:100%;padding:40px 32px 32px;text-align:center;box-shadow:0 30px 60px rgba(0,0,0,.3);animation:nmPop .25s ease;}
+.enq-tick{width:76px;height:76px;border-radius:50%;background:#e7f7ee;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;}
+.enq-tick svg{width:40px;height:40px;}
+.enq-tick circle{stroke:#12b76a;stroke-width:2.5;fill:none;stroke-dasharray:166;stroke-dashoffset:166;animation:enqCircle .5s cubic-bezier(.65,0,.45,1) forwards;}
+.enq-tick path{stroke:#12b76a;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:48;stroke-dashoffset:48;animation:enqCheck .35s .45s cubic-bezier(.65,0,.45,1) forwards;}
+@keyframes enqCircle{to{stroke-dashoffset:0;}}
+@keyframes enqCheck{to{stroke-dashoffset:0;}}
+.enq-modal-title{font-family:var(--font-serif);font-size:24px;font-weight:700;color:var(--primary);margin-bottom:10px;}
+.enq-modal-text{font-family:var(--font-serif);font-size:16px;line-height:26px;color:var(--on-surface-variant);margin-bottom:24px;}
+.enq-modal-btn{background:var(--primary-container);color:var(--on-primary);padding:12px 32px;font-family:var(--font-sans);font-size:14px;font-weight:600;letter-spacing:.05em;cursor:pointer;border-radius:8px;transition:.2s;}
+.enq-modal-btn:hover{background:var(--primary);}
 
 /* ============================================================
    RESPONSIVE
@@ -443,6 +462,74 @@ address{font-style:normal;}
 @media(min-width:1024px){
   .about-badge{display:block;}
   .enquiry-grid{grid-template-columns:5fr 7fr;}
+}
+
+/* ============================================================
+   BEYOND ACADEMICS  (copied from sheet.html)
+   ============================================================ */
+:root{
+  --ba-ink:#1F2A37;
+  --ba-ink-soft:#4B5768;
+  --ba-orange:#002147;
+  --ba-orange-dark:#00152e;
+  --ba-line:#e9c349;
+  --ba-card-line:#EAECEF;
+  --ba-blue:#002147;
+  --ba-radius:2px;
+  --ba-transition:420ms cubic-bezier(.65,0,.35,1);
+}
+.ba-wrapper{
+  max-width:1280px;
+  margin:0 auto;
+  padding:80px 24px 100px;
+  position:relative;
+  color:var(--ba-ink);
+}
+.ba-frame-top{position:absolute;top:0;left:24px;width:calc(100% - 48px);height:1px;background:var(--ba-line);}
+.ba-frame-left{position:absolute;top:0;left:24px;width:1px;height:130px;background:var(--ba-line);}
+.ba-frame-left-lower{position:absolute;left:120px;width:1px;height:110px;background:var(--ba-line);}
+.ba-grid{display:grid;grid-template-columns:300px 1fr;gap:56px;align-items:start;padding-top:56px;}
+.ba-left{padding-top:8px;}
+.ba-eyebrow{font-family:Georgia,'Times New Roman',serif;font-weight:700;font-size:26px;line-height:1.25;color:var(--ba-ink);margin:0 0 4px;letter-spacing:.5px;}
+.ba-eyebrow span{display:block;color:var(--ba-orange);}
+.ba-desc{margin:22px 0 32px;font-size:15px;line-height:1.7;color:var(--ba-ink-soft);max-width:320px;}
+.ba-nav{display:flex;gap:14px;}
+.ba-nav button{width:44px;height:44px;border:1.5px solid var(--ba-orange);background:transparent;border-radius:var(--ba-radius);color:var(--ba-orange);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background var(--ba-transition),color var(--ba-transition),transform 160ms ease;}
+.ba-nav button:hover{background:var(--ba-orange);color:#fff;}
+.ba-nav button:active{transform:scale(.94);}
+.ba-nav button:focus-visible{outline:2px solid var(--ba-orange-dark);outline-offset:3px;}
+.ba-nav button:disabled{opacity:.35;cursor:not-allowed;background:transparent;color:var(--ba-orange);}
+.ba-carousel{position:relative;overflow:hidden;}
+.ba-track{display:flex;transition:transform var(--ba-transition);will-change:transform;}
+.ba-card{flex:0 0 calc((100% - 2 * 32px) / 3);margin-right:32px;border:1px solid var(--ba-card-line);display:flex;flex-direction:column;}
+.ba-card:last-child{margin-right:0;}
+.ba-card-img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#eee;}
+.ba-card-body{padding:20px 22px 24px;display:flex;flex-direction:column;flex:1;}
+.ba-card-title{font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:600;color:#3E4C5E;margin:0 0 8px;padding-bottom:10px;border-bottom:2px solid var(--ba-orange);display:inline-block;width:fit-content;}
+.ba-card-text{font-size:14px;line-height:1.6;color:var(--ba-ink-soft);margin:6px 0 20px;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.ba-readmore{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;background:var(--ba-orange);color:#fff;font-size:14px;font-weight:600;text-decoration:none;padding:11px 20px;border-radius:var(--ba-radius);border:none;cursor:pointer;transition:background 200ms ease,transform 160ms ease;}
+.ba-readmore:hover{background:var(--ba-orange-dark);}
+.ba-readmore:active{transform:scale(.97);}
+.ba-readmore svg{transition:transform 200ms ease;}
+.ba-readmore:hover svg{transform:translateX(3px);}
+.ba-dots{display:none;justify-content:center;gap:8px;margin-top:24px;}
+.ba-dots button{width:8px;height:8px;border-radius:50%;border:none;background:var(--ba-card-line);cursor:pointer;padding:0;}
+.ba-dots button.active{background:var(--ba-orange);width:22px;border-radius:5px;transition:width 200ms ease;}
+.ba-scrolltop{position:fixed;right:28px;bottom:28px;width:46px;height:46px;border-radius:50%;background:var(--ba-blue);color:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 18px rgba(30,136,199,.35);opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity 250ms ease,transform 250ms ease;z-index:50;}
+.ba-scrolltop.show{opacity:1;pointer-events:auto;transform:translateY(0);}
+@media (prefers-reduced-motion: reduce){
+  .ba-track,.ba-readmore,.ba-readmore svg,.ba-nav button,.ba-scrolltop{transition:none !important;}
+}
+@media (max-width:960px){
+  .ba-grid{grid-template-columns:1fr;gap:32px;}
+  .ba-desc{max-width:none;}
+  .ba-card{flex:0 0 calc((100% - 24px) / 2);margin-right:24px;}
+}
+@media (max-width:640px){
+  .ba-wrapper{padding:56px 18px 80px;}
+  .ba-card{flex:0 0 100%;margin-right:0;}
+  .ba-dots{display:flex;}
+  .ba-nav{display:none;}
 }
 </style>
 </head>
@@ -501,18 +588,14 @@ address{font-style:normal;}
 <div class="container">
 <div class="about-grid">
 <div class="about-media">
-<img alt="Myra Global School Historic Campus" class="about-img" src="https://lh3.googleusercontent.com/aida/AP1WRLvj2juMHe6Ny1Drz8c5bleO9fp0KfpZtEsdRb8dV9gJQHYn7VM5hdyFS8ogfM_BnBHoew1ubfI-j1pyDVBTU4WSfR6SWpbl44-9NiSAPmFrk1yZRpGYCsZFizVlznlE9WiX7U3zbpWDkc7PcUUElVs97VZ7H4C49cUTtUri1ZOUTea6aDCksnljY-O0PjMziusbGqNDYISAGi13nq8XdaJF3_HG6suvYxrrOEQAwYsf5UYVcaTmV5R380A"/>
-<div class="about-badge">
-<div class="about-badge-num">50+</div>
-<div class="about-badge-label">Years of Excellence</div>
-</div>
+<img alt="St. Jude's Historic Campus" class="about-img" src="assets/images/school.png"/>
 </div>
 <div class="about-copy">
-<span class="eyebrow">Our Heritage</span>
-<h2 class="heading-lg">A Legacy of Intellectual Growth</h2>
-<p class="about-lead">Founded in 1974, Myra Global School has evolved from a small community school into a world-class institution. Our campus is more than just buildings; it is a sanctuary for ideas and a launchpad for future leaders.</p>
-<p class="about-text">We pride ourselves on maintaining the highest standards of academic rigor while fostering an environment of inclusivity and moral integrity. Our alumni can be found leading industries, driving scientific breakthroughs, and serving communities across the globe.</p>
-<button class="btn-solid-primary">Discover Our History</button>
+<span class="eyebrow">Our Legacy</span>
+<h2 class="heading-lg">Building Excellence, Inspiring Generations</h2>
+<p class="about-lead">Established in 1985, Myra Globe School is committed to providing quality education through academic excellence, innovative learning, and strong values. With a legacy of holistic development, leadership, and creativity, we continue to nurture confident learners prepared for success in a global world.</p>
+<p class="about-text">Myra Globe School is committed to excellence in education, fostering creativity, integrity, and innovation. We empower students with the knowledge, confidence, and values to become responsible global citizens and future leaders.</p>
+<button class="btn-solid-primary">Know more</button>
 </div>
 </div>
 </div>
@@ -564,13 +647,191 @@ address{font-style:normal;}
 </div>
 </div>
 </section>
+<!-- BEYOND ACADEMICS -->
+<section class="ba-wrapper" aria-label="Beyond Academics">
+  <span class="ba-frame-top" aria-hidden="true"></span>
+  <span class="ba-frame-left" aria-hidden="true"></span>
+
+  <div class="ba-grid">
+
+    <!-- LEFT: heading, copy, nav controls -->
+    <div class="ba-left">
+      <h2 class="ba-eyebrow">BEYOND<span>ACADEMICS</span></h2>
+      <p class="ba-desc">
+        Myra Global School offers a range of extracurricular activities to help
+        students develop their interests and talents.
+      </p>
+      <div class="ba-nav">
+        <button type="button" id="baPrev" aria-label="Previous activities">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 5L8 12L15 19" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button type="button" id="baNext" aria-label="Next activities">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT: carousel -->
+    <div class="ba-carousel">
+      <div class="ba-track" id="baTrack">
+        <!-- cards injected by JS -->
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ba-dots" id="baDots"></div>
+</section>
+
+<button class="ba-scrolltop" id="baScrollTop" aria-label="Scroll to top">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M12 5L6 11M12 5L18 11" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<script>
+(function(){
+  // ---- Replace this data with your real activities/images/links ----
+  const cards = [
+    {
+      img: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=80",
+      title: "SLP",
+      text: "The Student Leadership Programme (SLP) is a comprehensive life skills initiative designed to build confidence and responsibility in every learner.",
+      link: "#"
+    },
+    {
+      img: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&q=80",
+      title: "Sports",
+      text: "Sports is an integral part of the curriculum, promoting overall health, teamwork and well-being among students of every age group.",
+      link: "#"
+    },
+    {
+      img: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80",
+      title: "Read Programme",
+      text: "Reading presents an excellent opportunity to experience new worlds, build vocabulary and cultivate a lifelong love of learning.",
+      link: "#"
+    },
+    {
+      img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&q=80",
+      title: "Art & Craft",
+      text: "Creative expression through art and craft helps students explore imagination while developing fine motor and design skills.",
+      link: "#"
+    },
+    {
+      img: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=600&q=80",
+      title: "Music",
+      text: "Our music programme nurtures rhythm, discipline and self-expression through vocal training and instrumental practice.",
+      link: "#"
+    },
+    {
+      img: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600&q=80",
+      title: "Field Trips",
+      text: "Curated field trips connect classroom learning to the real world, building curiosity beyond the four walls of school.",
+      link: "#"
+    }
+  ];
+
+  const track   = document.getElementById('baTrack');
+  const prevBtn = document.getElementById('baPrev');
+  const nextBtn = document.getElementById('baNext');
+  const dotsBox = document.getElementById('baDots');
+
+  let perView = getPerView();
+  let index = 0; // index of the left-most visible card
+
+  function getPerView(){
+    const w = window.innerWidth;
+    if (w <= 640) return 1;
+    if (w <= 960) return 2;
+    return 3;
+  }
+
+  function render(){
+    track.innerHTML = cards.map(c => `
+      <article class="ba-card">
+        <img class="ba-card-img" src="${c.img}" alt="${c.title}" loading="lazy">
+        <div class="ba-card-body">
+          <h3 class="ba-card-title">${c.title}</h3>
+          <p class="ba-card-text">${c.text}</p>
+          <a class="ba-readmore" href="${c.link}">
+            Read More
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </article>
+    `).join('');
+    buildDots();
+    update();
+  }
+
+  function buildDots(){
+    const maxIndex = Math.max(cards.length - perView, 0);
+    dotsBox.innerHTML = '';
+    for(let i=0;i<=maxIndex;i++){
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Go to slide ' + (i+1));
+      b.addEventListener('click', () => { index = i; update(); });
+      dotsBox.appendChild(b);
+    }
+  }
+
+  function update(){
+    const maxIndex = Math.max(cards.length - perView, 0);
+    index = Math.min(Math.max(index, 0), maxIndex);
+
+    const cardEl = track.querySelector('.ba-card');
+    if (!cardEl) return;
+    const cardWidth = cardEl.getBoundingClientRect().width;
+    const gap = 32;
+    track.style.transform = `translateX(-${index * (cardWidth + gap)}px)`;
+
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === maxIndex;
+
+    [...dotsBox.children].forEach((d,i) => d.classList.toggle('active', i === index));
+  }
+
+  prevBtn.addEventListener('click', () => { index--; update(); });
+  nextBtn.addEventListener('click', () => { index++; update(); });
+
+  // touch swipe support
+  let startX = 0, dragging = false;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; dragging = true; }, {passive:true});
+  track.addEventListener('touchend', e => {
+    if(!dragging) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if (dx > 50) { index--; update(); }
+    else if (dx < -50) { index++; update(); }
+    dragging = false;
+  });
+
+  window.addEventListener('resize', () => {
+    const newPerView = getPerView();
+    if (newPerView !== perView){
+      perView = newPerView;
+      buildDots();
+    }
+    update();
+  });
+
+  render();
+
+  // ---- scroll-to-top button ----
+  const scrollBtn = document.getElementById('baScrollTop');
+  window.addEventListener('scroll', () => {
+    scrollBtn.classList.toggle('show', window.scrollY > 300);
+  });
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top:0, behavior:'smooth' });
+  });
+})();
+</script>
 <!-- ENQUIRY FORM SECTION -->
 <section class="section-lg enquiry-sec">
 <div class="container">
 <div class="enquiry-grid">
 <div class="enquiry-info">
-<h2 class="heading-lg">Start Your Journey Today</h2>
-<p class="enquiry-lead">Our admissions team is here to guide you through every step of the process. Fill out the form below, and we'll be in touch to schedule a private tour.</p>
+<h2 class="heading-lg">Have Questions?</h2>
+<p class="enquiry-lead">Share your inquiry with us, and our dedicated team will be happy to provide personalized guidance, answer your questions, and help you explore the opportunities at Myra Global School.</p>
 <div class="enquiry-contacts">
 <div class="enquiry-contact">
 <span class="material-symbols-outlined enquiry-contact-ico">call</span>
@@ -583,41 +844,32 @@ address{font-style:normal;}
 <span class="material-symbols-outlined enquiry-contact-ico">mail</span>
 <div>
 <div class="enquiry-contact-label">Email Us</div>
-<div class="enquiry-contact-val">admissions@stjudesacademy.edu</div>
+<div class="enquiry-contact-val">admissions@myraglobalschool.edu</div>
 </div>
 </div>
 </div>
 </div>
 <div class="enquiry-form-wrap">
 <div class="enquiry-card">
-<form class="enquiry-form">
-<div class="form-field">
-<label class="form-label">Student's Full Name</label>
-<input class="form-input" placeholder="Enter name" type="text"/>
+<form class="enquiry-form" id="enquiryForm" novalidate>
+<div class="form-field form-field--full">
+<label class="form-label" for="enqName">Name</label>
+<input class="form-input" id="enqName" name="name" placeholder="Enter name" type="text" required/>
 </div>
 <div class="form-field">
-<label class="form-label">Desired Grade Level</label>
-<select class="form-input">
-<option>Select Grade</option>
-<option>Lower School (Pre-K to 5)</option>
-<option>Middle School (6 to 8)</option>
-<option>Upper School (9 to 12)</option>
-</select>
+<label class="form-label" for="enqPhone">Contact Number</label>
+<input class="form-input" id="enqPhone" name="phone" placeholder="Enter contact number" type="text" required/>
 </div>
 <div class="form-field">
-<label class="form-label">Parent/Guardian Name</label>
-<input class="form-input" placeholder="Enter name" type="text"/>
-</div>
-<div class="form-field">
-<label class="form-label">Email Address</label>
-<input class="form-input" placeholder="email@example.com" type="email"/>
+<label class="form-label" for="enqEmail">Email Address</label>
+<input class="form-input" id="enqEmail" name="email" placeholder="email@example.com" type="email"/>
 </div>
 <div class="form-field form-field--full">
-<label class="form-label">Any specific questions?</label>
-<textarea class="form-input" placeholder="How can we help you?" rows="4"></textarea>
+<label class="form-label" for="enqMessage">Any specific questions?</label>
+<textarea class="form-input" id="enqMessage" name="message" placeholder="How can we help you?" rows="4" required></textarea>
 </div>
 <div class="form-field--full">
-<button class="btn-submit" type="submit">Submit Enquiry</button>
+<button class="btn-submit" id="enqSubmit" type="submit">Submit Enquiry</button>
 </div>
 </form>
 </div>
@@ -625,6 +877,103 @@ address{font-style:normal;}
 </div>
 </div>
 </section>
+<!-- Enquiry success popup -->
+<div class="enq-modal" id="enqModal" aria-hidden="true" role="dialog" aria-modal="true">
+<div class="enq-modal-box">
+<div class="enq-tick">
+<svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-15"/></svg>
+</div>
+<h3 class="enq-modal-title">Enquiry Submitted</h3>
+<p class="enq-modal-text">Thank you for reaching out. We will reach you soon.</p>
+<button class="enq-modal-btn" id="enqModalClose" type="button">Done</button>
+</div>
+</div>
+
+<script>
+(function(){
+  var form = document.getElementById('enquiryForm');
+  if (!form) return;
+
+  var modal   = document.getElementById('enqModal');
+  var btn     = document.getElementById('enqSubmit');
+  var closeBtn= document.getElementById('enqModalClose');
+
+  var fields = {
+    name:    document.getElementById('enqName'),
+    phone:   document.getElementById('enqPhone'),
+    email:   document.getElementById('enqEmail'),
+    message: document.getElementById('enqMessage')
+  };
+
+  function clearErrors(){
+    Object.keys(fields).forEach(function(k){
+      fields[k].classList.remove('is-invalid');
+    });
+    form.querySelectorAll('.enq-error').forEach(function(e){ e.remove(); });
+  }
+  function setError(key, msg){
+    var el = fields[key];
+    if (!el) return;
+    el.classList.add('is-invalid');
+    var m = document.createElement('div');
+    m.className = 'enq-error show';
+    m.textContent = msg;
+    el.parentElement.appendChild(m);
+  }
+
+  function openModal(){
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    clearErrors();
+
+    btn.disabled = true;
+    var original = btn.textContent;
+    btn.textContent = 'Submitting…';
+
+    var data = new FormData();
+    data.append('name',    fields.name.value.trim());
+    data.append('phone',   fields.phone.value.trim());
+    data.append('email',   fields.email.value.trim());
+    data.append('message', fields.message.value.trim());
+
+    fetch('actions/enquiries/submit.php', { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
+      .then(function(r){ return r.json().then(function(j){ return { ok: r.ok, body: j }; }); })
+      .then(function(res){
+        var j = res.body || {};
+        if (res.ok && j.success){
+          form.reset();
+          openModal();
+          return;
+        }
+        if (j.errors){
+          Object.keys(j.errors).forEach(function(k){ setError(k, j.errors[k]); });
+        } else {
+          setError('message', j.message || 'Something went wrong. Please try again.');
+        }
+      })
+      .catch(function(){
+        setError('message', 'Network error. Please try again.');
+      })
+      .finally(function(){
+        btn.disabled = false;
+        btn.textContent = original;
+      });
+  });
+})();
+</script>
 <!-- Footer -->
 <?php include 'components/footer.php';?>
 <!-- Interactive Layer for Micro-interactions -->
