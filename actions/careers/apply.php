@@ -4,14 +4,14 @@
    Fields: name, email, phone, experience?, vacancy_id, resume(file), additional_info?
 
    Flow (mirrors admissions): validate -> INSERT (resume '') ->
-   move file to assets/careers/resumes/<id>-Resume.<ext> -> UPDATE resume.
+   move file to assets/career/resumes/<id>-resume.pdf -> UPDATE resume.
    Rolls back the row if the file cannot be saved.
    ============================================================ */
 require __DIR__ . '/../_public_boot.php';
 require_post();
 
 const MAX_BYTES     = 10 * 1024 * 1024;                 // 10 MB
-const RESUME_EXT    = ['pdf', 'doc', 'docx'];
+const RESUME_EXT    = ['pdf'];                          // PDF only
 
 function v($k) { return trim((string)($_POST[$k] ?? '')); }
 
@@ -41,7 +41,7 @@ if (!$f || !isset($f['error']) || $f['error'] === UPLOAD_ERR_NO_FILE) {
 } else {
     $ext = strtolower(pathinfo($f['name'], PATHINFO_EXTENSION));
     if (!in_array($ext, RESUME_EXT, true)) {
-        $errors['resume'] = 'Resume must be a PDF, DOC or DOCX file.';
+        $errors['resume'] = 'Resume must be a PDF file.';
     } elseif (!is_uploaded_file($f['tmp_name'])) {
         $errors['resume'] = 'Resume upload failed. Please try again.';
     } else {
@@ -65,7 +65,7 @@ if ($errors) {
 }
 
 /* writable folder */
-$dir = dirname(__DIR__, 2) . '/assets/careers/resumes/';
+$dir = dirname(__DIR__, 2) . '/assets/career/resumes/';
 if (!is_dir($dir) && !@mkdir($dir, 0775, true)) {
     json_out(['success' => false, 'message' => 'Upload folder could not be created on the server.'], 500);
 }
@@ -92,7 +92,7 @@ if ($id <= 0) {
 }
 
 /* 2) move + rename the resume */
-$fileName = $id . '-Resume.' . $plan['ext'];
+$fileName = $id . '-resume.' . $plan['ext'];
 $target   = $dir . $fileName;
 if (!@move_uploaded_file($plan['tmp'], $target)) {
     $del = $conn->prepare("DELETE FROM vacancy_apply WHERE id = ?");

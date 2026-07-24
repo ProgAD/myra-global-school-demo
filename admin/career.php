@@ -684,7 +684,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('aExp').textContent      = r.experience;
     document.getElementById('aApplied').textContent  = r.applied;
     document.getElementById('aNote').textContent     = r.note || '—';
-    document.getElementById('aResume').href          = r.resume || '#';
+    document.getElementById('aResume').href          = r.resume_url ? '../' + r.resume_url : '#';
     markCurrent(r.status);
     aModal.classList.add('open');
   });

@@ -98,6 +98,21 @@ address{font-style:normal;}
 .heading-lg--light{color:var(--on-primary);}
 .heading-lg--flush{margin-bottom:0;}
 
+/* ============================================================
+   SCROLL REVEAL ANIMATIONS
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);will-change:opacity,transform;}
+.reveal--left{transform:translateX(-64px);}
+.reveal--right{transform:translateX(64px);}
+.reveal--scale{transform:scale(.9);}
+.reveal.in{opacity:1;transform:none;}
+.reveal[data-delay="1"]{transition-delay:.12s;}
+.reveal[data-delay="2"]{transition-delay:.24s;}
+.reveal[data-delay="3"]{transition-delay:.36s;}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1 !important;transform:none !important;transition:none !important;}
+}
+
 /* Buttons */
 .btn-fill{
   background:var(--primary-container);
@@ -151,7 +166,7 @@ address{font-style:normal;}
 /* ============================================================
    HERITAGE SECTION
    ============================================================ */
-.about-sec{background:var(--surface);}
+.about-sec{background:var(--surface);overflow:hidden;}
 .about-grid{display:grid;grid-template-columns:1fr;gap:120px;align-items:center;}
 .about-media{position:relative;}
 .about-img{
@@ -203,7 +218,7 @@ address{font-style:normal;}
 /* ============================================================
    MISSION & VISION
    ============================================================ */
-.mv-sec{background:var(--surface-container);}
+.mv-sec{background:var(--surface);}
 .mv-grid{display:grid;grid-template-columns:1fr;gap:32px;}
 .mv-card{
   padding:64px;
@@ -226,7 +241,7 @@ address{font-style:normal;}
 /* ============================================================
    CORE VALUES
    ============================================================ */
-.values-sec{background:var(--surface);}
+.values-sec{background:var(--surface-container);}
 .values-head{text-align:center;margin-bottom:64px;}
 .values-grid{display:grid;grid-template-columns:1fr;gap:32px;}
 .value-card{
@@ -293,9 +308,26 @@ address{font-style:normal;}
 .cta-actions{display:flex;gap:16px;flex-shrink:0;}
 
 /* ============================================================
+   OUR TEAM
+   ============================================================ */
+.team-sec{background:var(--surface-container);}
+.team-head{text-align:center;max-width:760px;margin:0 auto 56px;}
+.team-sub{font-family:var(--font-serif);font-size:17px;line-height:28px;color:var(--on-surface-variant);margin-top:16px;}
+.team-photo-wrap{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 24px 48px -12px rgba(0,33,71,.28);border:1px solid var(--outline-variant);}
+.team-photo{width:100%;height:auto;display:block;transition:transform .6s ease;}
+.team-photo-wrap:hover .team-photo{transform:scale(1.03);}
+.team-caption{position:absolute;left:0;right:0;bottom:0;padding:48px 32px 24px;background:linear-gradient(transparent,rgba(0,10,30,.82));color:var(--on-primary);}
+.team-caption-title{font-family:var(--font-serif);font-size:22px;font-weight:700;line-height:1.3;}
+.team-caption-text{font-family:var(--font-sans);font-size:14px;opacity:.85;margin-top:4px;}
+@media(max-width:640px){
+  .team-caption{padding:32px 20px 18px;}
+  .team-caption-title{font-size:18px;}
+}
+
+/* ============================================================
    EXPLORE MARQUEE
    ============================================================ */
-.explore-sec{background:var(--surface-container);padding:88px 0;overflow:hidden;}
+.explore-sec{background:var(--surface);padding:88px 0;overflow:hidden;}
 .explore-head{text-align:center;max-width:720px;margin:0 auto 48px;padding:0 24px;}
 .explore-sub{font-family:var(--font-serif);font-size:17px;line-height:28px;color:var(--on-surface-variant);}
 .marquee{position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);}
@@ -350,10 +382,10 @@ address{font-style:normal;}
 <section class="section-lg about-sec" style="background:var(--surface-container);">
 <div class="container">
 <div class="about-grid">
-<div class="about-media">
+<div class="about-media reveal reveal--left">
 <img alt="Principal, Myra Global School" class="about-img" src="assets/images/principal.jpeg"/>
 </div>
-<div>
+<div class="reveal reveal--right">
 <span class="eyebrow">Leadership</span>
 <h2 class="heading-lg">Principal's Message</h2>
 <p class="about-lead">Dear Parents, at our school we believe every child has the potential to achieve greatness. With your support and our commitment to quality education, we aim to nurture confident, creative, and responsible individuals who are ready to succeed in the future. Together, let us inspire young minds and build a brighter tomorrow.</p>
@@ -377,7 +409,7 @@ address{font-style:normal;}
 <section class="section-lg about-sec">
 <div class="container">
 <div class="about-grid">
-<div>
+<div class="reveal reveal--left">
 <span class="eyebrow">Leadership</span>
 <h2 class="heading-lg">Vice Principal's Message</h2>
 <p class="about-lead">Dear Parents, every child is special, and our goal is to help them discover their strengths, build confidence, and grow with strong values. With your support and our dedication, we can create a joyful learning journey that prepares students for a bright future.</p>
@@ -393,8 +425,24 @@ address{font-style:normal;}
 </div>
 </div>
 </div>
-<div class="about-media">
+<div class="about-media reveal reveal--right">
 <img alt="Vice Principal, Myra Global School" class="about-img" src="assets/images/viceprincipal.png"/>
+</div>
+</div>
+</div>
+</section>
+
+<!-- OUR TEAM SECTION -->
+<section class="section-lg team-sec">
+<div class="container">
+<div class="team-head">
+<span class="eyebrow eyebrow--tight">The People Behind Myra</span>
+</div>
+<div class="team-photo-wrap">
+<img class="team-photo" src="assets/images/school-team.jpg" alt="The teaching and leadership team of Myra Global School" loading="lazy"/>
+<div class="team-caption">
+<div class="team-caption-title">Myra Global School Faculty</div>
+<div class="team-caption-text">Committed to guiding every student towards a brighter future.</div>
 </div>
 </div>
 </div>
@@ -404,12 +452,12 @@ address{font-style:normal;}
 <section class="section-lg mv-sec">
 <div class="container">
 <div class="mv-grid">
-<div id="mission" class="mv-card mv-card--dark">
+<div id="mission" class="mv-card mv-card--dark reveal reveal--up">
 <span class="material-symbols-outlined mv-ico mv-ico--gold">psychology</span>
 <h3 class="heading-lg heading-lg--light">Our Mission</h3>
 <p class="mv-text">"To empower students with the knowledge, skills, and character necessary to excel in a rapidly changing global society, through a curriculum that emphasizes critical thinking, creativity, and compassionate leadership."</p>
 </div>
-<div id="vision" class="mv-card mv-card--light">
+<div id="vision" class="mv-card mv-card--light reveal reveal--up" data-delay="1">
 <span class="material-symbols-outlined mv-ico mv-ico--primary">visibility</span>
 <h3 class="heading-lg">Our Vision</h3>
 <p class="mv-text">"To be a global leader in transformative education, where tradition and innovation converge to inspire generations of thinkers who solve the world's most pressing challenges with wisdom and empathy."</p>
@@ -426,22 +474,22 @@ address{font-style:normal;}
 <h2 class="heading-lg heading-lg--flush">Our Core Values</h2>
 </div>
 <div class="values-grid">
-<div class="value-card">
+<div class="value-card reveal reveal--scale">
 <span class="material-symbols-outlined value-ico">school</span>
 <h3 class="value-title">Excellence</h3>
 <p class="value-text">A relentless pursuit of the highest standards in academics and character.</p>
 </div>
-<div class="value-card value-card--alt">
+<div class="value-card value-card--alt reveal reveal--scale" data-delay="1">
 <span class="material-symbols-outlined value-ico">handshake</span>
 <h3 class="value-title">Integrity</h3>
 <p class="value-text">Honesty, respect and responsibility at the heart of everything we do.</p>
 </div>
-<div class="value-card">
+<div class="value-card reveal reveal--scale" data-delay="2">
 <span class="material-symbols-outlined value-ico">lightbulb</span>
 <h3 class="value-title">Innovation</h3>
 <p class="value-text">Curiosity and creativity that prepare students for a changing world.</p>
 </div>
-<div class="value-card value-card--alt">
+<div class="value-card value-card--alt reveal reveal--scale" data-delay="3">
 <span class="material-symbols-outlined value-ico">volunteer_activism</span>
 <h3 class="value-title">Compassion</h3>
 <p class="value-text">Empathy and service that build responsible, caring global citizens.</p>
@@ -508,4 +556,21 @@ endfor; ?>
             });
         });
     </script>
+<!-- Scroll-reveal animations -->
+<script>
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+  els.forEach(function(el){ io.observe(el); });
+})();
+</script>
 </body></html>

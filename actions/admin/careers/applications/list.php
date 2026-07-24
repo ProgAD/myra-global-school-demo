@@ -47,6 +47,7 @@ while ($r = $res->fetch_assoc()) {
         'position'   => $r['role_title'] ?: '(vacancy removed)',
         'vacancy_id' => (int)$r['vacancy_id'],
         'resume'     => $r['resume'],
+        'resume_url' => $r['resume'] ? 'assets/career/resumes/' . $r['resume'] : '',
         'note'       => $r['additional_info'],
         'status'     => $r['status'],
         'applied'    => fmt_date($r['applied_on']),

@@ -96,6 +96,15 @@ address{font-style:normal;}
 .heading-lg--light{color:var(--on-primary);}
 .heading-lg--flush{margin-bottom:0;}
 
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);}
+.reveal--scale{transform:scale(.92);}
+.reveal.in{opacity:1;transform:none;}
+.reveal[data-delay="1"]{transition-delay:.1s;}
+.reveal[data-delay="2"]{transition-delay:.2s;}
+.reveal[data-delay="3"]{transition-delay:.3s;}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1 !important;transform:none !important;transition:none !important;}}
+
 /* Buttons */
 .btn-fill{
   background:var(--primary-container);
@@ -291,7 +300,7 @@ address{font-style:normal;}
 <div class="acad-grid">
 
 <!-- Curriculum -->
-<a href="academics/curriculum.php" class="acad-card">
+<a href="academics/curriculum.php" class="acad-card reveal">
 <div class="acad-card-media"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80" alt="Curriculum" loading="lazy"/></div>
 <div class="acad-card-body">
 <div class="acad-card-top">
@@ -304,7 +313,7 @@ address{font-style:normal;}
 </a>
 
 <!-- Examinations -->
-<a href="academics/examinations.php" class="acad-card">
+<a href="academics/examinations.php" class="acad-card reveal" data-delay="1">
 <div class="acad-card-media"><img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80" alt="Examinations" loading="lazy"/></div>
 <div class="acad-card-body">
 <div class="acad-card-top">
@@ -317,7 +326,7 @@ address{font-style:normal;}
 </a>
 
 <!-- Facilities -->
-<a href="academics/facilities.php" class="acad-card">
+<a href="academics/facilities.php" class="acad-card reveal" data-delay="2">
 <div class="acad-card-media"><img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80" alt="Facilities" loading="lazy"/></div>
 <div class="acad-card-body">
 <div class="acad-card-top">
@@ -330,7 +339,7 @@ address{font-style:normal;}
 </a>
 
 <!-- Rules & Regulations -->
-<a href="academics/rules-regulations.php" class="acad-card">
+<a href="academics/rules-regulations.php" class="acad-card reveal" data-delay="3">
 <div class="acad-card-media"><img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=800&q=80" alt="Rules and Regulations" loading="lazy"/></div>
 <div class="acad-card-body">
 <div class="acad-card-top">
@@ -353,21 +362,21 @@ address{font-style:normal;}
   <span class="eyebrow eyebrow--gold">Academic Strength</span>
   <h2 class="heading-lg heading-lg--light heading-lg--flush">Excellence by the Numbers</h2>
   </div>
-  <div class="stats-grid">
+  <div class="stats-grid" id="statsGrid">
   <div class="stat">
-  <div class="stat-num">100%</div>
+  <div class="stat-num" data-target="100%">0%</div>
   <div class="stat-label">Board Exam Pass Rate</div>
   </div>
   <div class="stat">
-  <div class="stat-num">25:1</div>
+  <div class="stat-num" data-target="25:1">0:1</div>
   <div class="stat-label">Student-Teacher Ratio</div>
   </div>
   <div class="stat">
-  <div class="stat-num">15+</div>
+  <div class="stat-num" data-target="15+">0+</div>
   <div class="stat-label">Co-Curricular Activities</div>
   </div>
   <div class="stat">
-  <div class="stat-num">20+</div>
+  <div class="stat-num" data-target="20+">0+</div>
   <div class="stat-label">Sports & Clubs</div>
   </div>
   </div>
@@ -393,6 +402,54 @@ address{font-style:normal;}
 <!-- Interactive Layer for Micro-interactions -->
 <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // ---- Scroll reveal for the 4 option cards ----
+            var revealEls = document.querySelectorAll('.reveal');
+            if (revealEls.length) {
+              if ('IntersectionObserver' in window) {
+                var ro = new IntersectionObserver(function (entries) {
+                  entries.forEach(function (en) {
+                    if (en.isIntersecting) { en.target.classList.add('in'); ro.unobserve(en.target); }
+                  });
+                }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+                revealEls.forEach(function (el) { ro.observe(el); });
+              } else {
+                revealEls.forEach(function (el) { el.classList.add('in'); });
+              }
+            }
+
+            // ---- Count-up animation for stat numbers ----
+            function countUp(el) {
+              var raw = el.getAttribute('data-target') || el.textContent;
+              var m = String(raw).match(/^(\D*)(\d+)(.*)$/);
+              if (!m) return;
+              var prefix = m[1], target = parseInt(m[2], 10), suffix = m[3];
+              var dur = 1500, startTs = null;
+              function step(ts) {
+                if (startTs === null) startTs = ts;
+                var p = Math.min((ts - startTs) / dur, 1);
+                var eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = prefix + Math.round(eased * target) + suffix;
+                if (p < 1) requestAnimationFrame(step);
+                else el.textContent = prefix + target + suffix;
+              }
+              requestAnimationFrame(step);
+            }
+            var statsGrid = document.getElementById('statsGrid');
+            if (statsGrid) {
+              var nums = statsGrid.querySelectorAll('.stat-num');
+              var runCount = function () { nums.forEach(countUp); };
+              if ('IntersectionObserver' in window) {
+                var so = new IntersectionObserver(function (entries) {
+                  entries.forEach(function (en) {
+                    if (en.isIntersecting) { runCount(); so.disconnect(); }
+                  });
+                }, { threshold: 0.4 });
+                so.observe(statsGrid);
+              } else {
+                runCount();
+              }
+            }
+
             const inputs = document.querySelectorAll('input');
             inputs.forEach(input => {
                 input.addEventListener('focus', () => {

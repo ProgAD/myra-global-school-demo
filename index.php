@@ -99,6 +99,17 @@ address{font-style:normal;}
 .heading-lg--light{color:var(--on-primary);}
 .heading-lg--tight{margin-bottom:16px;}
 
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);}
+.reveal--left{transform:translateX(-60px);}
+.reveal--right{transform:translateX(60px);}
+.reveal.in{opacity:1;transform:none;}
+.reveal[data-delay="1"]{transition-delay:.1s;}
+.reveal[data-delay="2"]{transition-delay:.2s;}
+.reveal[data-delay="3"]{transition-delay:.3s;}
+.reveal[data-delay="4"]{transition-delay:.4s;}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1 !important;transform:none !important;transition:none !important;}}
+
 /* ============================================================
    NEWS TICKER
    ============================================================ */
@@ -223,11 +234,17 @@ address{font-style:normal;}
 .nmodal-chip:hover{background:var(--surface-container);border-color:var(--primary);}
 .nmodal-chip .material-symbols-outlined{font-size:15px;}
 .notice-readmore{background:none;border:none;cursor:pointer;}
+/* Announcement loading skeleton + card entrance */
+.notice-skel-card{pointer-events:none;}
+.skel{display:block;background:linear-gradient(90deg,var(--surface-container) 25%,var(--surface-container-high) 37%,var(--surface-container) 63%);background-size:400% 100%;animation:gskel 1.4s ease infinite;border-radius:6px;}
+.annfade{animation:annUp .55s ease both;}
+@keyframes annUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
+@media(prefers-reduced-motion:reduce){.skel{animation:none;}.annfade{animation:none;}}
 
 /* ============================================================
    ABOUT SECTION
    ============================================================ */
-.about-sec{background:var(--surface);}
+.about-sec{background:var(--surface);overflow:hidden;}
 .about-grid{display:grid;grid-template-columns:1fr;gap:120px;align-items:center;}
 .about-media{position:relative;}
 .about-img{
@@ -495,7 +512,7 @@ address{font-style:normal;}
 /* ============================================================
    ENQUIRY FORM
    ============================================================ */
-.enquiry-sec{background:var(--surface-container-high);border-top:1px solid var(--outline-variant);}
+.enquiry-sec{background:var(--surface-container-high);border-top:1px solid var(--outline-variant);overflow:hidden;}
 .enquiry-grid{display:grid;grid-template-columns:1fr;gap:32px;align-items:center;}
 .enquiry-lead{
   font-family:var(--font-serif);
@@ -754,7 +771,27 @@ address{font-style:normal;}
 <a class="ann-viewall ann-viewall--top" href="notice.php">View All <span class="material-symbols-outlined">arrow_forward</span></a>
 </div>
 <div class="notice-grid" id="annGrid" data-loading="true">
-<div class="notice-card"><p class="notice-card-text" style="margin:0;">Loading announcements…</p></div>
+<div class="notice-card notice-skel-card">
+<span class="skel" style="width:35%;height:14px;margin-bottom:16px;"></span>
+<span class="skel" style="width:80%;height:20px;margin-bottom:14px;"></span>
+<span class="skel" style="width:100%;height:12px;margin-bottom:8px;"></span>
+<span class="skel" style="width:92%;height:12px;margin-bottom:8px;"></span>
+<span class="skel" style="width:60%;height:12px;"></span>
+</div>
+<div class="notice-card notice-skel-card">
+<span class="skel" style="width:35%;height:14px;margin-bottom:16px;"></span>
+<span class="skel" style="width:80%;height:20px;margin-bottom:14px;"></span>
+<span class="skel" style="width:100%;height:12px;margin-bottom:8px;"></span>
+<span class="skel" style="width:92%;height:12px;margin-bottom:8px;"></span>
+<span class="skel" style="width:60%;height:12px;"></span>
+</div>
+<div class="notice-card notice-skel-card">
+<span class="skel" style="width:35%;height:14px;margin-bottom:16px;"></span>
+<span class="skel" style="width:80%;height:20px;margin-bottom:14px;"></span>
+<span class="skel" style="width:100%;height:12px;margin-bottom:8px;"></span>
+<span class="skel" style="width:92%;height:12px;margin-bottom:8px;"></span>
+<span class="skel" style="width:60%;height:12px;"></span>
+</div>
 </div>
 <div class="notice-viewall-bottom">
 <a class="ann-viewall" href="notice.php">View All Notices <span class="material-symbols-outlined">arrow_forward</span></a>
@@ -765,10 +802,10 @@ address{font-style:normal;}
 <section class="section-lg about-sec">
 <div class="container">
 <div class="about-grid">
-<div class="about-media">
-<img alt="St. Jude's Historic Campus" class="about-img" src="assets/images/school.png"/>
+<div class="about-media reveal reveal--left">
+<img alt="Myra Global School Campus" class="about-img" src="assets/images/school.png"/>
 </div>
-<div class="about-copy">
+<div class="about-copy reveal reveal--right">
 <span class="eyebrow">Our Legacy</span>
 <h2 class="heading-lg">Building Excellence, Inspiring Generations</h2>
 <p class="about-lead">Established in 1985, Myra Globe School is committed to providing quality education through academic excellence, innovative learning, and strong values. With a legacy of holistic development, leadership, and creativity, we continue to nurture confident learners prepared for success in a global world.</p>
@@ -782,12 +819,12 @@ address{font-style:normal;}
 <section class="section-lg mv-sec">
 <div class="container">
 <div class="mv-grid">
-<div class="mv-card mv-card--dark">
+<div class="mv-card mv-card--dark reveal">
 <span class="material-symbols-outlined mv-ico mv-ico--gold">psychology</span>
 <h3 class="heading-lg heading-lg--light">Our Mission</h3>
 <p class="mv-text">"To empower students with the knowledge, skills, and character necessary to excel in a rapidly changing global society, through a curriculum that emphasizes critical thinking, creativity, and compassionate leadership."</p>
 </div>
-<div class="mv-card mv-card--light">
+<div class="mv-card mv-card--light reveal" data-delay="1">
 <span class="material-symbols-outlined mv-ico mv-ico--primary">visibility</span>
 <h3 class="heading-lg">Our Vision</h3>
 <p class="mv-text">"To be a global leader in transformative education, where tradition and innovation converge to inspire generations of thinkers who solve the world's most pressing challenges with wisdom and empathy."</p>
@@ -828,7 +865,7 @@ address{font-style:normal;}
 
     <div class="facilities-grid">
       <!-- Card 1: Hands-on / Experiential Learning -->
-      <div class="facility-card" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAYZVCivML_bItmWzbD5J65HYfCDYnBmHh0oaMBmpOgSRv1ecKJckbpXjmsrSiw07faGmYD7qTgoCy-sWRoG57OPDTCgSS61kw0w0TkUIdqoloksfWuLo88U9MjKZ20w_Jgly9qwtTFiLgSaRh6wPkimPdS6Cy_FM5JP1IO8fNtvfqPfAm63tU93PC_S5QKLUKcJ1TYCp0zpAUR6eB-L6XwfhRrBZCQd0XT1IKKkdJGi-wKRTC6tRQqew');">
+      <div class="facility-card reveal" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAYZVCivML_bItmWzbD5J65HYfCDYnBmHh0oaMBmpOgSRv1ecKJckbpXjmsrSiw07faGmYD7qTgoCy-sWRoG57OPDTCgSS61kw0w0TkUIdqoloksfWuLo88U9MjKZ20w_Jgly9qwtTFiLgSaRh6wPkimPdS6Cy_FM5JP1IO8fNtvfqPfAm63tU93PC_S5QKLUKcJ1TYCp0zpAUR6eB-L6XwfhRrBZCQd0XT1IKKkdJGi-wKRTC6tRQqew');">
         <div class="facility-badge-corner facility-badge-corner--blue"></div>
         <span class="material-symbols-outlined facility-badge-icon">groups</span>
         <div class="facility-overlay">
@@ -838,7 +875,7 @@ address{font-style:normal;}
       </div>
 
       <!-- Card 2: Performing Arts & Music Room -->
-      <div class="facility-card" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&q=80');">
+      <div class="facility-card reveal" data-delay="1" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&q=80');">
         <div class="facility-badge-corner facility-badge-corner--green"></div>
         <span class="material-symbols-outlined facility-badge-icon">sports_gymnastics</span>
         <div class="facility-overlay">
@@ -848,7 +885,7 @@ address{font-style:normal;}
       </div>
 
       <!-- Card 3: Smart Classroom -->
-      <div class="facility-card" style="background-image: url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&q=80');">
+      <div class="facility-card reveal" data-delay="2" style="background-image: url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&q=80');">
         <div class="facility-badge-corner facility-badge-corner--orange"></div>
         <span class="material-symbols-outlined facility-badge-icon">co_present</span>
         <div class="facility-overlay">
@@ -858,7 +895,7 @@ address{font-style:normal;}
       </div>
 
       <!-- Card 4: Science & Chemistry Lab -->
-      <div class="facility-card" style="background-image: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=80');">
+      <div class="facility-card reveal" data-delay="3" style="background-image: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=80');">
         <div class="facility-badge-corner facility-badge-corner--red"></div>
         <span class="material-symbols-outlined facility-badge-icon">science</span>
         <div class="facility-overlay">
@@ -868,7 +905,7 @@ address{font-style:normal;}
       </div>
 
       <!-- Card 5: Library & Reading Room -->
-      <div class="facility-card" style="background-image: url('https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=600&q=80');">
+      <div class="facility-card reveal" data-delay="4" style="background-image: url('https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=600&q=80');">
         <div class="facility-badge-corner facility-badge-corner--blue"></div>
         <span class="material-symbols-outlined facility-badge-icon">menu_book</span>
         <div class="facility-overlay">
@@ -921,7 +958,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
       var layout = LAYOUTS[Math.min(rows.length, 4)] || LAYOUTS[4];
-      grid.innerHTML = rows.map(function (a, i) { return cardHtml(a, layout[i] || 'g-sm'); }).join('');
+      grid.innerHTML = rows.map(function (a, i) { return cardHtml(a, (layout[i] || 'g-sm') + ' annfade'); }).join('');
     })
     .catch(function () {
       grid.removeAttribute('data-loading');
@@ -1112,7 +1149,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <section class="section-lg enquiry-sec" id="enquiry">
 <div class="container">
 <div class="enquiry-grid">
-<div class="enquiry-info">
+<div class="enquiry-info reveal reveal--left">
 <h2 class="heading-lg">Have Questions?</h2>
 <p class="enquiry-lead">Share your inquiry with us, and our dedicated team will be happy to provide personalized guidance, answer your questions, and help you explore the opportunities at Myra Global School.</p>
 <div class="enquiry-contacts">
@@ -1132,7 +1169,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </div>
 </div>
 </div>
-<div class="enquiry-form-wrap">
+<div class="enquiry-form-wrap reveal reveal--right">
 <div class="enquiry-card">
 <form class="enquiry-form" id="enquiryForm" novalidate>
 <div class="form-field form-field--full">
@@ -1257,6 +1294,20 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 })();
 </script>
+<!-- Scroll-reveal animations -->
+<script>
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  if (!('IntersectionObserver' in window)) { els.forEach(function(el){ el.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+  els.forEach(function(el){ io.observe(el); });
+})();
+</script>
 <!-- Footer -->
 <?php include 'components/footer.php';?>
 <!-- Interactive Layer for Micro-interactions -->
@@ -1327,7 +1378,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var action = t.truncated
       ? '<button class="notice-link notice-readmore" data-id="' + n.id + '">Read More <span class="material-symbols-outlined notice-link-ico">arrow_forward</span></button>'
       : '';
-    return '<div class="notice-card' + secondary + '">'
+    return '<div class="notice-card annfade' + secondary + '" style="animation-delay:' + (i * 0.1) + 's">'
       + '<span class="notice-date">' + esc(n.date) + '</span>'
       + '<h3 class="notice-card-title">' + esc(n.title) + '</h3>'
       + '<p class="notice-card-text">' + esc(t.text) + '</p>'

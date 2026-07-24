@@ -87,14 +87,48 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 .adm-intro-inner{text-align:center;max-width:768px;margin:0 auto;}
 .adm-intro-text{font-family:var(--font-serif);font-size:20px;line-height:32px;color:var(--on-surface-variant);}
 
-/* Steps */
+/* Steps / Process flow */
 .steps-sec{padding:120px 0;background:var(--surface-container);}
 .steps-head{text-align:center;margin-bottom:64px;}
-.steps-grid{display:grid;grid-template-columns:1fr;gap:32px;}
-.step{background:var(--surface-container-lowest);border:1px solid var(--outline-variant);padding:32px;border-radius:12px;}
-.step-num{width:48px;height:48px;border-radius:9999px;background:var(--primary-container);color:var(--secondary-fixed);display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:20px;font-weight:700;margin-bottom:20px;}
-.step-title{font-family:var(--font-serif);font-size:20px;line-height:1.3;font-weight:600;color:var(--primary);margin-bottom:8px;}
-.step-text{font-family:var(--font-serif);font-size:15px;line-height:1.6;color:var(--on-surface-variant);}
+
+.flow{display:flex;flex-direction:column;align-items:stretch;gap:6px;}
+.flow-step{
+  flex:1;background:var(--surface-container-lowest);border:1px solid var(--outline-variant);
+  border-radius:16px;padding:34px 26px;text-align:center;position:relative;
+  opacity:0;transform:translateY(26px);
+  transition:opacity .6s ease,transform .6s ease,box-shadow .3s,border-color .3s;
+  transition-delay:var(--d,0s);
+}
+.flow.in-view .flow-step{opacity:1;transform:none;}
+.flow-step:hover{border-color:var(--primary);box-shadow:0 14px 32px rgba(0,33,71,.12);}
+.flow-kicker{font-family:var(--font-sans);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--secondary);margin-bottom:8px;}
+.flow-title{font-family:var(--font-serif);font-size:19px;line-height:1.3;font-weight:600;color:var(--primary);margin-bottom:8px;}
+.flow-text{font-family:var(--font-serif);font-size:14px;line-height:1.6;color:var(--on-surface-variant);}
+.flow-ico{
+  width:74px;height:74px;border-radius:50%;background:var(--surface-container);color:var(--primary-container);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 20px;position:relative;transition:background .5s,color .5s;
+}
+.flow-ico .material-symbols-outlined{font-size:34px;}
+.flow.in-view .flow-step .flow-ico{background:var(--primary-container);color:var(--secondary-fixed);}
+.flow-ico::after{content:'';position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--secondary-fixed-dim);opacity:0;}
+.flow.in-view .flow-step .flow-ico::after{animation:flowRing 2.6s ease-out infinite;animation-delay:var(--d,0s);}
+@keyframes flowRing{0%{transform:scale(.82);opacity:.55;}70%{opacity:0;}100%{transform:scale(1.42);opacity:0;}}
+
+/* connector arrows between steps */
+.flow-arrow{display:flex;align-items:center;justify-content:center;color:var(--secondary);padding:2px 0;}
+.flow-arrow .material-symbols-outlined{font-size:30px;transform:rotate(90deg);animation:flowPulseV 1.7s ease-in-out infinite;}
+@keyframes flowPulseV{0%,100%{opacity:.3;transform:rotate(90deg) translateX(-3px);}50%{opacity:1;transform:rotate(90deg) translateX(3px);}}
+@keyframes flowPulseH{0%,100%{opacity:.3;transform:translateX(-3px);}50%{opacity:1;transform:translateX(3px);}}
+
+@media(min-width:900px){
+  .flow{flex-direction:row;align-items:stretch;gap:6px;}
+  .flow-arrow{padding:0 2px;}
+  .flow-arrow .material-symbols-outlined{transform:none;animation:flowPulseH 1.7s ease-in-out infinite;}
+}
+@media(prefers-reduced-motion:reduce){
+  .flow-step{opacity:1;transform:none;transition:none;}
+  .flow-ico::after,.flow-arrow .material-symbols-outlined{animation:none;}
+}
 
 /* Key facts */
 .facts-sec{padding:120px 0;background:var(--primary-container);color:var(--on-primary);}
@@ -120,7 +154,6 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 .cta-actions{display:flex;flex-wrap:wrap;gap:16px;flex-shrink:0;justify-content:center;}
 
 @media(min-width:768px){
-  .steps-grid{grid-template-columns:repeat(3,1fr);}
   .facts-grid{grid-template-columns:repeat(4,1fr);}
   .cta-inner{flex-direction:row;text-align:left;}
 }
@@ -163,21 +196,33 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <span class="eyebrow">How It Works</span>
 <h2 class="heading-lg heading-lg--flush">The Admission Process</h2>
 </div>
-<div class="steps-grid">
-<div class="step">
-<div class="step-num">1</div>
-<h3 class="step-title">Apply Online</h3>
-<p class="step-text">Fill in and submit the online admission application form with the student's details.</p>
+<div class="flow" id="admFlow">
+<div class="flow-step" style="--d:.05s">
+<div class="flow-ico"><span class="material-symbols-outlined">edit_document</span></div>
+<div class="flow-kicker">Step 1</div>
+<h3 class="flow-title">Apply Online</h3>
+<p class="flow-text">Fill in and submit the online admission form with the student's details and documents.</p>
 </div>
-<div class="step">
-<div class="step-num">2</div>
-<h3 class="step-title">Application &amp; Document Verification</h3>
-<p class="step-text">Our admissions team reviews your application and verifies the documents you have uploaded.</p>
+<div class="flow-arrow"><span class="material-symbols-outlined">arrow_forward</span></div>
+<div class="flow-step" style="--d:.28s">
+<div class="flow-ico"><span class="material-symbols-outlined">fact_check</span></div>
+<div class="flow-kicker">Step 2</div>
+<h3 class="flow-title">Verification</h3>
+<p class="flow-text">Our admissions team reviews your application and verifies the uploaded documents.</p>
 </div>
-<div class="step">
-<div class="step-num">3</div>
-<h3 class="step-title">School Will Contact You</h3>
-<p class="step-text">Once your application is verified, the school will reach out to you with the next steps.</p>
+<div class="flow-arrow"><span class="material-symbols-outlined">arrow_forward</span></div>
+<div class="flow-step" style="--d:.51s">
+<div class="flow-ico"><span class="material-symbols-outlined">call</span></div>
+<div class="flow-kicker">Step 3</div>
+<h3 class="flow-title">We Contact You</h3>
+<p class="flow-text">Once verified, the school reaches out to you with the next steps of the process.</p>
+</div>
+<div class="flow-arrow"><span class="material-symbols-outlined">arrow_forward</span></div>
+<div class="flow-step" style="--d:.74s">
+<div class="flow-ico"><span class="material-symbols-outlined">verified</span></div>
+<div class="flow-kicker">Step 4</div>
+<h3 class="flow-title">Admission Confirmed</h3>
+<p class="flow-text">Complete the formalities and your child's admission is confirmed. Welcome to Myra!</p>
 </div>
 </div>
 </div>
@@ -258,6 +303,21 @@ document.addEventListener('DOMContentLoaded', function () {
     link.addEventListener('mouseenter', function () { link.style.transform = 'translateX(4px)'; });
     link.addEventListener('mouseleave', function () { link.style.transform = 'translateX(0)'; });
   });
+
+  // ---- Reveal the process flow on scroll ----
+  var flow = document.getElementById('admFlow');
+  if (flow) {
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('in-view'); io.unobserve(en.target); }
+        });
+      }, { threshold: 0.3 });
+      io.observe(flow);
+    } else {
+      flow.classList.add('in-view');
+    }
+  }
 
   // ---- Admission status lookup modal ----
   var modal = document.getElementById('statusModal');

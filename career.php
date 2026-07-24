@@ -203,6 +203,16 @@ address{font-style:normal;}
 }
 .btn-apply:hover { background: var(--primary-container); }
 .job-dept{display:inline-block;font-family:var(--font-sans);font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--secondary);margin-bottom:6px;}
+.job-card{flex-direction:column;align-items:stretch;}
+.job-card-main{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.job-card-actions{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.job-desc-toggle{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-sans);font-size:14px;font-weight:600;color:var(--primary);cursor:pointer;background:none;border:1px solid var(--outline-variant);padding:9px 16px;border-radius:6px;transition:.2s;}
+.job-desc-toggle:hover{border-color:var(--primary);}
+.job-desc-toggle .material-symbols-outlined{font-size:18px;transition:transform .3s;}
+.job-card.open .job-desc-toggle .material-symbols-outlined{transform:rotate(180deg);}
+.job-desc{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+.job-card.open .job-desc{max-height:1500px;}
+.job-desc-inner{margin-top:20px;padding-top:20px;border-top:1px solid var(--outline-variant);font-family:var(--font-serif);font-size:15px;line-height:1.7;color:var(--on-surface-variant);white-space:pre-line;}
 
 /* States */
 .jobs-state{text-align:center;padding:56px 20px;color:var(--on-surface-variant);background:var(--surface-container-lowest);border-radius:8px;}
@@ -393,8 +403,8 @@ View Current Openings <span class="material-symbols-outlined">arrow_downward</sp
 <div class="file-upload-box" id="resumeDrop">
 <span class="material-symbols-outlined file-upload-icon">upload_file</span>
 <p style="font-family: var(--font-sans); font-weight: 600; color: var(--primary);">Click to upload your Resume or CV</p>
-<p style="font-size: 12px; color: var(--outline);">Accepted formats: PDF, DOC, DOCX (Max 10 MB)</p>
-<input id="resumeFile" style="display:none;" type="file" accept=".pdf,.doc,.docx"/>
+<p style="font-size: 12px; color: var(--outline);">Accepted format: PDF only (Max 10 MB)</p>
+<input id="resumeFile" style="display:none;" type="file" accept="application/pdf,.pdf"/>
 <span class="file-name-lbl" id="resumeName"></span>
 </div>
 <span class="field-err"></span>
@@ -445,7 +455,9 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function jobCard(v){
+    var hasDesc = v.description && String(v.description).trim() !== '';
     return '<div class="job-card">'
+      + '<div class="job-card-main">'
       + '<div>'
       + '<span class="job-dept">'+esc(v.dept_label)+'</span>'
       + '<h3 class="job-title">'+esc(v.title)+'</h3>'
@@ -454,7 +466,12 @@ document.addEventListener('DOMContentLoaded', function () {
       +   '<span class="job-meta-item"><span class="material-symbols-outlined">group</span> '+esc(v.openings)+' opening'+(v.openings===1?'':'s')+'</span>'
       +   (v.deadline ? '<span class="job-meta-item"><span class="material-symbols-outlined">event</span> Apply by '+esc(v.deadline)+'</span>' : '')
       + '</div></div>'
-      + '<a href="#apply" class="btn-apply" data-vac="'+v.id+'">Apply Now</a>'
+      + '<div class="job-card-actions">'
+      +   (hasDesc ? '<button type="button" class="job-desc-toggle">Description <span class="material-symbols-outlined">expand_more</span></button>' : '')
+      +   '<a href="#apply" class="btn-apply" data-vac="'+v.id+'">Apply Now</a>'
+      + '</div>'
+      + '</div>'
+      + (hasDesc ? '<div class="job-desc"><div class="job-desc-inner">'+esc(v.description)+'</div></div>' : '')
       + '</div>';
   }
 
@@ -507,8 +524,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.getElementById('jobsRetry').addEventListener('click', loadJobs);
 
-  // "Apply Now" on a card -> preselect it in the form and scroll down
+  // Card interactions: expand description, or preselect a position on "Apply Now"
   list.addEventListener('click', function (e) {
+    var toggle = e.target.closest('.job-desc-toggle');
+    if (toggle) { toggle.closest('.job-card').classList.toggle('open'); return; }
     var a = e.target.closest('.btn-apply'); if (!a) return;
     var id = a.getAttribute('data-vac');
     if (id) posSelect.value = id;
@@ -523,7 +542,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.getElementById('resumeDrop').addEventListener('click', function () { fileInput.click(); });
   fileInput.addEventListener('change', function () {
-    document.getElementById('resumeName').textContent = this.files && this.files.length ? this.files[0].name : '';
+    var nameEl = document.getElementById('resumeName');
+    var wrap = form.querySelector('[data-field="resume"]');
+    var msg = wrap ? wrap.querySelector('.field-err') : null;
+    wrap && wrap.classList.remove('has-error');
+    if (!this.files || !this.files.length) { nameEl.textContent = ''; return; }
+    var f = this.files[0];
+    var isPdf = /\.pdf$/i.test(f.name) && (f.type === 'application/pdf' || f.type === '');
+    if (!isPdf) {
+      this.value = '';
+      nameEl.textContent = '';
+      if (wrap) { wrap.classList.add('has-error'); if (msg) msg.textContent = 'Only PDF files are allowed.'; }
+      return;
+    }
+    nameEl.textContent = f.name;
   });
 
   function clearErrors(){

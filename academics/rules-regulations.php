@@ -199,19 +199,5 @@ button{font-family:inherit;background:none;border:none;}
 </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-sec">
-<div class="container cta-inner">
-<div>
-<h2 class="cta-title">Have a question about our policies?</h2>
-<p class="cta-text">Our school team is always happy to help parents and students.</p>
-</div>
-<div class="cta-actions">
-<button class="btn-fill" onclick="window.location.href='../admission.php'">Apply Now</button>
-<button class="btn-line" onclick="window.location.href='../index.php#enquiry'">Contact Us</button>
-</div>
-</div>
-</section>
-
 <?php include '../components/footer.php'; ?>
 </body></html>

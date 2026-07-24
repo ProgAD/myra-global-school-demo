@@ -119,6 +119,17 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 @media(min-width:1024px){
   .notice-grid{grid-template-columns:repeat(3,1fr);}
 }
+@media(max-width:767px){
+  .container{padding-left:20px;padding-right:20px;}
+  .notice-page{padding:56px 0 80px;}
+  .notice-head{margin-bottom:36px;}
+  .heading-lg{font-size:30px;line-height:38px;}
+  .notice-toolbar{flex-direction:column;align-items:stretch;gap:14px;margin-bottom:32px;}
+  .notice-search{max-width:none;min-width:0;width:100%;}
+  .notice-filters{width:100%;flex-wrap:nowrap;justify-content:space-between;}
+  .range-btn{flex:1;padding:9px 6px;text-align:center;font-size:13px;}
+  .cta-inner{flex-direction:column;text-align:center;}
+}
 </style>
 </head>
 <body>
