@@ -16,6 +16,17 @@ if (!isset($_SESSION['user_id'])) {
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="admin.css" rel="stylesheet"/>
+<style>
+.alb-cover-empty{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--line);}
+.alb-cover-empty .material-symbols-outlined{font-size:44px;}
+.state-box{text-align:center;padding:56px 20px;color:var(--muted);grid-column:1/-1;}
+.state-box .material-symbols-outlined{font-size:52px;color:var(--line);}
+.state-box h4{font-family:var(--font-serif);font-size:19px;font-weight:700;color:var(--primary-container);margin-top:10px;}
+.state-box p{margin-top:6px;font-size:14px;}
+.state-box.err h4{color:var(--red);}
+.spin{width:30px;height:30px;border:3px solid var(--line);border-top-color:var(--primary-container);border-radius:50%;animation:sp .7s linear infinite;margin:0 auto;}
+@keyframes sp{to{transform:rotate(360deg);}}
+</style>
 <script src="admin.js" defer></script>
 </head>
 <body>
@@ -30,54 +41,30 @@ if (!isset($_SESSION['user_id'])) {
 <div class="page-head">
 <div>
 <h2>Manage Gallery</h2>
-<p>Create albums and manage photos &amp; videos of school events.</p>
+<p>Create albums and manage photos of school events.</p>
 </div>
 <button class="btn btn-primary" id="addAlbum"><span class="material-symbols-outlined">add_photo_alternate</span> Add Album</button>
 </div>
 
-<div class="alb-grid" id="albGrid">
+<!-- Loading -->
+<div class="state-box" id="loadingBox"><div class="spin"></div><p style="margin-top:12px">Loading albums…</p></div>
 
-<div class="alb" data-item data-name="annual day celebration">
-<div class="alb-cover">
-<img alt="Annual Day" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaxFf1iR-fZ3ARbf0Jb1PNjorBa8cpgPVL-w_P4OsAfjXdIb8A1E_x95gl_w2j4vW9grj2ypkMgh0yCKFxAjESyp2Ucx4NsnBi5XDuP7ix-Up85kKqoPpxUlzKqRnhXlpTJpv56yXLUhsTit3BEJblNQ91Ww4jEBCL6Zs1nHGWbS7_cgkUZ0mEDgqrtnmZRXATqFK9e2mQ2lqRQKsH_bNLLr2t1jZgnqlrKkc1ULfSMa-7V_H-fGR4HA"/>
-<span class="alb-count"><span class="material-symbols-outlined">photo_library</span> 24</span>
-<button class="alb-del" data-del title="Delete album"><span class="material-symbols-outlined">delete</span></button>
-<a class="alb-overlay" href="album.php?title=Annual%20Day%20Celebration&amp;date=December%202024&amp;desc=Music%2C%20dance%20and%20drama%20highlights."><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>
-</div>
-<div class="alb-body"><span class="date">December 2024</span><h4>Annual Day Celebration</h4><p>Music, dance and drama highlights.</p></div>
+<!-- Empty -->
+<div class="state-box" id="emptyBox" style="display:none">
+<span class="material-symbols-outlined">photo_library</span>
+<h4>No Albums Yet</h4>
+<p>Create your first album to start adding photos.</p>
 </div>
 
-<div class="alb" data-item data-name="annual sports meet">
-<div class="alb-cover">
-<img alt="Sports" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrAUxLGmK3HTZovHjtQNhyL7wUTcT2jRJ96hODtSIBdo8qX0rVDZxVC80sgUH-7rXb6ST-Qwiwun7ss1-lEEY3GyrCE5hTzOwdYmmM0FdKq2XxQogHlgw_VzqsZ-cOleFWCWBPHyxMhuWz33G967YtwYfeBdKsHdkp25A7OJUvaoxIIHqemZRxxk9SFsNfNvgvPRH6WV9r-jdaAboWc0m9FNQ7HHNZtY5Cnx7dSqzddmLBjWAFw6dn4Q"/>
-<span class="alb-count"><span class="material-symbols-outlined">photo_library</span> 36</span>
-<button class="alb-del" data-del title="Delete album"><span class="material-symbols-outlined">delete</span></button>
-<a class="alb-overlay" href="album.php?title=Annual%20Sports%20Meet&amp;date=October%202024&amp;desc=Track%2C%20field%20and%20house%20championships."><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>
-</div>
-<div class="alb-body"><span class="date">October 2024</span><h4>Annual Sports Meet</h4><p>Track, field and house championships.</p></div>
+<!-- Error -->
+<div class="state-box err" id="errorBox" style="display:none">
+<span class="material-symbols-outlined">error</span>
+<h4>Could not load albums</h4>
+<p id="errorMsg">Please try again in a moment.</p>
+<button class="btn btn-ghost btn-sm" id="retryBtn" style="margin-top:14px"><span class="material-symbols-outlined">refresh</span> Retry</button>
 </div>
 
-<div class="alb" data-item data-name="science innovation fair">
-<div class="alb-cover">
-<img alt="Science Fair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYZVCivML_bItmWzbD5J65HYfCDYnBmHh0oaMBmpOgSRv1ecKJckbpXjmsrSiw07faGmYD7qTgoCy-sWRoG57OPDTCgSS61kw0w0TkUIdqoloksfWuLo88U9MjKZ20w_Jgly9qwtTFiLgSaRh6wPkimPdS6Cy_FM5JP1IO8fNtvfqPfAm63tU93PC_S5QKLUKcJ1TYCp0zpAUR6eB-L6XwfhRrBZCQd0XT1IKKkdJGi-wKRTC6tRQqew"/>
-<span class="alb-count"><span class="material-symbols-outlined">photo_library</span> 18</span>
-<button class="alb-del" data-del title="Delete album"><span class="material-symbols-outlined">delete</span></button>
-<a class="alb-overlay" href="album.php?title=Science%20%26%20Innovation%20Fair&amp;date=September%202024&amp;desc=Student%20models%20and%20experiments."><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>
-</div>
-<div class="alb-body"><span class="date">September 2024</span><h4>Science &amp; Innovation Fair</h4><p>Student models and experiments.</p></div>
-</div>
-
-<div class="alb" data-item data-name="graduation ceremony 2024">
-<div class="alb-cover">
-<img alt="Graduation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEzSG6mdfW96059TNF1M1hivs6iTXZAr-vLQoKEhcbEjF7aiMXFuPqDTvOOwnwLS14mX2a0qvy96Ziym73h1CwNdqUiJhEMUvC9pvHakyvlukSDnE8A732JP02zde5D3fabGIIhHLU983zv_Nff4n-XdZunzIQpJgvpKuyNUFGokxj4o-ESTmvvx0uEslQ8cYhdbSpa2e-eovTg7Lb7XhXzR3KlgSVgFjYvnt0_mUO2F3494VEtD2g1g"/>
-<span class="alb-count"><span class="material-symbols-outlined">photo_library</span> 42</span>
-<button class="alb-del" data-del title="Delete album"><span class="material-symbols-outlined">delete</span></button>
-<a class="alb-overlay" href="album.php?title=Graduation%20Ceremony%202024&amp;date=June%202024&amp;desc=Farewell%20to%20the%20graduating%20class."><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>
-</div>
-<div class="alb-body"><span class="date">June 2024</span><h4>Graduation Ceremony 2024</h4><p>Farewell to the graduating class.</p></div>
-</div>
-
-</div>
+<div class="alb-grid" id="albGrid" style="display:none"></div>
 
 </div>
 </div>
@@ -90,46 +77,109 @@ if (!isset($_SESSION['user_id'])) {
 <form id="albForm">
 <div class="modal-body">
 <div class="field"><label>Album Title</label><input class="finput" id="aTitle" type="text" placeholder="e.g. Annual Day Celebration" required/></div>
-<div class="field-row">
-<div class="field"><label>Event Month / Date</label><input class="finput" id="aDate" type="text" placeholder="e.g. December 2024"/></div>
-<div class="field"><label>Cover Image URL</label><input class="finput" id="aCover" type="url" placeholder="https://..."/></div>
+<div class="field"><label>Short Description</label><textarea class="finput" id="aDesc" placeholder="One line about this album"></textarea></div>
+<p class="muted" style="font-size:13px">You'll be taken to the album to upload photos after it's created. The first photo becomes the cover.</p>
 </div>
-<div class="field"><label>Short Description</label><input class="finput" id="aDesc" type="text" placeholder="One line about this album"/></div>
-</div>
-<div class="modal-foot"><button type="button" class="btn btn-ghost" data-close>Cancel</button><button type="submit" class="btn btn-primary">Create Album</button></div>
+<div class="modal-foot"><button type="button" class="btn btn-ghost" data-close>Cancel</button><button type="submit" class="btn btn-primary" id="createBtn">Create Album</button></div>
 </form>
 </div>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  var grid = document.getElementById('albGrid');
-  var modal = document.getElementById('albModal');
-  var form = document.getElementById('albForm');
-  var PLACEHOLDER = 'https://lh3.googleusercontent.com/aida/AP1WRLvj2juMHe6Ny1Drz8c5bleO9fp0KfpZtEsdRb8dV9gJQHYn7VM5hdyFS8ogfM_BnBHoew1ubfI-j1pyDVBTU4WSfR6SWpbl44-9NiSAPmFrk1yZRpGYCsZFizVlznlE9WiX7U3zbpWDkc7PcUUElVs97VZ7H4C49cUTtUri1ZOUTea6aDCksnljY-O0PjMziusbGqNDYISAGi13nq8XdaJF3_HG6suvYxrrOEQAwYsf5UYVcaTmV5R380A';
+  var API = '../actions/admin/gallery/';
+  var grid    = document.getElementById('albGrid');
+  var loading = document.getElementById('loadingBox');
+  var empty   = document.getElementById('emptyBox');
+  var errBox  = document.getElementById('errorBox');
+  var modal   = document.getElementById('albModal');
+  var form    = document.getElementById('albForm');
 
-  document.getElementById('addAlbum').addEventListener('click', function(){ form.reset(); modal.classList.add('open'); });
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c];
+    });
+  }
+  function show(w){
+    loading.style.display = w==='loading'?'':'none';
+    empty.style.display   = w==='empty'  ?'':'none';
+    errBox.style.display  = w==='error'  ?'':'none';
+    grid.style.display    = w==='grid'   ?'grid':'none';
+  }
 
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    var t=document.getElementById('aTitle').value.trim(),
-        d=document.getElementById('aDate').value.trim(),
-        desc=document.getElementById('aDesc').value.trim(),
-        cover=document.getElementById('aCover').value.trim()||PLACEHOLDER;
-    var href='album.php?title='+encodeURIComponent(t)+'&date='+encodeURIComponent(d)+'&desc='+encodeURIComponent(desc);
-    var card=document.createElement('div');
-    card.className='alb'; card.setAttribute('data-item',''); card.setAttribute('data-name', t.toLowerCase());
-    card.innerHTML =
-      '<div class="alb-cover">'+
-        '<img alt="'+t+'" src="'+cover+'"/>'+
-        '<span class="alb-count"><span class="material-symbols-outlined">photo_library</span> 0</span>'+
-        '<button class="alb-del" data-del title="Delete album"><span class="material-symbols-outlined">delete</span></button>'+
-        '<a class="alb-overlay" href="'+href+'"><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>'+
-      '</div>'+
-      '<div class="alb-body"><span class="date">'+(d||'—')+'</span><h4>'+t+'</h4><p>'+desc+'</p></div>';
-    grid.insertBefore(card, grid.firstChild);
-    modal.classList.remove('open');
+  function cardHtml(a){
+    var cover = a.cover_url
+      ? '<img alt="'+esc(a.title)+'" src="'+esc(a.cover_url)+'"/>'
+      : '<div class="alb-cover-empty"><span class="material-symbols-outlined">image</span></div>';
+    return '<div class="alb" data-item data-id="'+a.id+'">'
+      + '<div class="alb-cover">'
+      +   cover
+      +   '<span class="alb-count"><span class="material-symbols-outlined">photo_library</span> '+a.count+'</span>'
+      +   '<button class="alb-del" data-del title="Delete album"><span class="material-symbols-outlined">delete</span></button>'
+      +   '<a class="alb-overlay" href="album.php?id='+a.id+'"><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>'
+      + '</div>'
+      + '<div class="alb-body"><span class="date">'+esc(a.date)+'</span><h4>'+esc(a.title)+'</h4><p>'+esc(a.description || '')+'</p></div>'
+      + '</div>';
+  }
+
+  function load(){
+    show('loading');
+    fetch(API + 'albums_list.php', { headers:{ 'Accept':'application/json' } })
+      .then(function (r) { return r.json().then(function (d) { return { ok:r.ok, d:d }; }); })
+      .then(function (res) {
+        if (!res.ok || !res.d.success) throw new Error(res.d.message || 'Request failed');
+        var rows = res.d.rows || [];
+        if (!rows.length) { show('empty'); return; }
+        grid.innerHTML = rows.map(cardHtml).join('');
+        show('grid');
+      })
+      .catch(function (err) {
+        document.getElementById('errorMsg').textContent = err.message || 'Please try again.';
+        show('error');
+      });
+  }
+
+  document.getElementById('retryBtn').addEventListener('click', load);
+
+  document.getElementById('addAlbum').addEventListener('click', function () {
+    form.reset(); modal.classList.add('open');
   });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var btn = document.getElementById('createBtn');
+    btn.disabled = true;
+    fetch(API + 'album_create.php', {
+      method:'POST', headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({
+        title: document.getElementById('aTitle').value.trim(),
+        description: document.getElementById('aDesc').value.trim()
+      })
+    }).then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d.success) throw new Error(d.message || 'Could not create album');
+        window.location.href = d.redirect || ('album.php?id=' + d.id);
+      })
+      .catch(function (err) { alert(err.message); btn.disabled = false; });
+  });
+
+  // delete album (admin.js confirms + removes the card) -> call API, then reload
+  var pendingId = null;
+  grid.addEventListener('click', function (e) {
+    var d = e.target.closest('[data-del]');
+    if (d) { var c = d.closest('.alb'); pendingId = c ? c.dataset.id : null; }
+  });
+  document.addEventListener('admin:rowdeleted', function () {
+    var id = pendingId; pendingId = null;
+    if (!id) { load(); return; }
+    fetch(API + 'album_delete.php', {
+      method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ ids:[id] })
+    }).then(function (r) { return r.json(); })
+      .then(function (d) { if (!d.success) throw new Error(d.message || 'Delete failed'); load(); })
+      .catch(function (err) { alert('Could not delete album: ' + err.message); load(); });
+  });
+
+  load();
 });
 </script>
 </body></html>

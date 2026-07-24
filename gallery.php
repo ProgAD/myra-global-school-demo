@@ -180,20 +180,6 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 </div>
 </section>
 
-<!-- CTA STRIP -->
-<section class="cta-sec">
-<div class="container cta-inner">
-<div>
-<h2 class="cta-title">Want to Be Part of These Moments?</h2>
-<p class="cta-text">Join the Myra family and create memories that last a lifetime.</p>
-</div>
-<div class="cta-actions">
-<button class="btn-fill">Apply Now</button>
-<button class="btn-line">Contact Us</button>
-</div>
-</div>
-</section>
-
 <!-- Footer -->
 <?php include 'components/footer.php'; ?>
 <script>

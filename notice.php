@@ -87,6 +87,24 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 .n-spin{width:34px;height:34px;border:3px solid var(--outline-variant);border-top-color:var(--primary-container);border-radius:50%;animation:nspin .7s linear infinite;margin:0 auto;}
 @keyframes nspin{to{transform:rotate(360deg);}}
 
+/* Read-more modal */
+.nmodal{position:fixed;inset:0;background:rgba(9,25,50,.6);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px;}
+.nmodal.open{display:flex;}
+.nmodal-box{background:#fff;border-radius:16px;max-width:640px;width:100%;max-height:88vh;overflow-y:auto;box-shadow:0 30px 60px rgba(0,0,0,.3);animation:nmPop .25s ease;}
+@keyframes nmPop{from{transform:translateY(12px);opacity:0;}}
+.nmodal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:26px 28px 0;}
+.nmodal-close{font-size:28px;line-height:1;color:var(--on-surface-variant);cursor:pointer;background:none;border:none;flex-shrink:0;}
+.nmodal-close:hover{color:var(--primary);}
+.nmodal-cat{display:inline-block;font-family:var(--font-sans);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--secondary);}
+.nmodal-date{font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--on-surface-variant);display:block;margin-top:4px;}
+.nmodal-title{font-family:var(--font-serif);font-size:26px;line-height:1.25;font-weight:700;color:var(--primary);padding:6px 28px 0;}
+.nmodal-body{padding:16px 28px 26px;font-family:var(--font-serif);font-size:16px;line-height:28px;color:var(--on-surface-variant);white-space:pre-wrap;}
+.nmodal-attach{display:flex;flex-wrap:wrap;gap:8px;padding:0 28px 26px;}
+.nmodal-chip{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-sans);font-size:13px;font-weight:600;padding:6px 12px;border-radius:8px;border:1px solid var(--outline-variant);color:var(--primary);transition:.2s;}
+.nmodal-chip:hover{background:var(--surface-container);border-color:var(--primary);}
+.nmodal-chip .material-symbols-outlined{font-size:15px;}
+.notice-readmore{background:none;border:none;cursor:pointer;padding:0;}
+
 /* CTA */
 .cta-sec{background:var(--surface-container-high);border-top:1px solid var(--outline-variant);}
 .cta-inner{display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:24px;padding:64px 0;}
@@ -163,19 +181,21 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 </div>
 </section>
 
-<!-- CTA STRIP -->
-<section class="cta-sec">
-<div class="container cta-inner">
+<!-- Read-more modal -->
+<div class="nmodal" id="ntModal" aria-hidden="true">
+<div class="nmodal-box">
+<div class="nmodal-head">
 <div>
-<h2 class="cta-title">Never Miss an Update</h2>
-<p class="cta-text">Subscribe to our newsletter and get notices delivered straight to your inbox.</p>
+<span class="nmodal-cat" id="ntMCat"></span>
+<span class="nmodal-date" id="ntMDate"></span>
 </div>
-<div class="cta-actions">
-<button class="btn-fill">Subscribe</button>
-<button class="btn-line">Contact Us</button>
+<button class="nmodal-close" id="ntMClose" aria-label="Close">&times;</button>
+</div>
+<h3 class="nmodal-title" id="ntMTitle"></h3>
+<div class="nmodal-body" id="ntMBody"></div>
+<div class="nmodal-attach" id="ntMAttach"></div>
 </div>
 </div>
-</section>
 
 <!-- Footer -->
 <?php include 'components/footer.php';?>
@@ -192,6 +212,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var empty   = document.getElementById('ntEmpty');
   var errBox  = document.getElementById('ntError');
   var range = 'week', q = '';
+  var MAX_WORDS = 40;
+  var byId = {};
 
   var RANGE_WORD = { week: 'this week', month: 'this month', year: 'this year' };
 
@@ -216,6 +238,11 @@ document.addEventListener('DOMContentLoaded', function () {
     grid.style.display    = w==='grid'   ?'grid':'none';
   }
   function cap(s){ return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+  function truncateWords(str, max){
+    var words = String(str || '').trim().split(/\s+/);
+    if (words.length <= max) return { text: str, truncated: false };
+    return { text: words.slice(0, max).join(' ') + ' …', truncated: true };
+  }
 
   function attachHtml(docs, links){
     var chips = [];
@@ -231,14 +258,49 @@ document.addEventListener('DOMContentLoaded', function () {
   function cardHtml(n, i){
     var group = CAT_GROUP[n.category] || 'general';
     var secondary = (i % 2 === 0) ? ' notice-card--secondary' : '';
+    var t = truncateWords(n.content, MAX_WORDS);
+    var readmore = t.truncated
+      ? '<button class="notice-link notice-readmore" data-id="'+n.id+'">Read More <span class="material-symbols-outlined">arrow_forward</span></button>'
+      : '';
     return '<div class="notice-card'+secondary+'">'
       + '<span class="notice-tag notice-tag--'+group+'">'+esc(cap(n.category))+'</span>'
       + '<span class="notice-date">'+esc(n.date)+'</span>'
       + '<h3 class="notice-card-title">'+esc(n.title)+'</h3>'
-      + '<p class="notice-card-text">'+esc(n.content)+'</p>'
+      + '<p class="notice-card-text">'+esc(t.text)+'</p>'
       + attachHtml(n.documents, n.links)
+      + readmore
       + '</div>';
   }
+
+  /* ---- Read-more modal ---- */
+  var modal = document.getElementById('ntModal');
+  function openModal(n){
+    document.getElementById('ntMCat').textContent = cap(n.category);
+    document.getElementById('ntMDate').textContent = n.date;
+    document.getElementById('ntMTitle').textContent = n.title;
+    document.getElementById('ntMBody').textContent = n.content;
+    document.getElementById('ntMAttach').innerHTML =
+      (n.documents || []).map(function (d) {
+        return '<a class="nmodal-chip" href="'+esc(d.url)+'" target="_blank" rel="noopener"><span class="material-symbols-outlined">description</span>'+esc(d.name)+'</a>';
+      }).concat((n.links || []).map(function (l) {
+        return '<a class="nmodal-chip" href="'+esc(l.url)+'" target="_blank" rel="noopener"><span class="material-symbols-outlined">link</span>'+esc(l.title)+'</a>';
+      })).join('');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('ntMClose').addEventListener('click', closeModal);
+  modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+  grid.addEventListener('click', function (e) {
+    var b = e.target.closest('.notice-readmore'); if (!b) return;
+    var n = byId[b.getAttribute('data-id')]; if (n) openModal(n);
+  });
 
   function load(){
     show('loading');
@@ -255,6 +317,7 @@ document.addEventListener('DOMContentLoaded', function () {
           show('empty');
           return;
         }
+        byId = {}; rows.forEach(function (n) { byId[n.id] = n; });
         grid.innerHTML = rows.map(cardHtml).join('');
         show('grid');
       })

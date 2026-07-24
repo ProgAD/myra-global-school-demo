@@ -200,6 +200,27 @@ address{font-style:normal;}
 }
 .notice-link:hover{text-decoration:underline;}
 .notice-link-ico{font-size:14px;}
+.ann-viewall{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-family:var(--font-sans);font-size:14px;font-weight:600;letter-spacing:.03em;color:var(--primary);border:1px solid var(--primary);border-radius:8px;padding:9px 18px;transition:.2s;}
+.ann-viewall:hover{background:var(--primary);color:var(--on-primary);}
+.ann-viewall .material-symbols-outlined{font-size:16px;}
+
+/* Notice "Read more" modal (shared style) */
+.nmodal{position:fixed;inset:0;background:rgba(9,25,50,.6);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px;}
+.nmodal.open{display:flex;}
+.nmodal-box{background:#fff;border-radius:16px;max-width:640px;width:100%;max-height:88vh;overflow-y:auto;box-shadow:0 30px 60px rgba(0,0,0,.3);animation:nmPop .25s ease;}
+@keyframes nmPop{from{transform:translateY(12px);opacity:0;}}
+.nmodal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:26px 28px 0;}
+.nmodal-close{font-size:28px;line-height:1;color:var(--on-surface-variant);cursor:pointer;background:none;border:none;flex-shrink:0;}
+.nmodal-close:hover{color:var(--primary);}
+.nmodal-cat{display:inline-block;font-family:var(--font-sans);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--secondary);}
+.nmodal-date{font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--on-surface-variant);display:block;margin-top:4px;}
+.nmodal-title{font-family:var(--font-serif);font-size:26px;line-height:1.25;font-weight:700;color:var(--primary);padding:6px 28px 0;}
+.nmodal-body{padding:16px 28px 26px;font-family:var(--font-serif);font-size:16px;line-height:28px;color:var(--on-surface-variant);white-space:pre-wrap;}
+.nmodal-attach{display:flex;flex-wrap:wrap;gap:8px;padding:0 28px 26px;}
+.nmodal-chip{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-sans);font-size:13px;font-weight:600;padding:6px 12px;border-radius:8px;border:1px solid var(--outline-variant);color:var(--primary);transition:.2s;}
+.nmodal-chip:hover{background:var(--surface-container);border-color:var(--primary);}
+.nmodal-chip .material-symbols-outlined{font-size:15px;}
+.notice-readmore{background:none;border:none;cursor:pointer;}
 
 /* ============================================================
    ABOUT SECTION
@@ -468,26 +489,10 @@ address{font-style:normal;}
 <div class="notice-head">
 <span class="material-symbols-outlined notice-head-ico">notifications_active</span>
 <h2 class="notice-head-title">Official Announcements</h2>
+<a class="ann-viewall" href="notice.php">View All <span class="material-symbols-outlined">arrow_forward</span></a>
 </div>
-<div class="notice-grid">
-<div class="notice-card">
-<span class="notice-date">October 24, 2024</span>
-<h3 class="notice-card-title">Entrance Examination Schedule</h3>
-<p class="notice-card-text">Dates for the Spring 2025 intake entrance exams have been finalized. Please check your portal for details.</p>
-<a class="notice-link" href="#">Download Schedule <span class="material-symbols-outlined notice-link-ico">open_in_new</span></a>
-</div>
-<div class="notice-card notice-card--secondary">
-<span class="notice-date">October 20, 2024</span>
-<h3 class="notice-card-title">Parent-Teacher Symposium</h3>
-<p class="notice-card-text">Join us for an evening of dialogue regarding our new experimental STEM curriculum enhancements.</p>
-<a class="notice-link" href="#">Register Attendance <span class="material-symbols-outlined notice-link-ico">arrow_forward</span></a>
-</div>
-<div class="notice-card">
-<span class="notice-date">October 15, 2024</span>
-<h3 class="notice-card-title">Scholarship Applications</h3>
-<p class="notice-card-text">Applications for the Merit-Based Leadership Scholarship for Grade 9 students are now open.</p>
-<a class="notice-link" href="#">Apply Now <span class="material-symbols-outlined notice-link-ico">edit</span></a>
-</div>
+<div class="notice-grid" id="annGrid" data-loading="true">
+<div class="notice-card"><p class="notice-card-text" style="margin:0;">Loading announcements…</p></div>
 </div>
 </div>
 </section>
@@ -647,4 +652,106 @@ address{font-style:normal;}
             });
         });
     </script>
+<!-- Notice Read-more modal -->
+<div class="nmodal" id="annModal" aria-hidden="true">
+<div class="nmodal-box">
+<div class="nmodal-head">
+<div>
+<span class="nmodal-cat" id="annMCat"></span>
+<span class="nmodal-date" id="annMDate"></span>
+</div>
+<button class="nmodal-close" id="annMClose" aria-label="Close">&times;</button>
+</div>
+<h3 class="nmodal-title" id="annMTitle"></h3>
+<div class="nmodal-body" id="annMBody"></div>
+<div class="nmodal-attach" id="annMAttach"></div>
+</div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var grid = document.getElementById('annGrid');
+  if (!grid) return;
+
+  var MAX_WORDS = 40;
+  var byId = {};
+  var modal = document.getElementById('annModal');
+
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c];
+    });
+  }
+  function cap(s){ return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+  function truncateWords(str, max){
+    var words = String(str || '').trim().split(/\s+/);
+    if (words.length <= max) return { text: str, truncated: false };
+    return { text: words.slice(0, max).join(' ') + ' …', truncated: true };
+  }
+
+  function cardHtml(n, i){
+    var secondary = (i % 2 === 1) ? ' notice-card--secondary' : '';
+    var t = truncateWords(n.content, MAX_WORDS);
+    var action = t.truncated
+      ? '<button class="notice-link notice-readmore" data-id="' + n.id + '">Read More <span class="material-symbols-outlined notice-link-ico">arrow_forward</span></button>'
+      : '';
+    return '<div class="notice-card' + secondary + '">'
+      + '<span class="notice-date">' + esc(n.date) + '</span>'
+      + '<h3 class="notice-card-title">' + esc(n.title) + '</h3>'
+      + '<p class="notice-card-text">' + esc(t.text) + '</p>'
+      + action
+      + '</div>';
+  }
+
+  function openModal(n){
+    document.getElementById('annMCat').textContent = cap(n.category);
+    document.getElementById('annMDate').textContent = n.date;
+    document.getElementById('annMTitle').textContent = n.title;
+    document.getElementById('annMBody').textContent = n.content;
+    var chips = [];
+    (n.documents || []).forEach(function (d) {
+      chips.push('<a class="nmodal-chip" href="' + esc(d.url) + '" target="_blank" rel="noopener"><span class="material-symbols-outlined">description</span>' + esc(d.name) + '</a>');
+    });
+    (n.links || []).forEach(function (l) {
+      chips.push('<a class="nmodal-chip" href="' + esc(l.url) + '" target="_blank" rel="noopener"><span class="material-symbols-outlined">link</span>' + esc(l.title) + '</a>');
+    });
+    document.getElementById('annMAttach').innerHTML = chips.join('');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('annMClose').addEventListener('click', closeModal);
+  modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+  grid.addEventListener('click', function (e) {
+    var b = e.target.closest('.notice-readmore'); if (!b) return;
+    var n = byId[b.getAttribute('data-id')]; if (n) openModal(n);
+  });
+
+  fetch('actions/homepage/latest_notices.php?limit=3', { headers: { 'Accept': 'application/json' } })
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (!d || !d.success) throw new Error('bad response');
+      var rows = d.rows || [];
+      grid.removeAttribute('data-loading');
+      if (!rows.length) {
+        grid.innerHTML = '<div class="notice-card"><p class="notice-card-text" style="margin:0;">No announcements at the moment. Please check back soon.</p></div>';
+        return;
+      }
+      byId = {}; rows.forEach(function (n) { byId[n.id] = n; });
+      grid.innerHTML = rows.map(cardHtml).join('');
+    })
+    .catch(function () {
+      grid.removeAttribute('data-loading');
+      grid.innerHTML = '<div class="notice-card"><p class="notice-card-text" style="margin:0;">Announcements are unavailable right now. '
+        + '<a class="notice-link" href="notice.php" style="display:inline-flex;">View all notices <span class="material-symbols-outlined notice-link-ico">arrow_forward</span></a></p></div>';
+    });
+});
+</script>
 </body></html>

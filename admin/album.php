@@ -29,6 +29,7 @@ if (!isset($_SESSION['user_id'])) {
 .alb-head .meta .material-symbols-outlined{font-size:16px;}
 .head-actions{display:flex;gap:10px;flex-wrap:wrap;}
 .head-actions label{cursor:pointer;}
+.head-actions label.is-busy{opacity:.6;pointer-events:none;}
 
 .photo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
 .ph{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:1/1;background:var(--bg);}
@@ -44,17 +45,23 @@ if (!isset($_SESSION['user_id'])) {
 .ph-cover-badge{position:absolute;top:8px;left:8px;background:var(--secondary-fixed);color:var(--primary-container);font-size:11px;font-weight:700;padding:3px 9px;border-radius:9999px;display:none;align-items:center;gap:4px;z-index:2;}
 .ph.is-cover .ph-cover-badge{display:inline-flex;}
 .ph-cover-badge .material-symbols-outlined{font-size:13px;}
-.ph video{width:100%;height:100%;object-fit:cover;display:block;}
-.ph-vid{position:absolute;left:8px;bottom:8px;width:30px;height:30px;border-radius:50%;background:rgba(0,10,30,.6);color:#fff;display:flex;align-items:center;justify-content:center;z-index:2;}
-.ph-vid .material-symbols-outlined{font-size:18px;}
+.ph.busy{opacity:.5;pointer-events:none;}
+.ph img{cursor:pointer;}
 
-.ph img,.ph video{cursor:pointer;}
+/* States */
+.state-box{text-align:center;padding:56px 20px;color:var(--muted);}
+.state-box .material-symbols-outlined{font-size:52px;color:var(--line);}
+.state-box h4{font-family:var(--font-serif);font-size:19px;font-weight:700;color:var(--primary-container);margin-top:10px;}
+.state-box.err h4{color:var(--red);}
+.state-box p{margin-top:6px;font-size:14px;}
+.spin{width:30px;height:30px;border:3px solid var(--line);border-top-color:var(--primary-container);border-radius:50%;animation:sp .7s linear infinite;margin:0 auto;}
+@keyframes sp{to{transform:rotate(360deg);}}
 
-/* Lightbox / media viewer (slideshow + player) */
+/* Lightbox */
 .lightbox{position:fixed;inset:0;background:rgba(9,25,50,.94);display:none;align-items:center;justify-content:center;z-index:1000;padding:24px;}
 .lightbox.open{display:flex;}
 .lb-stage{max-width:90vw;max-height:82vh;display:flex;align-items:center;justify-content:center;}
-.lb-stage img,.lb-stage video{max-width:90vw;max-height:82vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5);background:#000;}
+.lb-stage img{max-width:90vw;max-height:82vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5);background:#000;}
 .lb-close{position:absolute;top:20px;right:24px;z-index:3;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;}
 .lb-close:hover{background:var(--secondary-fixed);color:var(--primary-container);}
 .lb-close .material-symbols-outlined{font-size:26px;}
@@ -81,72 +88,45 @@ if (!isset($_SESSION['user_id'])) {
 <div class="content">
 <a class="back" href="gallery.php"><span class="material-symbols-outlined">arrow_back</span> Back to Gallery</a>
 
+<!-- Loading -->
+<div class="state-box" id="loadingBox"><div class="spin"></div><p style="margin-top:12px">Loading album…</p></div>
+
+<!-- Not found / error -->
+<div class="state-box err" id="errorBox" style="display:none">
+<span class="material-symbols-outlined">error</span>
+<h4 id="errorTitle">Album not found</h4>
+<p id="errorMsg">This album may have been removed.</p>
+<a class="btn btn-ghost btn-sm" href="gallery.php" style="margin-top:14px"><span class="material-symbols-outlined">arrow_back</span> Back to Gallery</a>
+</div>
+
+<div id="albumWrap" style="display:none">
 <div class="alb-head">
 <div>
-<span class="date" id="albDate">December 2024</span>
-<h2 id="albTitle">Annual Day Celebration</h2>
-<p id="albDesc">Music, dance and drama highlights from the evening.</p>
+<span class="date" id="albDate"></span>
+<h2 id="albTitle"></h2>
+<p id="albDesc"></p>
 <span class="meta"><span class="material-symbols-outlined">photo_library</span> <span id="albCount">0 photos</span></span>
 </div>
 <div class="head-actions">
 <button class="btn btn-ghost" id="editDetails"><span class="material-symbols-outlined">edit</span> Edit details</button>
-<label class="btn btn-primary"><span class="material-symbols-outlined">perm_media</span> Add Media<input type="file" id="addFiles" accept="image/*,video/*" multiple hidden/></label>
+<label class="btn btn-primary" id="addMediaLabel"><span class="material-symbols-outlined">perm_media</span> <span id="addMediaText">Add Photos</span><input type="file" id="addFiles" accept="image/*" multiple hidden/></label>
 </div>
 </div>
 
-<div class="photo-grid" id="photoGrid">
-<div class="ph is-cover" data-item>
-<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaxFf1iR-fZ3ARbf0Jb1PNjorBa8cpgPVL-w_P4OsAfjXdIb8A1E_x95gl_w2j4vW9grj2ypkMgh0yCKFxAjESyp2Ucx4NsnBi5XDuP7ix-Up85kKqoPpxUlzKqRnhXlpTJpv56yXLUhsTit3BEJblNQ91Ww4jEBCL6Zs1nHGWbS7_cgkUZ0mEDgqrtnmZRXATqFK9e2mQ2lqRQKsH_bNLLr2t1jZgnqlrKkc1ULfSMa-7V_H-fGR4HA" alt="Photo"/>
-<span class="ph-cover-badge"><span class="material-symbols-outlined">star</span> Cover</span>
-<div class="ph-actions">
-<button class="ph-btn set" title="Set as cover"><span class="material-symbols-outlined">star</span></button>
-<button class="ph-btn del" title="Delete"><span class="material-symbols-outlined">delete</span></button>
-</div>
-</div>
-<div class="ph" data-item>
-<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYZVCivML_bItmWzbD5J65HYfCDYnBmHh0oaMBmpOgSRv1ecKJckbpXjmsrSiw07faGmYD7qTgoCy-sWRoG57OPDTCgSS61kw0w0TkUIdqoloksfWuLo88U9MjKZ20w_Jgly9qwtTFiLgSaRh6wPkimPdS6Cy_FM5JP1IO8fNtvfqPfAm63tU93PC_S5QKLUKcJ1TYCp0zpAUR6eB-L6XwfhRrBZCQd0XT1IKKkdJGi-wKRTC6tRQqew" alt="Photo"/>
-<span class="ph-cover-badge"><span class="material-symbols-outlined">star</span> Cover</span>
-<div class="ph-actions">
-<button class="ph-btn set" title="Set as cover"><span class="material-symbols-outlined">star</span></button>
-<button class="ph-btn del" title="Delete"><span class="material-symbols-outlined">delete</span></button>
-</div>
-</div>
-<div class="ph" data-item>
-<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrAUxLGmK3HTZovHjtQNhyL7wUTcT2jRJ96hODtSIBdo8qX0rVDZxVC80sgUH-7rXb6ST-Qwiwun7ss1-lEEY3GyrCE5hTzOwdYmmM0FdKq2XxQogHlgw_VzqsZ-cOleFWCWBPHyxMhuWz33G967YtwYfeBdKsHdkp25A7OJUvaoxIIHqemZRxxk9SFsNfNvgvPRH6WV9r-jdaAboWc0m9FNQ7HHNZtY5Cnx7dSqzddmLBjWAFw6dn4Q" alt="Photo"/>
-<span class="ph-cover-badge"><span class="material-symbols-outlined">star</span> Cover</span>
-<div class="ph-actions">
-<button class="ph-btn set" title="Set as cover"><span class="material-symbols-outlined">star</span></button>
-<button class="ph-btn del" title="Delete"><span class="material-symbols-outlined">delete</span></button>
-</div>
-</div>
-<div class="ph" data-item>
-<img src="https://lh3.googleusercontent.com/aida/AP1WRLvj2juMHe6Ny1Drz8c5bleO9fp0KfpZtEsdRb8dV9gJQHYn7VM5hdyFS8ogfM_BnBHoew1ubfI-j1pyDVBTU4WSfR6SWpbl44-9NiSAPmFrk1yZRpGYCsZFizVlznlE9WiX7U3zbpWDkc7PcUUElVs97VZ7H4C49cUTtUri1ZOUTea6aDCksnljY-O0PjMziusbGqNDYISAGi13nq8XdaJF3_HG6suvYxrrOEQAwYsf5UYVcaTmV5R380A" alt="Photo"/>
-<span class="ph-cover-badge"><span class="material-symbols-outlined">star</span> Cover</span>
-<div class="ph-actions">
-<button class="ph-btn set" title="Set as cover"><span class="material-symbols-outlined">star</span></button>
-<button class="ph-btn del" title="Delete"><span class="material-symbols-outlined">delete</span></button>
-</div>
-</div>
-<div class="ph" data-item>
-<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEzSG6mdfW96059TNF1M1hivs6iTXZAr-vLQoKEhcbEjF7aiMXFuPqDTvOOwnwLS14mX2a0qvy96Ziym73h1CwNdqUiJhEMUvC9pvHakyvlukSDnE8A732JP02zde5D3fabGIIhHLU983zv_Nff4n-XdZunzIQpJgvpKuyNUFGokxj4o-ESTmvvx0uEslQ8cYhdbSpa2e-eovTg7Lb7XhXzR3KlgSVgFjYvnt0_mUO2F3494VEtD2g1g" alt="Photo"/>
-<span class="ph-cover-badge"><span class="material-symbols-outlined">star</span> Cover</span>
-<div class="ph-actions">
-<button class="ph-btn set" title="Set as cover"><span class="material-symbols-outlined">star</span></button>
-<button class="ph-btn del" title="Delete"><span class="material-symbols-outlined">delete</span></button>
-</div>
-</div>
-</div>
+<div class="photo-grid" id="photoGrid"></div>
 
-<div class="empty" id="emptyState" style="display:none">
+<div class="state-box" id="emptyState" style="display:none">
 <span class="material-symbols-outlined">image</span>
-<p>No media in this album yet. Click <b>Add Media</b> to upload.</p>
-</div>
-
-</div>
+<h4>No Photos Yet</h4>
+<p>Click <b>Add Photos</b> to upload images to this album.</p>
 </div>
 </div>
 
-<!-- Media viewer (slideshow + player) -->
+</div>
+</div>
+</div>
+
+<!-- Media viewer -->
 <div class="lightbox" id="lightbox">
 <button class="lb-close" id="lbClose" aria-label="Close"><span class="material-symbols-outlined">close</span></button>
 <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous"><span class="material-symbols-outlined">chevron_left</span></button>
@@ -162,162 +142,210 @@ if (!isset($_SESSION['user_id'])) {
 <form id="detailsForm">
 <div class="modal-body">
 <div class="field"><label>Title</label><input class="finput" id="dTitle" type="text" placeholder="Album title" required/></div>
-<div class="field"><label>Event Month / Date</label><input class="finput" id="dDate" type="text" placeholder="e.g. December 2024"/></div>
 <div class="field"><label>Description</label><textarea class="finput" id="dDesc" placeholder="Describe this album..."></textarea></div>
 </div>
-<div class="modal-foot"><button type="button" class="btn btn-ghost" data-close>Cancel</button><button type="submit" class="btn btn-primary">Save</button></div>
+<div class="modal-foot"><button type="button" class="btn btn-ghost" data-close>Cancel</button><button type="submit" class="btn btn-primary" id="dSave">Save</button></div>
 </form>
 </div>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  var grid = document.getElementById('photoGrid');
-  var countEl = document.getElementById('albCount');
-  var empty = document.getElementById('emptyState');
+  var API = '../actions/admin/gallery/';
+  var albumId = parseInt(new URLSearchParams(location.search).get('id'), 10) || 0;
 
-  // ---- album details from query params ----
-  var q = new URLSearchParams(location.search);
-  if (q.get('title')) document.getElementById('albTitle').textContent = q.get('title');
-  if (q.get('date'))  document.getElementById('albDate').textContent  = q.get('date');
-  if (q.get('desc') !== null && q.get('desc') !== '') document.getElementById('albDesc').textContent = q.get('desc');
+  var loadingBox = document.getElementById('loadingBox');
+  var errorBox   = document.getElementById('errorBox');
+  var wrap       = document.getElementById('albumWrap');
+  var grid       = document.getElementById('photoGrid');
+  var emptyState = document.getElementById('emptyState');
+  var countEl    = document.getElementById('albCount');
 
-  function updateCount() {
-    var n = grid.querySelectorAll('.ph').length;
-    countEl.textContent = n + (n === 1 ? ' item' : ' items');
-    empty.style.display = n ? 'none' : 'block';
-    grid.style.display = n ? 'grid' : 'none';
-  }
-
-  // keep the cover always at the first position
-  function ensureCoverFirst() {
-    var cover = grid.querySelector('.ph.is-cover');
-    if (!cover) { cover = grid.querySelector('.ph'); if (cover) cover.classList.add('is-cover'); }
-    if (cover && cover !== grid.firstElementChild) grid.insertBefore(cover, grid.firstElementChild);
-  }
-
-  updateCount();
-  ensureCoverFirst();
-
-  // ---- build a media tile (image or video) ----
-  function makeTile(src, isVideo) {
-    var d = document.createElement('div');
-    d.className = 'ph'; d.setAttribute('data-item', '');
-    var media = isVideo
-      ? '<video src="' + src + '" muted playsinline></video><span class="ph-vid"><span class="material-symbols-outlined">play_arrow</span></span>'
-      : '<img src="' + src + '" alt="Media"/>';
-    d.innerHTML = media +
-      '<span class="ph-cover-badge"><span class="material-symbols-outlined">star</span> Cover</span>' +
-      '<div class="ph-actions">' +
-        '<button class="ph-btn set" title="Set as cover"><span class="material-symbols-outlined">star</span></button>' +
-        '<button class="ph-btn del" title="Delete"><span class="material-symbols-outlined">delete</span></button>' +
-      '</div>';
-    return d;
-  }
-
-  // ---- Add media (photos & videos) ----
-  document.getElementById('addFiles').addEventListener('change', function () {
-    var files = Array.prototype.slice.call(this.files || []);
-    files.forEach(function (f) {
-      var url = URL.createObjectURL(f);
-      grid.appendChild(makeTile(url, f.type.indexOf('video') === 0));
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c];
     });
+  }
+  function show(w){
+    loadingBox.style.display = w==='loading'?'':'none';
+    errorBox.style.display   = w==='error'  ?'':'none';
+    wrap.style.display       = w==='album'  ?'':'none';
+  }
+
+  if (!albumId) { document.getElementById('errorMsg').textContent = 'No album was specified.'; show('error'); return; }
+
+  function tileHtml(m){
+    return '<div class="ph'+(m.is_cover?' is-cover':'')+'" data-id="'+m.id+'">'
+      + '<img src="'+esc(m.url)+'" alt="Photo"/>'
+      + '<span class="ph-cover-badge"><span class="material-symbols-outlined">star</span> Cover</span>'
+      + '<div class="ph-actions">'
+      +   '<button class="ph-btn set" title="Set as cover"><span class="material-symbols-outlined">star</span></button>'
+      +   '<button class="ph-btn del" title="Delete"><span class="material-symbols-outlined">delete</span></button>'
+      + '</div></div>';
+  }
+
+  function render(album, media){
+    document.getElementById('albTitle').textContent = album.title;
+    document.getElementById('albDate').textContent  = album.date;
+    document.getElementById('albDesc').textContent  = album.description || '';
+    var n = media.length;
+    countEl.textContent = n + (n === 1 ? ' photo' : ' photos');
+    grid.innerHTML = media.map(tileHtml).join('');
+    grid.style.display = n ? 'grid' : 'none';
+    emptyState.style.display = n ? 'none' : 'block';
+  }
+
+  function load(){
+    show('loading');
+    fetch(API + 'album_get.php?id=' + albumId, { headers:{ 'Accept':'application/json' } })
+      .then(function (r) { return r.json().then(function (d) { return { ok:r.ok, d:d }; }); })
+      .then(function (res) {
+        if (!res.ok || !res.d.success) {
+          document.getElementById('errorMsg').textContent = (res.d && res.d.message) || 'This album could not be loaded.';
+          show('error'); return;
+        }
+        render(res.d.album, res.d.media || []);
+        show('album');
+      })
+      .catch(function () {
+        document.getElementById('errorMsg').textContent = 'Could not reach the server.';
+        show('error');
+      });
+  }
+
+  /* ---------- Add photos ---------- */
+  var fileInput = document.getElementById('addFiles');
+  var addLabel  = document.getElementById('addMediaLabel');
+  var addText   = document.getElementById('addMediaText');
+
+  fileInput.addEventListener('change', function () {
+    var files = this.files;
+    if (!files || !files.length) return;
+    var fd = new FormData();
+    fd.append('album_id', albumId);
+    for (var i = 0; i < files.length; i++) fd.append('media[]', files[i]);
     this.value = '';
-    ensureCoverFirst();
-    updateCount();
+
+    addLabel.classList.add('is-busy');
+    addText.textContent = 'Uploading…';
+
+    fetch(API + 'media_upload.php', { method:'POST', body: fd })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d.success) throw new Error(d.message || 'Upload failed');
+        if (d.skipped && d.skipped.length) alert('Some files were skipped:\n' + d.skipped.join('\n'));
+        load();
+      })
+      .catch(function (err) { alert('Upload failed: ' + err.message); })
+      .finally(function () {
+        addLabel.classList.remove('is-busy');
+        addText.textContent = 'Add Photos';
+      });
   });
 
-  // ---- Media actions (set cover / delete) OR open the viewer ----
+  /* ---------- Set cover / delete ---------- */
   grid.addEventListener('click', function (e) {
     var btn = e.target.closest('.ph-btn');
     if (btn) {
       var tile = btn.closest('.ph');
+      var mediaId = tile.dataset.id;
       if (btn.classList.contains('set')) {
-        grid.querySelectorAll('.ph.is-cover').forEach(function (p) { p.classList.remove('is-cover'); });
-        tile.classList.add('is-cover');
-        ensureCoverFirst();        // move the new cover to the front
+        tile.classList.add('busy');
+        fetch(API + 'set_cover.php', {
+          method:'POST', headers:{ 'Content-Type':'application/json' },
+          body: JSON.stringify({ album_id: albumId, media_id: mediaId })
+        }).then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (!d.success) throw new Error(d.message || 'Failed');
+            grid.querySelectorAll('.ph.is-cover').forEach(function (p) { p.classList.remove('is-cover'); });
+            tile.classList.add('is-cover');
+          })
+          .catch(function (err) { alert('Could not set cover: ' + err.message); })
+          .finally(function () { tile.classList.remove('busy'); });
       } else if (btn.classList.contains('del')) {
-        if (window.confirm('Delete this item?')) {
-          var wasCover = tile.classList.contains('is-cover');
-          tile.remove();
-          if (wasCover) ensureCoverFirst();
-          updateCount();
-        }
+        if (!window.confirm('Delete this photo? This cannot be undone.')) return;
+        tile.classList.add('busy');
+        fetch(API + 'media_delete.php', {
+          method:'POST', headers:{ 'Content-Type':'application/json' },
+          body: JSON.stringify({ id: mediaId })
+        }).then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (!d.success) throw new Error(d.message || 'Failed');
+            load();
+          })
+          .catch(function (err) { alert('Could not delete: ' + err.message); tile.classList.remove('busy'); });
       }
       return;
     }
-    // clicked the media itself → open the slideshow viewer
-    var t = e.target.closest('.ph');
-    if (t) openViewer(t);
+    var img = e.target.closest('.ph');
+    if (img) openViewer(img);
   });
 
-  // ---- Lightbox: slideshow + player ----
+  /* ---------- Lightbox ---------- */
   var lb = document.getElementById('lightbox');
   var stage = document.getElementById('lbStage');
   var counter = document.getElementById('lbCounter');
   var items = [], current = 0;
 
   function tiles() { return Array.prototype.slice.call(grid.querySelectorAll('.ph')); }
-  function collect() {
-    items = tiles().map(function (t) {
-      var v = t.querySelector('video');
-      return v ? { type: 'video', src: v.getAttribute('src') }
-               : { type: 'image', src: t.querySelector('img').getAttribute('src') };
-    });
-  }
-  function stopVideo() { var v = stage.querySelector('video'); if (v) { try { v.pause(); } catch (err) {} } }
-  function render(i) {
+  function renderLb(i) {
     if (!items.length) return;
     current = (i + items.length) % items.length;
-    var it = items[current];
     stage.innerHTML = '';
-    var node;
-    if (it.type === 'video') {
-      node = document.createElement('video');
-      node.src = it.src; node.controls = true; node.autoplay = true; node.setAttribute('playsinline', '');
-    } else {
-      node = document.createElement('img'); node.src = it.src; node.alt = 'Media';
-    }
+    var node = document.createElement('img');
+    node.src = items[current]; node.alt = 'Photo';
     stage.appendChild(node);
     counter.textContent = (current + 1) + ' / ' + items.length;
   }
   function openViewer(tile) {
-    collect();
+    items = tiles().map(function (t) { return t.querySelector('img').getAttribute('src'); });
     var idx = tiles().indexOf(tile);
-    render(idx < 0 ? 0 : idx);
+    renderLb(idx < 0 ? 0 : idx);
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
-  function closeViewer() { stopVideo(); lb.classList.remove('open'); stage.innerHTML = ''; document.body.style.overflow = ''; }
-  function next() { stopVideo(); render(current + 1); }
-  function prev() { stopVideo(); render(current - 1); }
-
+  function closeViewer() { lb.classList.remove('open'); stage.innerHTML = ''; document.body.style.overflow = ''; }
   document.getElementById('lbClose').addEventListener('click', closeViewer);
-  document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); next(); });
-  document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); prev(); });
+  document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); renderLb(current + 1); });
+  document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); renderLb(current - 1); });
   lb.addEventListener('click', function (e) { if (e.target === lb) closeViewer(); });
   document.addEventListener('keydown', function (e) {
     if (!lb.classList.contains('open')) return;
     if (e.key === 'Escape') closeViewer();
-    else if (e.key === 'ArrowRight') next();
-    else if (e.key === 'ArrowLeft') prev();
+    else if (e.key === 'ArrowRight') renderLb(current + 1);
+    else if (e.key === 'ArrowLeft') renderLb(current - 1);
   });
 
-  // ---- Edit album details ----
+  /* ---------- Edit details ---------- */
   var modal = document.getElementById('detailsModal');
   document.getElementById('editDetails').addEventListener('click', function () {
     document.getElementById('dTitle').value = document.getElementById('albTitle').textContent;
-    document.getElementById('dDate').value  = document.getElementById('albDate').textContent;
     document.getElementById('dDesc').value  = document.getElementById('albDesc').textContent;
     modal.classList.add('open');
   });
   document.getElementById('detailsForm').addEventListener('submit', function (e) {
     e.preventDefault();
-    document.getElementById('albTitle').textContent = document.getElementById('dTitle').value.trim();
-    document.getElementById('albDate').textContent  = document.getElementById('dDate').value.trim();
-    document.getElementById('albDesc').textContent  = document.getElementById('dDesc').value.trim();
-    modal.classList.remove('open');
+    var btn = document.getElementById('dSave');
+    btn.disabled = true;
+    fetch(API + 'album_update.php', {
+      method:'POST', headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({
+        id: albumId,
+        title: document.getElementById('dTitle').value.trim(),
+        description: document.getElementById('dDesc').value.trim()
+      })
+    }).then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d.success) throw new Error(d.message || 'Save failed');
+        document.getElementById('albTitle').textContent = document.getElementById('dTitle').value.trim();
+        document.getElementById('albDesc').textContent  = document.getElementById('dDesc').value.trim();
+        modal.classList.remove('open');
+      })
+      .catch(function (err) { alert('Could not save: ' + err.message); })
+      .finally(function () { btn.disabled = false; });
   });
+
+  load();
 });
 </script>
 </body></html>
