@@ -411,20 +411,20 @@ button{font-family:inherit;cursor:pointer;}
     </svg>
 
     <div class="brand-copy">
-      <span class="brand-eyebrow">Community Portal</span>
+      <span class="brand-eyebrow">School Portal</span>
       <h1 class="brand-heading">Your gateway to the Myra Global School community.</h1>
       <p class="brand-lead">One secure sign-in for report cards, fee statements, timetables, and school announcements — built for parents, students, and staff alike.</p>
     </div>
 
     <div class="brand-quote">
-      <p>"Founded in 1974, we've grown from a single classroom into a global learning community — the portal is how we stay close, wherever families are."</p>
-      <span>OFFICE OF THE REGISTRAR</span>
+      <p>"Founded in 2001, Myra Global School has grown into a caring learning community in Patna — this portal is how we stay connected with our students and parents every day."</p>
+      <span>MYRA GLOBAL SCHOOL</span>
     </div>
 
     <div class="brand-badges">
-      <span class="brand-badge">IB WORLD SCHOOL</span>
+      <span class="brand-badge">EXCELLENCE IN EDUCATION</span>
       <span class="brand-badge-sep">|</span>
-      <span class="brand-badge">CAIS ACCREDITED</span>
+      <span class="brand-badge">ESTABLISHED 2001</span>
     </div>
   </aside>
 
@@ -560,7 +560,7 @@ button{font-family:inherit;cursor:pointer;}
 
       if (res.ok && data.success) {
         // keep the button spinning while the browser navigates away
-        window.location.href = data.redirect || 'admin/dashboard.html';
+        window.location.href = data.redirect || 'admin/dashboard.php';
         return;
       }
       showError(data.message || 'Incorrect User ID or password. Please try again.');

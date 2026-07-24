@@ -56,21 +56,11 @@ $na = function ($key) use ($nav_active) { return $key === $nav_active ? ' nav-li
 </div>
 </div>
 <a class="nav-link<?= $na('notice') ?>" href="notice.php">Notice</a>
-<div class="nav-item">
-<a class="nav-link nav-link--caret<?= $na('gallery') ?>" href="gallery.php">Gallery
-<span class="material-symbols-outlined nav-caret">expand_more</span></a>
-<div class="nav-dropdown">
-<div class="nav-dropdown-inner">
-<a class="dropdown-link" href="gallery.php#albums">Photo Albums</a>
-<a class="dropdown-link" href="gallery.php#videos">Video Gallery</a>
-</div>
-</div>
-</div>
+<a class="nav-link<?= $na('gallery') ?>" href="gallery.php">Gallery</a>
 <a class="nav-link<?= $na('career') ?>" href="career.php">Careers</a>
 </div>
 <div class="nav-actions">
-<button class="nav-btn nav-btn--outline" onclick="window.location.href='login.html'">Portal Login</button>
-<button class="nav-btn nav-btn--solid" onclick="window.location.href='admission/admission-form.php'">Apply Now</button>
+<button class="nav-btn nav-btn--solid" onclick="window.location.href='login.html'">Portal Login</button>
 </div>
 </div>
 </nav>
