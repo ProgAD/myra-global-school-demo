@@ -326,22 +326,18 @@ address{font-style:normal;}
 </div>
 </header>
 
-<!-- HERITAGE SECTION -->
-<section class="section-lg about-sec">
+<!-- PRINCIPAL MESSAGE SECTION -->
+<section class="section-lg about-sec" style="background:var(--surface-container);">
 <div class="container">
 <div class="about-grid">
 <div class="about-media">
-<img alt="Historic Campus" class="about-img" src="https://lh3.googleusercontent.com/aida/AP1WRLvj2juMHe6Ny1Drz8c5bleO9fp0KfpZtEsdRb8dV9gJQHYn7VM5hdyFS8ogfM_BnBHoew1ubfI-j1pyDVBTU4WSfR6SWpbl44-9NiSAPmFrk1yZRpGYCsZFizVlznlE9WiX7U3zbpWDkc7PcUUElVs97VZ7H4C49cUTtUri1ZOUTea6aDCksnljY-O0PjMziusbGqNDYISAGi13nq8XdaJF3_HG6suvYxrrOEQAwYsf5UYVcaTmV5R380A"/>
-<div class="about-badge">
-<div class="about-badge-num">50+</div>
-<div class="about-badge-label">Years of Excellence</div>
-</div>
+<img alt="Principal, Myra Global School" class="about-img" src="assets/images/principal.jpeg"/>
 </div>
 <div>
-<span class="eyebrow">Our Heritage</span>
-<h2 class="heading-lg">A Legacy of Intellectual Growth</h2>
-<p class="about-lead">Founded in 1974, Myra Global School has evolved from a small community school into a world-class institution. Our campus is more than just buildings; it is a sanctuary for ideas and a launchpad for future leaders.</p>
-<p class="about-text">We pride ourselves on maintaining the highest standards of academic rigor while fostering an environment of inclusivity and moral integrity. Our alumni can be found leading industries, driving scientific breakthroughs, and serving communities across the globe.</p>
+<span class="eyebrow">Leadership</span>
+<h2 class="heading-lg">Principal's Message</h2>
+<p class="about-lead">Dear Parents, at our school we believe every child has the potential to achieve greatness. With your support and our commitment to quality education, we aim to nurture confident, creative, and responsible individuals who are ready to succeed in the future. Together, let us inspire young minds and build a brighter tomorrow.</p>
+<p class="about-text">We pride ourselves on maintaining the highest standards of academic rigour while fostering an environment of inclusivity and moral integrity, guiding every student to grow with knowledge, values and confidence.</p>
 <div class="about-features">
 <div class="about-feature">
 <span class="material-symbols-outlined about-feature-ico">verified</span>
@@ -349,9 +345,36 @@ address{font-style:normal;}
 </div>
 <div class="about-feature">
 <span class="material-symbols-outlined about-feature-ico">diversity_3</span>
-<div><div class="about-feature-title">Inclusive</div><div class="about-feature-text">A global community</div></div>
+<div><div class="about-feature-title">Inclusive</div><div class="about-feature-text">A caring community</div></div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- VICE PRINCIPAL MESSAGE SECTION -->
+<section class="section-lg about-sec">
+<div class="container">
+<div class="about-grid">
+<div>
+<span class="eyebrow">Leadership</span>
+<h2 class="heading-lg">Vice Principal's Message</h2>
+<p class="about-lead">Dear Parents, every child is special, and our goal is to help them discover their strengths, build confidence, and grow with strong values. With your support and our dedication, we can create a joyful learning journey that prepares students for a bright future.</p>
+<p class="about-text">We pride ourselves on maintaining the highest standards of academic rigour while fostering an environment of inclusivity and moral integrity, ensuring learning that is both meaningful and impactful.</p>
+<div class="about-features">
+<div class="about-feature">
+<span class="material-symbols-outlined about-feature-ico">verified</span>
+<div><div class="about-feature-title">Accredited</div><div class="about-feature-text">Recognised for excellence</div></div>
+</div>
+<div class="about-feature">
+<span class="material-symbols-outlined about-feature-ico">diversity_3</span>
+<div><div class="about-feature-title">Inclusive</div><div class="about-feature-text">Inclusive learning, global impact</div></div>
+</div>
+</div>
+</div>
+<div class="about-media">
+<img alt="Vice Principal, Myra Global School" class="about-img" src="assets/images/viceprincipal.png"/>
 </div>
 </div>
 </div>
