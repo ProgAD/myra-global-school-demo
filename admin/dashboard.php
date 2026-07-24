@@ -74,7 +74,8 @@ img{display:block;max-width:100%;}
 
 /* Stat cards */
 .stat-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-bottom:24px;}
-.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;align-items:center;gap:16px;}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;align-items:center;gap:16px;transition:.25s;}
+.stat:hover{border-color:var(--primary-container);box-shadow:0 10px 26px rgba(0,33,71,.08);transform:translateY(-3px);}
 .stat-ico{width:52px;height:52px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
 .stat-ico .material-symbols-outlined{font-size:26px;}
 .stat-ico.b1{background:var(--blue-bg);color:var(--blue);}
@@ -173,11 +174,11 @@ img{display:block;max-width:100%;}
 
 <!-- Stats -->
 <div class="stat-grid">
-<div class="stat"><span class="stat-ico b1"><span class="material-symbols-outlined">school</span></span><div><div class="num" id="stTotalApplications">—</div><div class="lbl">Total Applications</div></div></div>
-<div class="stat"><span class="stat-ico b2"><span class="material-symbols-outlined">pending_actions</span></span><div><div class="num" id="stPendingVerification">—</div><div class="lbl">Pending Verification</div></div></div>
-<div class="stat"><span class="stat-ico b3"><span class="material-symbols-outlined">campaign</span></span><div><div class="num" id="stPublishedNotices">—</div><div class="lbl">Published Notices</div></div></div>
-<div class="stat"><span class="stat-ico b4"><span class="material-symbols-outlined">mark_email_unread</span></span><div><div class="num" id="stNewEnquiries">—</div><div class="lbl">New Enquiries</div></div></div>
-<div class="stat"><span class="stat-ico b5"><span class="material-symbols-outlined">work</span></span><div><div class="num" id="stCareerApplications">—</div><div class="lbl">Career Applications</div></div></div>
+<a class="stat" href="admissions.php"><span class="stat-ico b1"><span class="material-symbols-outlined">school</span></span><div><div class="num" id="stTotalApplications">—</div><div class="lbl">Total Applications</div></div></a>
+<a class="stat" href="admissions.php"><span class="stat-ico b2"><span class="material-symbols-outlined">pending_actions</span></span><div><div class="num" id="stPendingVerification">—</div><div class="lbl">Pending Verification</div></div></a>
+<a class="stat" href="notices.php"><span class="stat-ico b3"><span class="material-symbols-outlined">campaign</span></span><div><div class="num" id="stPublishedNotices">—</div><div class="lbl">Published Notices</div></div></a>
+<a class="stat" href="enquiries.php"><span class="stat-ico b4"><span class="material-symbols-outlined">mark_email_unread</span></span><div><div class="num" id="stNewEnquiries">—</div><div class="lbl">New Enquiries</div></div></a>
+<a class="stat" href="career.php"><span class="stat-ico b5"><span class="material-symbols-outlined">work</span></span><div><div class="num" id="stCareerApplications">—</div><div class="lbl">Career Applications</div></div></a>
 </div>
 
 <!-- Manage -->

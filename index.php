@@ -858,7 +858,7 @@ address{font-style:normal;}
       <p class="facilities-desc">
         At Myra Global School, education transcends academics, creating an exciting, caring and supportive space where students thrive and all-round development takes centre stage.
       </p>
-      <a href="#" class="facilities-btn">
+      <a href="academics/facilities.php" class="facilities-btn">
         View All &rarr;
       </a>
     </div>

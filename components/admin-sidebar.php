@@ -17,11 +17,11 @@ $cur = $page_name ?? '';
 <div class="side-label">Main</div>
 <a class="nav-a<?= $cur === 'dashboard' ? ' active' : '' ?>" href="dashboard.php"><span class="material-symbols-outlined">dashboard</span> Dashboard</a>
 <div class="side-label" style="margin-top:18px;">Manage</div>
-<a class="nav-a<?= $cur === 'admissions' ? ' active' : '' ?>" href="admissions.php"><span class="material-symbols-outlined">school</span> Admissions <span class="badge">14</span></a>
+<a class="nav-a<?= $cur === 'admissions' ? ' active' : '' ?>" href="admissions.php"><span class="material-symbols-outlined">school</span> Admissions</a>
 <a class="nav-a<?= $cur === 'notices' ? ' active' : '' ?>" href="notices.php"><span class="material-symbols-outlined">campaign</span> Notices</a>
 <a class="nav-a<?= ($cur === 'gallery' || $cur === 'album') ? ' active' : '' ?>" href="gallery.php"><span class="material-symbols-outlined">photo_library</span> Gallery</a>
-<a class="nav-a<?= $cur === 'enquiries' ? ' active' : '' ?>" href="enquiries.php"><span class="material-symbols-outlined">mail</span> Enquiries <span class="badge">9</span></a>
-<a class="nav-a<?= $cur === 'career' ? ' active' : '' ?>" href="career.php"><span class="material-symbols-outlined">work</span> Careers <span class="badge">5</span></a>
+<a class="nav-a<?= $cur === 'enquiries' ? ' active' : '' ?>" href="enquiries.php"><span class="material-symbols-outlined">mail</span> Enquiries</a>
+<a class="nav-a<?= $cur === 'career' ? ' active' : '' ?>" href="career.php"><span class="material-symbols-outlined">work</span> Careers</a>
 </div>
 <div class="side-foot">
 <a class="nav-a" href="../index.php" target="_blank"><span class="material-symbols-outlined">open_in_new</span> View Website</a>
