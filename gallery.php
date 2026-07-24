@@ -63,6 +63,16 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 .album-view-btn{display:inline-flex;align-items:center;gap:6px;background:var(--secondary-fixed);color:var(--primary);font-family:var(--font-sans);font-size:14px;font-weight:600;letter-spacing:.03em;padding:10px 22px;border-radius:9999px;transform:translateY(8px);transition:transform .3s;}
 .album-card:hover .album-view-btn{transform:translateY(0);}
 .album-view-btn .material-symbols-outlined{font-size:16px;}
+.album-cover-empty{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--surface-container);color:var(--outline-variant);}
+.album-cover-empty .material-symbols-outlined{font-size:46px;}
+
+/* States */
+.gal-state{text-align:center;padding:64px 20px;color:var(--on-surface-variant);grid-column:1/-1;}
+.gal-state .material-symbols-outlined{font-size:56px;color:var(--outline-variant);}
+.gal-state h3{font-family:var(--font-serif);font-size:22px;font-weight:700;color:var(--primary);margin-top:12px;}
+.gal-state p{margin-top:8px;}
+.g-spin{width:34px;height:34px;border:3px solid var(--outline-variant);border-top-color:var(--primary-container);border-radius:50%;animation:gspin .7s linear infinite;margin:0 auto;}
+@keyframes gspin{to{transform:rotate(360deg);}}
 
 /* CTA */
 .cta-sec{background:var(--surface-container-high);border-top:1px solid var(--outline-variant);}
@@ -87,7 +97,7 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <header class="page-banner">
 <div class="container">
 <div class="breadcrumb">
-<a href="index.html">Home</a>
+<a href="index.php">Home</a>
 <span class="material-symbols-outlined">chevron_right</span>
 <span class="breadcrumb-current">Gallery</span>
 </div>
@@ -102,80 +112,8 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <h1 class="heading-lg heading-lg--flush">Photo Albums</h1>
 <p class="gallery-head-text" style="margin-top:16px;">Relive the moments that make Myra special. Choose an album to explore photos from our events, celebrations and everyday life.</p>
 </div>
-<div class="album-grid">
-
-<a class="album-card" href="album.php">
-<div class="album-cover">
-<div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>
-<img alt="Annual Day" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaxFf1iR-fZ3ARbf0Jb1PNjorBa8cpgPVL-w_P4OsAfjXdIb8A1E_x95gl_w2j4vW9grj2ypkMgh0yCKFxAjESyp2Ucx4NsnBi5XDuP7ix-Up85kKqoPpxUlzKqRnhXlpTJpv56yXLUhsTit3BEJblNQ91Ww4jEBCL6Zs1nHGWbS7_cgkUZ0mEDgqrtnmZRXATqFK9e2mQ2lqRQKsH_bNLLr2t1jZgnqlrKkc1ULfSMa-7V_H-fGR4HA"/>
-<span class="album-count"><span class="material-symbols-outlined">photo_library</span> 24</span>
-</div>
-<div class="album-body">
-<span class="album-date">December 2024</span>
-<h3 class="album-title">Annual Day Celebration</h3>
-<p class="album-desc">A dazzling evening of music, dance and drama celebrating a year of achievement.</p></div>
-</a>
-
-<a class="album-card" href="album.php">
-<div class="album-cover">
-<div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>
-<img alt="Sports Day" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrAUxLGmK3HTZovHjtQNhyL7wUTcT2jRJ96hODtSIBdo8qX0rVDZxVC80sgUH-7rXb6ST-Qwiwun7ss1-lEEY3GyrCE5hTzOwdYmmM0FdKq2XxQogHlgw_VzqsZ-cOleFWCWBPHyxMhuWz33G967YtwYfeBdKsHdkp25A7OJUvaoxIIHqemZRxxk9SFsNfNvgvPRH6WV9r-jdaAboWc0m9FNQ7HHNZtY5Cnx7dSqzddmLBjWAFw6dn4Q"/>
-<span class="album-count"><span class="material-symbols-outlined">photo_library</span> 36</span>
-</div>
-<div class="album-body">
-<span class="album-date">October 2024</span>
-<h3 class="album-title">Annual Sports Meet</h3>
-<p class="album-desc">Track, field and team spirit as our four houses competed for the championship trophy.</p></div>
-</a>
-
-<a class="album-card" href="album.php">
-<div class="album-cover">
-<div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>
-<img alt="Science Fair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYZVCivML_bItmWzbD5J65HYfCDYnBmHh0oaMBmpOgSRv1ecKJckbpXjmsrSiw07faGmYD7qTgoCy-sWRoG57OPDTCgSS61kw0w0TkUIdqoloksfWuLo88U9MjKZ20w_Jgly9qwtTFiLgSaRh6wPkimPdS6Cy_FM5JP1IO8fNtvfqPfAm63tU93PC_S5QKLUKcJ1TYCp0zpAUR6eB-L6XwfhRrBZCQd0XT1IKKkdJGi-wKRTC6tRQqew"/>
-<span class="album-count"><span class="material-symbols-outlined">photo_library</span> 18</span>
-</div>
-<div class="album-body">
-<span class="album-date">September 2024</span>
-<h3 class="album-title">Science &amp; Innovation Fair</h3>
-<p class="album-desc">Young innovators showcased working models, experiments and bold new ideas.</p></div>
-</a>
-
-<a class="album-card" href="album.php">
-<div class="album-cover">
-<div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>
-<img alt="Graduation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEzSG6mdfW96059TNF1M1hivs6iTXZAr-vLQoKEhcbEjF7aiMXFuPqDTvOOwnwLS14mX2a0qvy96Ziym73h1CwNdqUiJhEMUvC9pvHakyvlukSDnE8A732JP02zde5D3fabGIIhHLU983zv_Nff4n-XdZunzIQpJgvpKuyNUFGokxj4o-ESTmvvx0uEslQ8cYhdbSpa2e-eovTg7Lb7XhXzR3KlgSVgFjYvnt0_mUO2F3494VEtD2g1g"/>
-<span class="album-count"><span class="material-symbols-outlined">photo_library</span> 42</span>
-</div>
-<div class="album-body">
-<span class="album-date">June 2024</span>
-<h3 class="album-title">Graduation Ceremony 2024</h3>
-<p class="album-desc">Celebrating our graduating class as they step into the next chapter of their journey.</p></div>
-</a>
-
-<a class="album-card" href="album.php">
-<div class="album-cover">
-<div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>
-<img alt="Cultural Fest" src="https://lh3.googleusercontent.com/aida/AP1WRLvj2juMHe6Ny1Drz8c5bleO9fp0KfpZtEsdRb8dV9gJQHYn7VM5hdyFS8ogfM_BnBHoew1ubfI-j1pyDVBTU4WSfR6SWpbl44-9NiSAPmFrk1yZRpGYCsZFizVlznlE9WiX7U3zbpWDkc7PcUUElVs97VZ7H4C49cUTtUri1ZOUTea6aDCksnljY-O0PjMziusbGqNDYISAGi13nq8XdaJF3_HG6suvYxrrOEQAwYsf5UYVcaTmV5R380A"/>
-<span class="album-count"><span class="material-symbols-outlined">photo_library</span> 30</span>
-</div>
-<div class="album-body">
-<span class="album-date">March 2024</span>
-<h3 class="album-title">Cultural Fest — Utsav</h3>
-<p class="album-desc">A vibrant celebration of art, heritage and creativity across the campus.</p></div>
-</a>
-
-<a class="album-card" href="album.php">
-<div class="album-cover">
-<div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>
-<img alt="Field Trip" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaxFf1iR-fZ3ARbf0Jb1PNjorBa8cpgPVL-w_P4OsAfjXdIb8A1E_x95gl_w2j4vW9grj2ypkMgh0yCKFxAjESyp2Ucx4NsnBi5XDuP7ix-Up85kKqoPpxUlzKqRnhXlpTJpv56yXLUhsTit3BEJblNQ91Ww4jEBCL6Zs1nHGWbS7_cgkUZ0mEDgqrtnmZRXATqFK9e2mQ2lqRQKsH_bNLLr2t1jZgnqlrKkc1ULfSMa-7V_H-fGR4HA"/>
-<span class="album-count"><span class="material-symbols-outlined">photo_library</span> 27</span>
-</div>
-<div class="album-body">
-<span class="album-date">February 2024</span>
-<h3 class="album-title">Educational Field Trip</h3>
-<p class="album-desc">Learning beyond the classroom on our annual excursion to museums and heritage sites.</p></div>
-</a>
-
+<div class="album-grid" id="albumGrid">
+<div class="gal-state"><div class="g-spin"></div><p style="margin-top:14px">Loading albums…</p></div>
 </div>
 </div>
 </section>
@@ -183,12 +121,51 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <!-- Footer -->
 <?php include 'components/footer.php'; ?>
 <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const footerLinks = document.querySelectorAll('footer a');
-            footerLinks.forEach(link => {
-                link.addEventListener('mouseenter', () => { link.style.transform = 'translateX(4px)'; });
-                link.addEventListener('mouseleave', () => { link.style.transform = 'translateX(0)'; });
-            });
-        });
-    </script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('footer a').forEach(function (link) {
+    link.addEventListener('mouseenter', function () { link.style.transform = 'translateX(4px)'; });
+    link.addEventListener('mouseleave', function () { link.style.transform = 'translateX(0)'; });
+  });
+
+  var grid = document.getElementById('albumGrid');
+
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c];
+    });
+  }
+  function stateHtml(icon, title, text){
+    return '<div class="gal-state"><span class="material-symbols-outlined">'+icon+'</span><h3>'+esc(title)+'</h3><p>'+esc(text)+'</p></div>';
+  }
+
+  function cardHtml(a){
+    var cover = a.cover_url
+      ? '<img alt="'+esc(a.title)+'" src="'+esc(a.cover_url)+'"/>'
+      : '<div class="album-cover-empty"><span class="material-symbols-outlined">image</span></div>';
+    return '<a class="album-card" href="album.php?id='+a.id+'">'
+      + '<div class="album-cover">'
+      +   '<div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>'
+      +   cover
+      +   '<span class="album-count"><span class="material-symbols-outlined">photo_library</span> '+a.count+'</span>'
+      + '</div>'
+      + '<div class="album-body">'
+      +   '<span class="album-date">'+esc(a.date)+'</span>'
+      +   '<h3 class="album-title">'+esc(a.title)+'</h3>'
+      +   '<p class="album-desc">'+esc(a.description || '')+'</p>'
+      + '</div></a>';
+  }
+
+  fetch('actions/gallery/albums_list.php', { headers:{ 'Accept':'application/json' } })
+    .then(function (r) { return r.json().then(function (d) { return { ok:r.ok, d:d }; }); })
+    .then(function (res) {
+      if (!res.ok || !res.d.success) throw new Error(res.d.message || 'Request failed');
+      var rows = res.d.rows || [];
+      if (!rows.length) { grid.innerHTML = stateHtml('photo_library', 'No Albums Yet', 'Photo albums will appear here soon. Please check back later.'); return; }
+      grid.innerHTML = rows.map(cardHtml).join('');
+    })
+    .catch(function () {
+      grid.innerHTML = stateHtml('error', 'Could not load albums', 'Please refresh the page or try again in a moment.');
+    });
+});
+</script>
 </body></html>
