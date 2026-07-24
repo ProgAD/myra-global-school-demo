@@ -1,3 +1,11 @@
+<?php
+// ===== Session guard: only logged-in users may view admin pages =====
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: ../login.html');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"/>
@@ -11,28 +19,7 @@
 <body>
 <div class="admin">
 
-<aside class="sidebar" id="sidebar">
-<div class="side-brand">
-<a href="dashboard.html" class="side-brand-link">
-<img class="side-logo" src="../logo/horizontal-logo2.png" alt="Myra Global School" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>
-<span class="side-fallback" style="display:none"><span class="crest">MG</span><span class="name">Myra Global<small>Admin Panel</small></span></span>
-</a>
-</div>
-<div class="side-group">
-<div class="side-label">Main</div>
-<a class="nav-a" href="dashboard.html"><span class="material-symbols-outlined">dashboard</span> Dashboard</a>
-<div class="side-label" style="margin-top:18px;">Manage</div>
-<a class="nav-a" href="admissions.html"><span class="material-symbols-outlined">school</span> Admissions <span class="badge">14</span></a>
-<a class="nav-a active" href="notices.html"><span class="material-symbols-outlined">campaign</span> Notices</a>
-<a class="nav-a" href="gallery.html"><span class="material-symbols-outlined">photo_library</span> Gallery</a>
-<a class="nav-a" href="enquiries.html"><span class="material-symbols-outlined">mail</span> Enquiries <span class="badge">9</span></a>
-</div>
-<div class="side-foot">
-<a class="nav-a" href="../index.html" target="_blank"><span class="material-symbols-outlined">open_in_new</span> View Website</a>
-<a class="nav-a" href="#"><span class="material-symbols-outlined">logout</span> Logout</a>
-</div>
-</aside>
-<div class="overlay" id="overlay"></div>
+<?php include '../components/admin-sidebar.php'?>
 
 <div class="main">
 <header class="topbar">

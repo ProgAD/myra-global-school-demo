@@ -2,7 +2,8 @@
    Admin panel — shared behaviour
    - sidebar toggle (mobile)
    - generic modal open/close via [data-open="#id"] and [data-close]
-   - row delete via [data-del] (removes closest tr / card)
+   - row delete via [data-del] -> styled confirmation popup, then
+     removes closest tr / card and fires an "admin:rowdeleted" event
    ============================================================ */
 (function () {
   function init() {
@@ -17,6 +18,25 @@
     });
     if (ov) ov.addEventListener('click', closeNav);
 
+    // Build the shared delete-confirmation modal once and add it to the page
+    var confirmModal = document.createElement('div');
+    confirmModal.className = 'modal';
+    confirmModal.id = 'confirmModal';
+    confirmModal.innerHTML =
+      '<div class="modal-box" style="max-width:400px">' +
+        '<div class="modal-head"><h3>Confirm Delete</h3>' +
+          '<button class="modal-close" data-close><span class="material-symbols-outlined">close</span></button></div>' +
+        '<div class="modal-body" style="text-align:center">' +
+          '<span class="material-symbols-outlined" style="font-size:46px;color:var(--red)">warning</span>' +
+          '<p id="confirmMsg" style="margin-top:10px">Are you sure you want to delete this item? This action cannot be undone.</p>' +
+        '</div>' +
+        '<div class="modal-foot">' +
+          '<button class="btn btn-ghost" data-close>Cancel</button>' +
+          '<button class="btn btn-danger" id="confirmDeleteBtn"><span class="material-symbols-outlined">delete</span> Delete</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(confirmModal);
+
     // Generic modal open buttons: [data-open="#modalId"]
     document.querySelectorAll('[data-open]').forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -25,6 +45,7 @@
       });
     });
     // Close: [data-close] inside a .modal, or clicking backdrop
+    // (confirmModal is already in the DOM, so it is covered here too)
     document.querySelectorAll('.modal').forEach(function (modal) {
       modal.addEventListener('click', function (e) {
         if (e.target === modal || (e.target.closest && e.target.closest('[data-close]'))) {
@@ -36,12 +57,29 @@
       if (e.key === 'Escape') document.querySelectorAll('.modal.open').forEach(function (m) { m.classList.remove('open'); });
     });
 
-    // Row / card delete
+    // Row / card delete -> confirm via popup
+    var pendingRow = null;
     document.addEventListener('click', function (e) {
       var del = e.target.closest && e.target.closest('[data-del]');
       if (!del) return;
-      var row = del.closest('tr') || del.closest('[data-item]');
-      if (row && window.confirm('Delete this item? This cannot be undone.')) row.remove();
+      e.preventDefault();
+      pendingRow = del.closest('tr') || del.closest('[data-item]');
+      if (!pendingRow) return;
+      // Optional custom message via data-del="Delete this notice?"
+      var msg = del.getAttribute('data-del');
+      document.getElementById('confirmMsg').textContent =
+        (msg && msg.length > 1) ? msg : 'Are you sure you want to delete this item? This action cannot be undone.';
+      confirmModal.classList.add('open');
+    });
+
+    document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
+      if (pendingRow) {
+        pendingRow.remove();
+        pendingRow = null;
+        // let pages update counts / pagination after a delete
+        document.dispatchEvent(new CustomEvent('admin:rowdeleted'));
+      }
+      confirmModal.classList.remove('open');
     });
   }
 

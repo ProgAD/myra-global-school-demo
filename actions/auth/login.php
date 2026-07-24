@@ -70,5 +70,5 @@ $_SESSION['role']     = $user['role'];
 
 echo json_encode([
     'success'  => true,
-    'redirect' => 'admin/dashboard.html'
+    'redirect' => 'admin/dashboard.php'
 ]);

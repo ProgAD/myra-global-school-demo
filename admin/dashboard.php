@@ -1,3 +1,11 @@
+<?php
+// ===== Session guard: only logged-in users may view admin pages =====
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: ../login.html');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"/>
@@ -72,6 +80,7 @@ img{display:block;max-width:100%;}
 .stat-ico.b2{background:var(--amber-bg);color:var(--amber);}
 .stat-ico.b3{background:var(--green-bg);color:var(--green);}
 .stat-ico.b4{background:#efe6ff;color:#6b3fa0;}
+.stat-ico.b5{background:var(--secondary-fixed);color:var(--primary-container);}
 .stat .num{font-family:var(--font-serif);font-size:28px;font-weight:700;color:var(--primary-container);line-height:1;}
 .stat .lbl{color:var(--muted);font-size:13.5px;font-weight:600;margin-top:4px;}
 
@@ -145,31 +154,7 @@ img{display:block;max-width:100%;}
 <div class="admin">
 
 <!-- Sidebar -->
-<aside class="sidebar" id="sidebar">
-<div class="side-brand">
-<a href="dashboard.html" class="side-brand-link">
-<img class="side-logo" src="../logo/horizontal-logo2.png" alt="Myra Global School" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>
-<span class="side-fallback" style="display:none">
-<span class="crest">MG</span>
-<span class="name">Myra Global<small>Admin Panel</small></span>
-</span>
-</a>
-</div>
-<div class="side-group">
-<div class="side-label">Main</div>
-<a class="nav-a active" href="dashboard.html"><span class="material-symbols-outlined">dashboard</span> Dashboard</a>
-<div class="side-label" style="margin-top:18px;">Manage</div>
-<a class="nav-a" href="admissions.html"><span class="material-symbols-outlined">school</span> Admissions <span class="badge">14</span></a>
-<a class="nav-a" href="notices.html"><span class="material-symbols-outlined">campaign</span> Notices</a>
-<a class="nav-a" href="gallery.html"><span class="material-symbols-outlined">photo_library</span> Gallery</a>
-<a class="nav-a" href="enquiries.html"><span class="material-symbols-outlined">mail</span> Enquiries <span class="badge">9</span></a>
-</div>
-<div class="side-foot">
-<a class="nav-a" href="../index.html" target="_blank"><span class="material-symbols-outlined">open_in_new</span> View Website</a>
-<a class="nav-a" href="#"><span class="material-symbols-outlined">logout</span> Logout</a>
-</div>
-</aside>
-<div class="overlay" id="overlay"></div>
+<?php include '../components/admin-sidebar.php'?>
 
 <!-- Main -->
 <div class="main">
@@ -197,37 +182,44 @@ img{display:block;max-width:100%;}
 
 <!-- Stats -->
 <div class="stat-grid">
-<div class="stat"><span class="stat-ico b1"><span class="material-symbols-outlined">school</span></span><div><div class="num">128</div><div class="lbl">Total Applications</div></div></div>
-<div class="stat"><span class="stat-ico b2"><span class="material-symbols-outlined">pending_actions</span></span><div><div class="num">14</div><div class="lbl">Pending Verification</div></div></div>
-<div class="stat"><span class="stat-ico b3"><span class="material-symbols-outlined">campaign</span></span><div><div class="num">32</div><div class="lbl">Published Notices</div></div></div>
-<div class="stat"><span class="stat-ico b4"><span class="material-symbols-outlined">mark_email_unread</span></span><div><div class="num">9</div><div class="lbl">New Enquiries</div></div></div>
+<div class="stat"><span class="stat-ico b1"><span class="material-symbols-outlined">school</span></span><div><div class="num" id="stTotalApplications">—</div><div class="lbl">Total Applications</div></div></div>
+<div class="stat"><span class="stat-ico b2"><span class="material-symbols-outlined">pending_actions</span></span><div><div class="num" id="stPendingVerification">—</div><div class="lbl">Pending Verification</div></div></div>
+<div class="stat"><span class="stat-ico b3"><span class="material-symbols-outlined">campaign</span></span><div><div class="num" id="stPublishedNotices">—</div><div class="lbl">Published Notices</div></div></div>
+<div class="stat"><span class="stat-ico b4"><span class="material-symbols-outlined">mark_email_unread</span></span><div><div class="num" id="stNewEnquiries">—</div><div class="lbl">New Enquiries</div></div></div>
+<div class="stat"><span class="stat-ico b5"><span class="material-symbols-outlined">work</span></span><div><div class="num" id="stCareerApplications">—</div><div class="lbl">Career Applications</div></div></div>
 </div>
 
 <!-- Manage -->
 <div class="section-title">Manage</div>
 <div class="manage-grid">
-<a class="mcard" href="admissions.html">
+<a class="mcard" href="admissions.php">
 <span class="mcard-ico"><span class="material-symbols-outlined">school</span></span>
 <h4>Admissions</h4>
 <p>Review applications, verify documents and update admission status.</p>
 <span class="go">Open <span class="material-symbols-outlined">arrow_forward</span></span>
 </a>
-<a class="mcard" href="notices.html">
+<a class="mcard" href="notices.php">
 <span class="mcard-ico"><span class="material-symbols-outlined">campaign</span></span>
 <h4>Notices</h4>
 <p>Create, edit or remove notices and news for the website.</p>
 <span class="go">Open <span class="material-symbols-outlined">arrow_forward</span></span>
 </a>
-<a class="mcard" href="gallery.html">
+<a class="mcard" href="gallery.php">
 <span class="mcard-ico"><span class="material-symbols-outlined">photo_library</span></span>
 <h4>Gallery</h4>
 <p>Manage albums, upload photos and videos of school events.</p>
 <span class="go">Open <span class="material-symbols-outlined">arrow_forward</span></span>
 </a>
-<a class="mcard" href="enquiries.html">
+<a class="mcard" href="enquiries.php">
 <span class="mcard-ico"><span class="material-symbols-outlined">mail</span></span>
 <h4>Enquiries</h4>
 <p>View and respond to enquiries received from parents.</p>
+<span class="go">Open <span class="material-symbols-outlined">arrow_forward</span></span>
+</a>
+<a class="mcard" href="career.php">
+<span class="mcard-ico"><span class="material-symbols-outlined">work</span></span>
+<h4>Careers</h4>
+<p>Post vacancies, edit openings and review job applications.</p>
 <span class="go">Open <span class="material-symbols-outlined">arrow_forward</span></span>
 </a>
 </div>
@@ -239,7 +231,7 @@ img{display:block;max-width:100%;}
 <div class="panel">
 <div class="panel-head">
 <h3>Recent Applications</h3>
-<a href="admissions.html">View all <span class="material-symbols-outlined" style="font-size:16px;">arrow_forward</span></a>
+<a href="admissions.php">View all <span class="material-symbols-outlined" style="font-size:16px;">arrow_forward</span></a>
 </div>
 <div style="overflow-x:auto;">
 <table class="tbl">
@@ -286,7 +278,7 @@ img{display:block;max-width:100%;}
 <div class="panel">
 <div class="panel-head">
 <h3>Recent Enquiries</h3>
-<a href="enquiries.html">View all <span class="material-symbols-outlined" style="font-size:16px;">arrow_forward</span></a>
+<a href="enquiries.php">View all <span class="material-symbols-outlined" style="font-size:16px;">arrow_forward</span></a>
 </div>
 <div>
 <div class="enq">
@@ -326,6 +318,34 @@ img{display:block;max-width:100%;}
     function close(){ sb.classList.remove('open'); ov.classList.remove('show'); }
     hb.addEventListener('click', function(){ sb.classList.toggle('open'); ov.classList.toggle('show'); });
     ov.addEventListener('click', close);
+  })();
+
+  // ===== Load dashboard stats from the backend =====
+  (function () {
+    var map = {
+      total_applications:   'stTotalApplications',
+      pending_verification: 'stPendingVerification',
+      published_notices:    'stPublishedNotices',
+      new_enquiries:        'stNewEnquiries',
+      career_applications:  'stCareerApplications'
+    };
+
+    fetch('../actions/admin/dashboard_stats.php', { headers: { 'Accept': 'application/json' } })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        if (!data || !data.success || !data.stats) throw new Error('bad response');
+        Object.keys(map).forEach(function (key) {
+          var el = document.getElementById(map[key]);
+          if (el) el.textContent = (data.stats[key] != null ? data.stats[key] : 0);
+        });
+      })
+      .catch(function () {
+        // On failure show 0 rather than a stuck placeholder
+        Object.keys(map).forEach(function (key) {
+          var el = document.getElementById(map[key]);
+          if (el && el.textContent === '—') el.textContent = '0';
+        });
+      });
   })();
 </script>
 </body></html>

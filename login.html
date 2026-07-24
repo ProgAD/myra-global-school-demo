@@ -304,6 +304,20 @@ button{font-family:inherit;cursor:pointer;}
 }
 .btn-submit:hover{background:var(--primary);}
 .btn-submit .material-symbols-outlined{font-size:20px;}
+.btn-submit:disabled{cursor:progress;opacity:.9;}
+
+/* Loading spinner shown while the request is in flight */
+.btn-spinner{
+  display:none;
+  width:18px;height:18px;
+  border:2px solid rgba(255,255,255,.35);
+  border-top-color:#fff;
+  border-radius:50%;
+  animation:btn-spin .6s linear infinite;
+}
+.btn-submit.loading .btn-arrow{display:none;}
+.btn-submit.loading .btn-spinner{display:inline-block;}
+@keyframes btn-spin{to{transform:rotate(360deg);}}
 
 .divider{
   display:flex;align-items:center;gap:16px;
@@ -370,7 +384,7 @@ button{font-family:inherit;cursor:pointer;}
   <a class="utility-brand" href="#">
     <img src="logo/horizontal-logo.png" width="150px" > </span>
   </a>
-  <a class="utility-back" href="#">
+  <a class="utility-back" href="index.php">
     <span class="material-symbols-outlined">arrow_back</span>
     Back to site
   </a>
@@ -460,8 +474,9 @@ button{font-family:inherit;cursor:pointer;}
         </div>
 
         <button class="btn-submit" type="submit">
-          Sign In
-          <span class="material-symbols-outlined">arrow_forward</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+          <span class="btn-label">Sign In</span>
+          <span class="material-symbols-outlined btn-arrow">arrow_forward</span>
         </button>
       </form>
 </div>
@@ -508,10 +523,17 @@ button{font-family:inherit;cursor:pointer;}
   const errorBox = document.getElementById('formError');
   const errorMsg = errorBox.querySelector('span:last-child');
   const submitBtn = form.querySelector('.btn-submit');
+  const btnLabel = submitBtn.querySelector('.btn-label');
 
   function showError(message) {
     errorMsg.textContent = message;
     errorBox.classList.add('visible');
+  }
+
+  function setLoading(on) {
+    submitBtn.disabled = on;
+    submitBtn.classList.toggle('loading', on);
+    btnLabel.textContent = on ? 'Signing in…' : 'Sign In';
   }
 
   form.addEventListener('submit', async (e) => {
@@ -526,7 +548,7 @@ button{font-family:inherit;cursor:pointer;}
       return;
     }
 
-    submitBtn.disabled = true;
+    setLoading(true);
 
     try {
       const res = await fetch('actions/auth/login.php', {
@@ -537,15 +559,17 @@ button{font-family:inherit;cursor:pointer;}
       const data = await res.json();
 
       if (res.ok && data.success) {
+        // keep the button spinning while the browser navigates away
         window.location.href = data.redirect || 'admin/dashboard.html';
         return;
       }
       showError(data.message || 'Incorrect User ID or password. Please try again.');
     } catch (err) {
       showError('Unable to reach the server. Please try again.');
-    } finally {
-      submitBtn.disabled = false;
     }
+
+    // reached only on failure — restore the button so the user can retry
+    setLoading(false);
   });
 </script>
 

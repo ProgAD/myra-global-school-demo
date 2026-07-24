@@ -60,7 +60,9 @@ CREATE TABLE admission_applications (
 
     status ENUM(
         'received',
-        'verified'
+        'verified',
+        'completed',
+        'deleted'
     ) DEFAULT 'received',
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -176,4 +178,50 @@ CREATE TABLE users (
     ) NOT NULL,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE vacancies (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    role_title VARCHAR(255) NOT NULL,
+    role_description TEXT NOT NULL,
+    department ENUM(
+        'academic-faculty',
+        'administration',
+        'support-staff',
+        'other'
+    ) NOT NULL,
+    type ENUM(
+        'full-time',
+        'part-time',
+        'contract',
+        'internship',
+        'temporary',
+        'freelance'
+    ) NOT NULL,
+    openings INT NOT NULL DEFAULT 1,
+    deadline DATE NOT NULL,
+    status ENUM(
+        'open',
+        'paused',
+        'closed',
+        'deleted'
+    ) NOT NULL DEFAULT 'open',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE vacancy_apply (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    vacancy_id INT NOT NULL,
+    resume VARCHAR(255) NOT NULL,
+    additional_info TEXT,
+    applied_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_vacancy_apply_vacancy
+        FOREIGN KEY (vacancy_id)
+        REFERENCES vacancies(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
