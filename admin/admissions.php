@@ -274,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function () {
       '<td class="appdate">' + esc(r.applied_on) + '</td>' +
       '<td><select class="status-select s-' + r.status + '">' + opts + '</select></td>' +
       '<td><div class="acts" style="justify-content:flex-end">' +
-        '<a class="row-act view" href="../admission/admission-status.html?id=' + encodeURIComponent(r.id) + '" target="_blank" rel="noopener" title="View"><span class="material-symbols-outlined">visibility</span></a>' +
+        '<a class="row-act view" href="../admission/admission-status.php?id=' + encodeURIComponent(r.id) + '" target="_blank" rel="noopener" title="View"><span class="material-symbols-outlined">visibility</span></a>' +
         '<button class="row-act danger" data-del title="Delete"><span class="material-symbols-outlined">delete</span></button>' +
       '</div></td>';
   }

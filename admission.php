@@ -50,7 +50,14 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 .status-sub{font-family:var(--font-sans);font-size:14px;color:var(--on-surface-variant);margin-bottom:20px;}
 .status-input{width:100%;border:1px solid var(--outline-variant);border-radius:8px;padding:12px 14px;font-family:var(--font-serif);font-size:16px;margin-bottom:16px;}
 .status-input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 1px var(--primary);}
-.status-form-btn{width:100%;}
+.status-form-btn{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:8px;}
+.status-form-btn:disabled{opacity:.85;cursor:progress;}
+.status-error{display:none;align-items:flex-start;gap:8px;background:#fdecec;border:1px solid #f3c9c9;color:#8c1d1d;font-family:var(--font-sans);font-size:13.5px;font-weight:600;padding:11px 14px;border-radius:8px;margin-bottom:14px;}
+.status-error.visible{display:flex;}
+.status-error .material-symbols-outlined{font-size:18px;flex-shrink:0;}
+.status-spinner{display:none;width:17px;height:17px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:statusSpin .6s linear infinite;}
+.status-form-btn.loading .status-spinner{display:inline-block;}
+@keyframes statusSpin{to{transform:rotate(360deg);}}
 .status-result{margin-top:4px;}
 .status-ref{font-family:var(--font-sans);font-size:13px;color:var(--on-surface-variant);margin-bottom:12px;}
 .status-ref strong{color:var(--primary);}
@@ -126,7 +133,7 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <header class="page-banner">
 <div class="container">
 <div class="breadcrumb">
-<a href="index.html">Home</a>
+<a href="index.php">Home</a>
 <span class="material-symbols-outlined">chevron_right</span>
 <span class="breadcrumb-current">Admissions</span>
 </div>
@@ -141,7 +148,7 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <h1 class="heading-lg">Admissions 2025–26</h1>
 <p class="adm-intro-text">Give your child an education that inspires. Applications are now open across all grades — from Nursery to Grade 11. Follow our simple three-step process to begin the journey.</p>
 <div class="adm-actions">
-<a href="admission/admission-form.html" class="btn-fill">Apply for Admission</a>
+<a href="admission/admission-form.php" class="btn-fill">Apply for Admission</a>
 <button type="button" class="btn-line status-btn">Admission Status</button>
 </div>
 </div>
@@ -215,7 +222,7 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <p class="cta-text">Start your child's application online, or check the status of an existing one.</p>
 </div>
 <div class="cta-actions">
-<a href="admission/admission-form.html" class="btn-fill">Apply for Admission</a>
+<a href="admission/admission-form.php" class="btn-fill">Apply for Admission</a>
 <button type="button" class="btn-line status-btn">Admission Status</button>
 </div>
 </div>
@@ -227,11 +234,17 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <button class="status-close" id="statusClose" aria-label="Close">&times;</button>
 <h3 class="status-title">Check Admission Status</h3>
 <p class="status-sub">Enter your application number or registered phone number.</p>
+<div class="status-error" id="statusError">
+<span class="material-symbols-outlined">error</span>
+<span id="statusErrorMsg"></span>
+</div>
 <form id="statusForm">
 <input class="status-input" id="statusInput" type="text" placeholder="Application no. / Phone number" required/>
-<button class="btn-fill status-form-btn" type="submit">Check Status</button>
+<button class="btn-fill status-form-btn" id="statusSubmit" type="submit">
+<span class="status-spinner" aria-hidden="true"></span>
+<span class="status-btn-label">Check Status</span>
+</button>
 </form>
-<div class="status-result" id="statusResult" hidden></div>
 </div>
 </div>
 
@@ -245,27 +258,20 @@ document.addEventListener('DOMContentLoaded', function () {
     link.addEventListener('mouseleave', function () { link.style.transform = 'translateX(0)'; });
   });
 
-  // ---- Admission status modal ----
+  // ---- Admission status lookup modal ----
   var modal = document.getElementById('statusModal');
   if (!modal) return;
   var closeBtn = document.getElementById('statusClose');
   var form = document.getElementById('statusForm');
   var input = document.getElementById('statusInput');
-  var result = document.getElementById('statusResult');
-
-  var STEPS = [
-    { label: 'Application Submitted', note: 'We have received your application.' },
-    { label: 'Document Verification', note: 'Our team is verifying your uploaded documents.' },
-    { label: 'School Will Contact You', note: 'A decision has been made — we will reach out to you soon.' }
-  ];
-  var BADGES = [
-    { cls: 'status-badge--received', ico: 'inventory_2', text: 'Application Received' },
-    { cls: 'status-badge--verify', ico: 'fact_check', text: 'Under Verification' },
-    { cls: 'status-badge--done', ico: 'verified', text: 'Verified — you will be contacted' }
-  ];
+  var errBox = document.getElementById('statusError');
+  var errMsg = document.getElementById('statusErrorMsg');
+  var btn = document.getElementById('statusSubmit');
+  var btnLabel = btn.querySelector('.status-btn-label');
 
   function openModal() {
-    reset();
+    clearError();
+    form.reset();
     modal.classList.add('open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -276,51 +282,50 @@ document.addEventListener('DOMContentLoaded', function () {
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
-  function reset() {
-    result.hidden = true;
-    result.innerHTML = '';
-    form.hidden = false;
-    form.reset();
-  }
-  function stageFor(str) {
-    var s = 0;
-    for (var i = 0; i < str.length; i++) s += str.charCodeAt(i);
-    return s % 3; // demo: derive a stage from the reference so different inputs differ
-  }
-  function render(ref) {
-    var stage = stageFor(ref);
-    var b = BADGES[stage];
-    var steps = '';
-    for (var i = 0; i < STEPS.length; i++) {
-      var cls = i < stage ? 'done' : (i === stage ? 'current' : 'pending');
-      var ico = i < stage ? 'check' : (i === stage ? 'hourglass_top' : 'radio_button_unchecked');
-      steps += '<div class="status-step ' + cls + '">'
-        + '<span class="status-dot"><span class="material-symbols-outlined">' + ico + '</span></span>'
-        + '<div><div class="status-step-label">' + STEPS[i].label + '</div>'
-        + (i === stage ? '<div class="status-step-note">' + STEPS[i].note + '</div>' : '')
-        + '</div></div>';
-    }
-    result.innerHTML =
-      '<div class="status-ref">Reference: <strong>' + ref + '</strong></div>'
-      + '<span class="status-badge ' + b.cls + '"><span class="material-symbols-outlined">' + b.ico + '</span>' + b.text + '</span>'
-      + '<div class="status-steps">' + steps + '</div>'
-      + '<a href="admission/admission-form.html" class="status-again"><span class="material-symbols-outlined" style="font-size:16px;">download</span> Download Admission Form</a>';
-    form.hidden = true;
-    result.hidden = false;
+  function clearError() { errBox.classList.remove('visible'); errMsg.textContent = ''; }
+  function showError(msg) { errMsg.textContent = msg; errBox.classList.add('visible'); }
+  function setLoading(on) {
+    btn.disabled = on;
+    btn.classList.toggle('loading', on);
+    btnLabel.textContent = on ? 'Checking…' : 'Check Status';
   }
 
-  document.querySelectorAll('.status-btn').forEach(function (btn) {
-    btn.addEventListener('click', function (e) { e.preventDefault(); openModal(); });
+  document.querySelectorAll('.status-btn').forEach(function (b) {
+    b.addEventListener('click', function (e) { e.preventDefault(); openModal(); });
   });
   closeBtn.addEventListener('click', closeModal);
   modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
   });
+  input.addEventListener('input', clearError);
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var v = input.value.trim();
-    if (v) render(v);
+    if (!v) { showError('Please enter your application number or phone number.'); return; }
+    clearError();
+    setLoading(true);
+
+    fetch('actions/admission/status_lookup.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ q: v })
+    })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) {
+        if (res.d && res.d.success && res.d.id) {
+          // keep the button spinning while the browser navigates to the status page
+          window.location.href = 'admission/admission-status.php?id=' + encodeURIComponent(res.d.id);
+          return;
+        }
+        showError((res.d && res.d.message) || 'No matching application was found.');
+        setLoading(false);
+      })
+      .catch(function () {
+        showError('Could not reach the server. Please try again.');
+        setLoading(false);
+      });
   });
 });
     </script>

@@ -35,7 +35,7 @@
 <span class="material-symbols-outlined nav-caret">expand_more</span></a>
 <div class="nav-dropdown">
 <div class="nav-dropdown-inner">
-<a class="dropdown-link" href="admission/admission-form.html">Apply 2026-2027</a>
+<a class="dropdown-link" href="admission/admission-form.php">Apply 2026-2027</a>
 </div>
 </div>
 </div>
