@@ -3,7 +3,7 @@
   <!-- Column 1: Brand & Mission -->
   <div class="footer-col footer-brand-col">
   <div>
-  <img alt="St. Jude's Academy Logo" class="footer-logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEeuDGcai-BspSwlHm1IKVxjoeb1aJ22MSkEom_2CfWlC3PDxSySpy3vlpLi6BduTSjZCTEOQNC75sSI6TjXUx2rtbxKCBnoRu1hd2IKFZraMVVzXK6jTMjhVWVWwC5nwyiPHDHEJETD3L4nbONzXURQUfVKybR0uxminVwv2UptSx12w42z-4rhPD_3TECCbrHaRaR8Kz1VECQ-pUEN2fSFG_vKIImMN4MYFyH7rH-p1r3VUNN72kxA"/>
+  <img alt="Myra Global School Logo" class="footer-logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEeuDGcai-BspSwlHm1IKVxjoeb1aJ22MSkEom_2CfWlC3PDxSySpy3vlpLi6BduTSjZCTEOQNC75sSI6TjXUx2rtbxKCBnoRu1hd2IKFZraMVVzXK6jTMjhVWVWwC5nwyiPHDHEJETD3L4nbONzXURQUfVKybR0uxminVwv2UptSx12w42z-4rhPD_3TECCbrHaRaR8Kz1VECQ-pUEN2fSFG_vKIImMN4MYFyH7rH-p1r3VUNN72kxA"/>
   <p class="footer-about">
                           Fostering intellectual curiosity and moral character in a global learning community. Empowering students to lead with integrity and purpose since 1994.
                       </p>
@@ -31,7 +31,7 @@
   <h3 class="footer-heading">Community &amp; Legal</h3>
   <ul class="footer-links">
   <li><a href="#">Academic Resources</a></li>
-  <li><a href="#">Careers at St. Jude's</a></li>
+  <li><a href="#">Careers at Myra</a></li>
   <li><a href="#">Parent Portal</a></li>
   <li><a href="#">Contact Us</a></li>
   <li><a href="#">Privacy Policy</a></li>
@@ -72,7 +72,7 @@
   <!-- Footer Bottom Bar -->
   <div class="container footer-bottom">
   <p class="footer-copy">
-                  © 2024 St. Jude's Academy. All rights reserved.
+                  © 2024 Myra Global School. All rights reserved.
               </p>
   <div class="footer-badges">
   <span class="footer-badge">IB WORLD SCHOOL</span>

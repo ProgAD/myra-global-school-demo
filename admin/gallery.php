@@ -1,4 +1,6 @@
 <?php
+$page_name = 'gallery';   // drives sidebar highlight + topbar heading
+
 // ===== Session guard: only logged-in users may view admin pages =====
 session_start();
 if (!isset($_SESSION['user_id'])) {
@@ -22,13 +24,7 @@ if (!isset($_SESSION['user_id'])) {
 <?php include '../components/admin-sidebar.php'?>
 
 <div class="main">
-<header class="topbar">
-<button class="hamburger" id="hamburger" aria-label="Menu"><span class="material-symbols-outlined">menu</span></button>
-<h1>Gallery</h1>
-<div class="spacer"></div>
-<button class="icon-btn" aria-label="Notifications"><span class="material-symbols-outlined">notifications</span><span class="dot"></span></button>
-<div class="profile"><span class="avatar">A</span><div class="who"><b>Admin</b><span>Administrator</span></div></div>
-</header>
+<?php include '../components/admin-topbar.php'?>
 
 <div class="content">
 <div class="page-head">
@@ -46,7 +42,7 @@ if (!isset($_SESSION['user_id'])) {
 <img alt="Annual Day" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaxFf1iR-fZ3ARbf0Jb1PNjorBa8cpgPVL-w_P4OsAfjXdIb8A1E_x95gl_w2j4vW9grj2ypkMgh0yCKFxAjESyp2Ucx4NsnBi5XDuP7ix-Up85kKqoPpxUlzKqRnhXlpTJpv56yXLUhsTit3BEJblNQ91Ww4jEBCL6Zs1nHGWbS7_cgkUZ0mEDgqrtnmZRXATqFK9e2mQ2lqRQKsH_bNLLr2t1jZgnqlrKkc1ULfSMa-7V_H-fGR4HA"/>
 <span class="alb-count"><span class="material-symbols-outlined">photo_library</span> 24</span>
 <button class="alb-del" data-del title="Delete album"><span class="material-symbols-outlined">delete</span></button>
-<a class="alb-overlay" href="album.html?title=Annual%20Day%20Celebration&amp;date=December%202024&amp;desc=Music%2C%20dance%20and%20drama%20highlights."><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>
+<a class="alb-overlay" href="album.php?title=Annual%20Day%20Celebration&amp;date=December%202024&amp;desc=Music%2C%20dance%20and%20drama%20highlights."><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>
 </div>
 <div class="alb-body"><span class="date">December 2024</span><h4>Annual Day Celebration</h4><p>Music, dance and drama highlights.</p></div>
 </div>
@@ -56,7 +52,7 @@ if (!isset($_SESSION['user_id'])) {
 <img alt="Sports" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrAUxLGmK3HTZovHjtQNhyL7wUTcT2jRJ96hODtSIBdo8qX0rVDZxVC80sgUH-7rXb6ST-Qwiwun7ss1-lEEY3GyrCE5hTzOwdYmmM0FdKq2XxQogHlgw_VzqsZ-cOleFWCWBPHyxMhuWz33G967YtwYfeBdKsHdkp25A7OJUvaoxIIHqemZRxxk9SFsNfNvgvPRH6WV9r-jdaAboWc0m9FNQ7HHNZtY5Cnx7dSqzddmLBjWAFw6dn4Q"/>
 <span class="alb-count"><span class="material-symbols-outlined">photo_library</span> 36</span>
 <button class="alb-del" data-del title="Delete album"><span class="material-symbols-outlined">delete</span></button>
-<a class="alb-overlay" href="album.html?title=Annual%20Sports%20Meet&amp;date=October%202024&amp;desc=Track%2C%20field%20and%20house%20championships."><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>
+<a class="alb-overlay" href="album.php?title=Annual%20Sports%20Meet&amp;date=October%202024&amp;desc=Track%2C%20field%20and%20house%20championships."><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>
 </div>
 <div class="alb-body"><span class="date">October 2024</span><h4>Annual Sports Meet</h4><p>Track, field and house championships.</p></div>
 </div>
@@ -66,7 +62,7 @@ if (!isset($_SESSION['user_id'])) {
 <img alt="Science Fair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYZVCivML_bItmWzbD5J65HYfCDYnBmHh0oaMBmpOgSRv1ecKJckbpXjmsrSiw07faGmYD7qTgoCy-sWRoG57OPDTCgSS61kw0w0TkUIdqoloksfWuLo88U9MjKZ20w_Jgly9qwtTFiLgSaRh6wPkimPdS6Cy_FM5JP1IO8fNtvfqPfAm63tU93PC_S5QKLUKcJ1TYCp0zpAUR6eB-L6XwfhRrBZCQd0XT1IKKkdJGi-wKRTC6tRQqew"/>
 <span class="alb-count"><span class="material-symbols-outlined">photo_library</span> 18</span>
 <button class="alb-del" data-del title="Delete album"><span class="material-symbols-outlined">delete</span></button>
-<a class="alb-overlay" href="album.html?title=Science%20%26%20Innovation%20Fair&amp;date=September%202024&amp;desc=Student%20models%20and%20experiments."><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>
+<a class="alb-overlay" href="album.php?title=Science%20%26%20Innovation%20Fair&amp;date=September%202024&amp;desc=Student%20models%20and%20experiments."><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>
 </div>
 <div class="alb-body"><span class="date">September 2024</span><h4>Science &amp; Innovation Fair</h4><p>Student models and experiments.</p></div>
 </div>
@@ -76,7 +72,7 @@ if (!isset($_SESSION['user_id'])) {
 <img alt="Graduation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEzSG6mdfW96059TNF1M1hivs6iTXZAr-vLQoKEhcbEjF7aiMXFuPqDTvOOwnwLS14mX2a0qvy96Ziym73h1CwNdqUiJhEMUvC9pvHakyvlukSDnE8A732JP02zde5D3fabGIIhHLU983zv_Nff4n-XdZunzIQpJgvpKuyNUFGokxj4o-ESTmvvx0uEslQ8cYhdbSpa2e-eovTg7Lb7XhXzR3KlgSVgFjYvnt0_mUO2F3494VEtD2g1g"/>
 <span class="alb-count"><span class="material-symbols-outlined">photo_library</span> 42</span>
 <button class="alb-del" data-del title="Delete album"><span class="material-symbols-outlined">delete</span></button>
-<a class="alb-overlay" href="album.html?title=Graduation%20Ceremony%202024&amp;date=June%202024&amp;desc=Farewell%20to%20the%20graduating%20class."><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>
+<a class="alb-overlay" href="album.php?title=Graduation%20Ceremony%202024&amp;date=June%202024&amp;desc=Farewell%20to%20the%20graduating%20class."><span class="alb-open"><span class="material-symbols-outlined">visibility</span> Open Album</span></a>
 </div>
 <div class="alb-body"><span class="date">June 2024</span><h4>Graduation Ceremony 2024</h4><p>Farewell to the graduating class.</p></div>
 </div>
@@ -120,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
         d=document.getElementById('aDate').value.trim(),
         desc=document.getElementById('aDesc').value.trim(),
         cover=document.getElementById('aCover').value.trim()||PLACEHOLDER;
-    var href='album.html?title='+encodeURIComponent(t)+'&date='+encodeURIComponent(d)+'&desc='+encodeURIComponent(desc);
+    var href='album.php?title='+encodeURIComponent(t)+'&date='+encodeURIComponent(d)+'&desc='+encodeURIComponent(desc);
     var card=document.createElement('div');
     card.className='alb'; card.setAttribute('data-item',''); card.setAttribute('data-name', t.toLowerCase());
     card.innerHTML =

@@ -1,4 +1,6 @@
 <?php
+$page_name = 'album';   // drives sidebar highlight + topbar heading
+
 // ===== Session guard: only logged-in users may view admin pages =====
 session_start();
 if (!isset($_SESSION['user_id'])) {
@@ -74,16 +76,10 @@ if (!isset($_SESSION['user_id'])) {
 <?php include '../components/admin-sidebar.php'?>
 
 <div class="main">
-<header class="topbar">
-<button class="hamburger" id="hamburger" aria-label="Menu"><span class="material-symbols-outlined">menu</span></button>
-<h1>Album</h1>
-<div class="spacer"></div>
-<button class="icon-btn" aria-label="Notifications"><span class="material-symbols-outlined">notifications</span><span class="dot"></span></button>
-<div class="profile"><span class="avatar">A</span><div class="who"><b>Admin</b><span>Administrator</span></div></div>
-</header>
+<?php include '../components/admin-topbar.php'?>
 
 <div class="content">
-<a class="back" href="gallery.html"><span class="material-symbols-outlined">arrow_back</span> Back to Gallery</a>
+<a class="back" href="gallery.php"><span class="material-symbols-outlined">arrow_back</span> Back to Gallery</a>
 
 <div class="alb-head">
 <div>

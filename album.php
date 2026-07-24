@@ -124,7 +124,7 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 </div>
 <a class="nav-link" href="admission.html">Admissions</a>
 <a class="nav-link" href="notice.html">Notice</a>
-<a class="nav-link nav-link--active" href="gallery.html">Gallery</a>
+<a class="nav-link nav-link--active" href="gallery.php">Gallery</a>
 </div>
 <div class="nav-actions">
 <button class="nav-btn nav-btn--outline">Portal Login</button>
@@ -139,7 +139,7 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <div class="breadcrumb">
 <a href="index.html">Home</a>
 <span class="material-symbols-outlined">chevron_right</span>
-<a href="gallery.html">Gallery</a>
+<a href="gallery.php">Gallery</a>
 <span class="material-symbols-outlined">chevron_right</span>
 <span class="breadcrumb-current">Annual Day Celebration</span>
 </div>
@@ -149,7 +149,7 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <!-- ALBUM HEADER -->
 <section class="album-hero">
 <div class="container">
-<a class="album-back" href="gallery.html"><span class="material-symbols-outlined">arrow_back</span> Back to Gallery</a>
+<a class="album-back" href="gallery.php"><span class="material-symbols-outlined">arrow_back</span> Back to Gallery</a>
 <span class="eyebrow">Photo &amp; Video Album</span>
 <h1 class="heading-lg">Annual Day Celebration</h1>
 <div class="album-meta">

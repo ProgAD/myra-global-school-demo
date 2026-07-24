@@ -1,4 +1,5 @@
 <?php
+$page_name = 'dashboard';   // drives sidebar highlight + topbar heading
 // ===== Session guard: only logged-in users may view admin pages =====
 session_start();
 if (!isset($_SESSION['user_id'])) {
@@ -160,17 +161,7 @@ img{display:block;max-width:100%;}
 <div class="main">
 
 <!-- Topbar -->
-<header class="topbar">
-<button class="hamburger" id="hamburger" aria-label="Menu"><span class="material-symbols-outlined">menu</span></button>
-<h1>Dashboard</h1>
-<div class="spacer"></div>
-<button class="icon-btn" aria-label="Search"><span class="material-symbols-outlined">search</span></button>
-<button class="icon-btn" aria-label="Notifications"><span class="material-symbols-outlined">notifications</span><span class="dot"></span></button>
-<div class="profile">
-<span class="avatar">A</span>
-<div class="who"><b>Admin</b><span>Administrator</span></div>
-</div>
-</header>
+<?php include '../components/admin-topbar.php'?>
 
 <!-- Content -->
 <div class="content">
@@ -224,87 +215,6 @@ img{display:block;max-width:100%;}
 </a>
 </div>
 
-<!-- Panels: recent admissions + enquiries -->
-<div class="panels">
-
-<!-- Recent Admissions -->
-<div class="panel">
-<div class="panel-head">
-<h3>Recent Applications</h3>
-<a href="admissions.php">View all <span class="material-symbols-outlined" style="font-size:16px;">arrow_forward</span></a>
-</div>
-<div style="overflow-x:auto;">
-<table class="tbl">
-<thead>
-<tr><th>Applicant</th><th>Class</th><th>Date</th><th>Status</th><th></th></tr>
-</thead>
-<tbody>
-<tr>
-<td><div class="u"><span class="ua">AS</span><div><b>Aarav Sharma</b><span>MGS12345678</span></div></div></td>
-<td>Grade 6</td><td>22 Jul 2026</td>
-<td><span class="badge2 b-verify"><span class="material-symbols-outlined">hourglass_top</span> Under Verification</span></td>
-<td><a class="row-act" href="#"><span class="material-symbols-outlined">visibility</span></a></td>
-</tr>
-<tr>
-<td><div class="u"><span class="ua">IK</span><div><b>Isha Kumari</b><span>MGS12345679</span></div></div></td>
-<td>Grade 3</td><td>21 Jul 2026</td>
-<td><span class="badge2 b-done"><span class="material-symbols-outlined">verified</span> Verified</span></td>
-<td><a class="row-act" href="#"><span class="material-symbols-outlined">visibility</span></a></td>
-</tr>
-<tr>
-<td><div class="u"><span class="ua">RV</span><div><b>Reyansh Verma</b><span>MGS12345680</span></div></div></td>
-<td>Nursery</td><td>21 Jul 2026</td>
-<td><span class="badge2 b-new"><span class="material-symbols-outlined">inventory_2</span> Received</span></td>
-<td><a class="row-act" href="#"><span class="material-symbols-outlined">visibility</span></a></td>
-</tr>
-<tr>
-<td><div class="u"><span class="ua">AM</span><div><b>Anaya Mishra</b><span>MGS12345681</span></div></div></td>
-<td>Grade 9</td><td>20 Jul 2026</td>
-<td><span class="badge2 b-verify"><span class="material-symbols-outlined">hourglass_top</span> Under Verification</span></td>
-<td><a class="row-act" href="#"><span class="material-symbols-outlined">visibility</span></a></td>
-</tr>
-<tr>
-<td><div class="u"><span class="ua">KS</span><div><b>Kabir Singh</b><span>MGS12345682</span></div></div></td>
-<td>Grade 1</td><td>19 Jul 2026</td>
-<td><span class="badge2 b-done"><span class="material-symbols-outlined">verified</span> Verified</span></td>
-<td><a class="row-act" href="#"><span class="material-symbols-outlined">visibility</span></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-
-<!-- Recent Enquiries -->
-<div class="panel">
-<div class="panel-head">
-<h3>Recent Enquiries</h3>
-<a href="enquiries.php">View all <span class="material-symbols-outlined" style="font-size:16px;">arrow_forward</span></a>
-</div>
-<div>
-<div class="enq">
-<span class="enq-ico"><span class="material-symbols-outlined">mail</span></span>
-<div><b>Neha Gupta</b><p>Query about Grade 5 admission and fees.</p></div>
-<span class="time">2h ago</span>
-</div>
-<div class="enq">
-<span class="enq-ico"><span class="material-symbols-outlined">mail</span></span>
-<div><b>Vikram Rao</b><p>Requesting a campus tour this weekend.</p></div>
-<span class="time">5h ago</span>
-</div>
-<div class="enq">
-<span class="enq-ico"><span class="material-symbols-outlined">mail</span></span>
-<div><b>Sunita Devi</b><p>Transport availability for Sector 12.</p></div>
-<span class="time">Yesterday</span>
-</div>
-<div class="enq">
-<span class="enq-ico"><span class="material-symbols-outlined">mail</span></span>
-<div><b>Arjun Nair</b><p>Documents required for Grade 11 admission.</p></div>
-<span class="time">Yesterday</span>
-</div>
-</div>
-</div>
-
-</div>
 
 </div>
 </div>

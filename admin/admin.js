@@ -74,10 +74,12 @@
 
     document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
       if (pendingRow) {
-        pendingRow.remove();
+        var row = pendingRow;
         pendingRow = null;
-        // let pages update counts / pagination after a delete
-        document.dispatchEvent(new CustomEvent('admin:rowdeleted'));
+        row.remove();
+        // let pages update counts / pagination (detail.row carries the removed
+        // element so DB-backed pages can read its data-id and call their API)
+        document.dispatchEvent(new CustomEvent('admin:rowdeleted', { detail: { row: row } }));
       }
       confirmModal.classList.remove('open');
     });

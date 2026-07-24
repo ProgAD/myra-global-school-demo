@@ -2,7 +2,7 @@
 <html class="scroll-smooth" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>St. Jude's Academy | Excellence in Education</title>
+<title>Myra Global School | Excellence in Education</title>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="css/header.css" rel="stylesheet"/>
@@ -437,7 +437,7 @@ address{font-style:normal;}
             </span>
 <div class="ticker-wrap">
 <div class="ticker-content">
-                    • Admissions for the Academic Year 2024-25 are now open for all grades.     • St. Jude's ranks Top 10 in National Science Fair results.     • Annual Alumni Homecoming scheduled for October 15th.     • New state-of-the-art Robotics Lab inaugurated by the Education Minister.
+                    • Admissions for the Academic Year 2024-25 are now open for all grades.     • Myra Global School ranks Top 10 in National Science Fair results.     • Annual Alumni Homecoming scheduled for October 15th.     • New state-of-the-art Robotics Lab inaugurated by the Education Minister.
                 </div>
 </div>
 </div>
@@ -495,7 +495,7 @@ address{font-style:normal;}
 <div class="container">
 <div class="about-grid">
 <div class="about-media">
-<img alt="St. Jude's Historic Campus" class="about-img" src="https://lh3.googleusercontent.com/aida/AP1WRLvj2juMHe6Ny1Drz8c5bleO9fp0KfpZtEsdRb8dV9gJQHYn7VM5hdyFS8ogfM_BnBHoew1ubfI-j1pyDVBTU4WSfR6SWpbl44-9NiSAPmFrk1yZRpGYCsZFizVlznlE9WiX7U3zbpWDkc7PcUUElVs97VZ7H4C49cUTtUri1ZOUTea6aDCksnljY-O0PjMziusbGqNDYISAGi13nq8XdaJF3_HG6suvYxrrOEQAwYsf5UYVcaTmV5R380A"/>
+<img alt="Myra Global School Historic Campus" class="about-img" src="https://lh3.googleusercontent.com/aida/AP1WRLvj2juMHe6Ny1Drz8c5bleO9fp0KfpZtEsdRb8dV9gJQHYn7VM5hdyFS8ogfM_BnBHoew1ubfI-j1pyDVBTU4WSfR6SWpbl44-9NiSAPmFrk1yZRpGYCsZFizVlznlE9WiX7U3zbpWDkc7PcUUElVs97VZ7H4C49cUTtUri1ZOUTea6aDCksnljY-O0PjMziusbGqNDYISAGi13nq8XdaJF3_HG6suvYxrrOEQAwYsf5UYVcaTmV5R380A"/>
 <div class="about-badge">
 <div class="about-badge-num">50+</div>
 <div class="about-badge-label">Years of Excellence</div>
@@ -504,7 +504,7 @@ address{font-style:normal;}
 <div class="about-copy">
 <span class="eyebrow">Our Heritage</span>
 <h2 class="heading-lg">A Legacy of Intellectual Growth</h2>
-<p class="about-lead">Founded in 1974, St. Jude's Academy has evolved from a small community school into a world-class institution. Our campus is more than just buildings; it is a sanctuary for ideas and a launchpad for future leaders.</p>
+<p class="about-lead">Founded in 1974, Myra Global School has evolved from a small community school into a world-class institution. Our campus is more than just buildings; it is a sanctuary for ideas and a launchpad for future leaders.</p>
 <p class="about-text">We pride ourselves on maintaining the highest standards of academic rigor while fostering an environment of inclusivity and moral integrity. Our alumni can be found leading industries, driving scientific breakthroughs, and serving communities across the globe.</p>
 <button class="btn-solid-primary">Discover Our History</button>
 </div>
@@ -532,7 +532,7 @@ address{font-style:normal;}
 <section class="section-lg gallery-sec">
 <div class="container">
 <div class="gallery-head">
-<h2 class="heading-lg heading-lg--tight">Life at St. Jude's</h2>
+<h2 class="heading-lg heading-lg--tight">Life at Myra Global School</h2>
 <p class="gallery-sub">A glimpse into the daily experiences, celebrations, and achievements of our vibrant student community.</p>
 </div>
 <div class="gallery-grid">

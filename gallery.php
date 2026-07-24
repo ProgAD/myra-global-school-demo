@@ -103,7 +103,7 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 </div>
 <div class="album-grid">
 
-<a class="album-card" href="album.html">
+<a class="album-card" href="album.php">
 <div class="album-cover">
 <div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>
 <img alt="Annual Day" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaxFf1iR-fZ3ARbf0Jb1PNjorBa8cpgPVL-w_P4OsAfjXdIb8A1E_x95gl_w2j4vW9grj2ypkMgh0yCKFxAjESyp2Ucx4NsnBi5XDuP7ix-Up85kKqoPpxUlzKqRnhXlpTJpv56yXLUhsTit3BEJblNQ91Ww4jEBCL6Zs1nHGWbS7_cgkUZ0mEDgqrtnmZRXATqFK9e2mQ2lqRQKsH_bNLLr2t1jZgnqlrKkc1ULfSMa-7V_H-fGR4HA"/>
@@ -115,7 +115,7 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <p class="album-desc">A dazzling evening of music, dance and drama celebrating a year of achievement.</p></div>
 </a>
 
-<a class="album-card" href="album.html">
+<a class="album-card" href="album.php">
 <div class="album-cover">
 <div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>
 <img alt="Sports Day" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrAUxLGmK3HTZovHjtQNhyL7wUTcT2jRJ96hODtSIBdo8qX0rVDZxVC80sgUH-7rXb6ST-Qwiwun7ss1-lEEY3GyrCE5hTzOwdYmmM0FdKq2XxQogHlgw_VzqsZ-cOleFWCWBPHyxMhuWz33G967YtwYfeBdKsHdkp25A7OJUvaoxIIHqemZRxxk9SFsNfNvgvPRH6WV9r-jdaAboWc0m9FNQ7HHNZtY5Cnx7dSqzddmLBjWAFw6dn4Q"/>
@@ -127,7 +127,7 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <p class="album-desc">Track, field and team spirit as our four houses competed for the championship trophy.</p></div>
 </a>
 
-<a class="album-card" href="album.html">
+<a class="album-card" href="album.php">
 <div class="album-cover">
 <div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>
 <img alt="Science Fair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYZVCivML_bItmWzbD5J65HYfCDYnBmHh0oaMBmpOgSRv1ecKJckbpXjmsrSiw07faGmYD7qTgoCy-sWRoG57OPDTCgSS61kw0w0TkUIdqoloksfWuLo88U9MjKZ20w_Jgly9qwtTFiLgSaRh6wPkimPdS6Cy_FM5JP1IO8fNtvfqPfAm63tU93PC_S5QKLUKcJ1TYCp0zpAUR6eB-L6XwfhRrBZCQd0XT1IKKkdJGi-wKRTC6tRQqew"/>
@@ -139,7 +139,7 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <p class="album-desc">Young innovators showcased working models, experiments and bold new ideas.</p></div>
 </a>
 
-<a class="album-card" href="album.html">
+<a class="album-card" href="album.php">
 <div class="album-cover">
 <div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>
 <img alt="Graduation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEzSG6mdfW96059TNF1M1hivs6iTXZAr-vLQoKEhcbEjF7aiMXFuPqDTvOOwnwLS14mX2a0qvy96Ziym73h1CwNdqUiJhEMUvC9pvHakyvlukSDnE8A732JP02zde5D3fabGIIhHLU983zv_Nff4n-XdZunzIQpJgvpKuyNUFGokxj4o-ESTmvvx0uEslQ8cYhdbSpa2e-eovTg7Lb7XhXzR3KlgSVgFjYvnt0_mUO2F3494VEtD2g1g"/>
@@ -151,7 +151,7 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <p class="album-desc">Celebrating our graduating class as they step into the next chapter of their journey.</p></div>
 </a>
 
-<a class="album-card" href="album.html">
+<a class="album-card" href="album.php">
 <div class="album-cover">
 <div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>
 <img alt="Cultural Fest" src="https://lh3.googleusercontent.com/aida/AP1WRLvj2juMHe6Ny1Drz8c5bleO9fp0KfpZtEsdRb8dV9gJQHYn7VM5hdyFS8ogfM_BnBHoew1ubfI-j1pyDVBTU4WSfR6SWpbl44-9NiSAPmFrk1yZRpGYCsZFizVlznlE9WiX7U3zbpWDkc7PcUUElVs97VZ7H4C49cUTtUri1ZOUTea6aDCksnljY-O0PjMziusbGqNDYISAGi13nq8XdaJF3_HG6suvYxrrOEQAwYsf5UYVcaTmV5R380A"/>
@@ -163,7 +163,7 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <p class="album-desc">A vibrant celebration of art, heritage and creativity across the campus.</p></div>
 </a>
 
-<a class="album-card" href="album.html">
+<a class="album-card" href="album.php">
 <div class="album-cover">
 <div class="album-overlay"><span class="album-view-btn">View Album <span class="material-symbols-outlined">arrow_forward</span></span></div>
 <img alt="Field Trip" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaxFf1iR-fZ3ARbf0Jb1PNjorBa8cpgPVL-w_P4OsAfjXdIb8A1E_x95gl_w2j4vW9grj2ypkMgh0yCKFxAjESyp2Ucx4NsnBi5XDuP7ix-Up85kKqoPpxUlzKqRnhXlpTJpv56yXLUhsTit3BEJblNQ91Ww4jEBCL6Zs1nHGWbS7_cgkUZ0mEDgqrtnmZRXATqFK9e2mQ2lqRQKsH_bNLLr2t1jZgnqlrKkc1ULfSMa-7V_H-fGR4HA"/>

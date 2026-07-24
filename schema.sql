@@ -100,9 +100,9 @@ CREATE TABLE notices (
     documents JSON NULL,
 
     status ENUM(
-        'draft',
         'published',
-        'archived'
+        'archived',
+        'deleted'
     ) DEFAULT 'draft',
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -214,9 +214,20 @@ CREATE TABLE vacancy_apply (
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     phone VARCHAR(20) NOT NULL,
+
+    experience VARCHAR(50) NULL,
+
     vacancy_id INT NOT NULL,
     resume VARCHAR(255) NOT NULL,
     additional_info TEXT,
+
+    status ENUM(
+        'new',
+        'reviewed',
+        'shortlisted',
+        'rejected'
+    ) NOT NULL DEFAULT 'new',
+
     applied_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_vacancy_apply_vacancy

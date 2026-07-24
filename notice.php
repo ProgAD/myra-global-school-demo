@@ -125,7 +125,7 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 <span class="notice-date">October 18, 2024</span>
 <h3 class="notice-card-title">Annual Sports Day — 25th October</h3>
 <p class="notice-card-text">All students are to report by 7:30 AM in their house colours. Parents are cordially invited to attend.</p>
-<a class="notice-link" href="gallery.html">View Past Events <span class="material-symbols-outlined">photo_library</span></a>
+<a class="notice-link" href="gallery.php">View Past Events <span class="material-symbols-outlined">photo_library</span></a>
 </div>
 
 <div class="notice-card">
