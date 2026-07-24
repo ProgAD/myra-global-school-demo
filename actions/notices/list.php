@@ -39,6 +39,20 @@ function json_arr($raw) {
     return is_array($v) ? array_values(array_filter($v, 'is_array')) : [];
 }
 
+/* Documents are stored as {name, file}; build a public URL from the file
+   (relative to the site root, since notice.php lives at the root). */
+function pub_docs($raw) {
+    $out = [];
+    foreach (json_arr($raw) as $d) {
+        $name = $d['name'] ?? '';
+        $file = $d['file'] ?? '';
+        $url  = ($file !== '') ? 'assets/notices/' . $file : ($d['url'] ?? '');
+        if ($name === '' && $url === '') continue;
+        $out[] = ['name' => $name, 'url' => $url];
+    }
+    return $out;
+}
+
 $rows = [];
 while ($r = $res->fetch_assoc()) {
     $rows[] = [
@@ -46,7 +60,7 @@ while ($r = $res->fetch_assoc()) {
         'title'     => $r['title'],
         'content'   => $r['content'],
         'category'  => $r['category'],
-        'documents' => json_arr($r['documents']),
+        'documents' => pub_docs($r['documents']),
         'links'     => json_arr($r['links']),
         'date'      => fmt_date($r['created_at']),
     ];

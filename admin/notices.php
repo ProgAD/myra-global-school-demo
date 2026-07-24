@@ -47,9 +47,18 @@ if (!isset($_SESSION['user_id'])) {
 
 .rep-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
 .rep-row .finput{flex:1;min-width:0;}
-.rep-del{width:34px;height:34px;border-radius:8px;color:var(--muted);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+.rep-del{width:34px;height:34px;border-radius:8px;color:var(--muted);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;border:none;background:none;}
 .rep-del:hover{background:var(--red-bg);color:var(--red);}
 .finput[readonly]{background:var(--bg);color:var(--on-surface-variant);cursor:default;}
+
+/* Document upload rows */
+.doc-item{display:flex;gap:8px;align-items:center;margin-bottom:8px;border:1px solid var(--line);border-radius:9px;padding:8px 10px;background:var(--surface);}
+.doc-item .material-symbols-outlined.dico{font-size:20px;color:var(--blue);flex-shrink:0;}
+.doc-item .dname{flex:1;min-width:0;font-size:13.5px;font-weight:600;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.doc-item.doc-existing .dname{color:var(--primary-container);}
+.doc-item input[type=file]{flex:1;min-width:0;font-size:13px;}
+.doc-hint{font-size:12px;color:var(--muted);margin-top:2px;}
+.btn.disabled,.btn:disabled{opacity:.5;cursor:not-allowed;pointer-events:none;}
 
 .pager{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px 22px;border-top:1px solid var(--line);}
 .pager-info{color:var(--muted);font-size:13px;}
@@ -196,12 +205,16 @@ entries</label>
 <select class="finput" id="fStatus"><option value="published">Published</option><option value="archived">Archived</option></select>
 </div>
 <div class="field">
-<label>Documents</label><div id="docList"></div>
-<button type="button" class="btn btn-ghost btn-sm" id="addDoc"><span class="material-symbols-outlined">attach_file</span> Add document</button>
+<label>Documents <span class="doc-hint" id="docCounter"></span></label>
+<div id="docList"></div>
+<button type="button" class="btn btn-ghost btn-sm" id="addDoc"><span class="material-symbols-outlined">upload_file</span> Upload document</button>
+<div class="doc-hint">Image or PDF only · up to 5 documents · max 5 MB each.</div>
 </div>
 <div class="field">
-<label>Links</label><div id="linkList"></div>
+<label>Links <span class="doc-hint" id="linkCounter"></span></label>
+<div id="linkList"></div>
 <button type="button" class="btn btn-ghost btn-sm" id="addLink"><span class="material-symbols-outlined">add_link</span> Add link</button>
+<div class="doc-hint">Up to 5 links.</div>
 </div>
 </div>
 <div class="modal-foot"><button type="button" class="btn btn-ghost" data-close>Cancel</button><button type="submit" class="btn btn-primary" id="saveBtn">Save Notice</button></div>
@@ -460,25 +473,69 @@ document.addEventListener('DOMContentLoaded', function () {
   perPageSel.addEventListener('change', function(){ state.perPage = this.value; state.page = 1; load(); });
   document.getElementById('retryBtn').addEventListener('click', load);
 
-  /* ---------- repeatable document / link rows ---------- */
+  /* ---------- documents (file uploads) ---------- */
+  var MAX_DOCS = 5, MAX_LINKS = 5;
   var docList = document.getElementById('docList');
   var linkList = document.getElementById('linkList');
-  function repRow(container, ph1, ph2, v1, v2){
+  var addDocBtn = document.getElementById('addDoc');
+  var addLinkBtn = document.getElementById('addLink');
+
+  function docRows(){ return Array.prototype.slice.call(docList.querySelectorAll('.doc-item')); }
+  function updateDocUi(){
+    var n = docRows().length;
+    document.getElementById('docCounter').textContent = '(' + n + '/' + MAX_DOCS + ')';
+    addDocBtn.disabled = n >= MAX_DOCS;
+  }
+  // existing (already-saved) document — kept unless removed
+  function addExistingDoc(name, file){
+    var row = document.createElement('div');
+    row.className = 'doc-item doc-existing';
+    row.setAttribute('data-file', file);
+    row.innerHTML = '<span class="material-symbols-outlined dico">description</span>'+
+                    '<span class="dname" title="'+esc(name)+'">'+esc(name)+'</span>'+
+                    '<button type="button" class="rep-del" title="Remove"><span class="material-symbols-outlined">close</span></button>';
+    row.querySelector('.rep-del').addEventListener('click', function(){ row.remove(); updateDocUi(); });
+    docList.appendChild(row);
+  }
+  // a new file-picker row
+  function addNewDoc(){
+    if (docRows().length >= MAX_DOCS) return;
+    var row = document.createElement('div');
+    row.className = 'doc-item doc-new';
+    row.innerHTML = '<span class="material-symbols-outlined dico">upload_file</span>'+
+                    '<input type="file" class="dfile" accept=".jpg,.jpeg,.png,.webp,.gif,.pdf"/>'+
+                    '<button type="button" class="rep-del" title="Remove"><span class="material-symbols-outlined">close</span></button>';
+    row.querySelector('.rep-del').addEventListener('click', function(){ row.remove(); updateDocUi(); });
+    docList.appendChild(row);
+    updateDocUi();
+    row.querySelector('.dfile').click();
+  }
+  addDocBtn.addEventListener('click', addNewDoc);
+
+  /* ---------- links (text rows, max 5) ---------- */
+  function linkRows(){ return Array.prototype.slice.call(linkList.querySelectorAll('.rep-row')); }
+  function updateLinkUi(){
+    var n = linkRows().length;
+    document.getElementById('linkCounter').textContent = '(' + n + '/' + MAX_LINKS + ')';
+    addLinkBtn.disabled = n >= MAX_LINKS;
+  }
+  function addLinkRow(title, url){
+    if (linkRows().length >= MAX_LINKS) return;
     var row = document.createElement('div');
     row.className = 'rep-row';
-    row.innerHTML = '<input class="finput f1" type="text" placeholder="'+ph1+'" value="'+esc(v1||'')+'"/>'+
-                    '<input class="finput f2" type="text" placeholder="'+ph2+'" value="'+esc(v2||'')+'"/>'+
+    row.innerHTML = '<input class="finput f1" type="text" placeholder="Link title" value="'+esc(title||'')+'"/>'+
+                    '<input class="finput f2" type="text" placeholder="https://…" value="'+esc(url||'')+'"/>'+
                     '<button type="button" class="rep-del"><span class="material-symbols-outlined">close</span></button>';
-    row.querySelector('.rep-del').addEventListener('click', function(){ row.remove(); });
-    container.appendChild(row);
+    row.querySelector('.rep-del').addEventListener('click', function(){ row.remove(); updateLinkUi(); });
+    linkList.appendChild(row);
+    updateLinkUi();
   }
-  function collect(container, k1, k2){
-    return Array.prototype.slice.call(container.querySelectorAll('.rep-row')).map(function(row){
-      var o = {}; o[k1] = row.querySelector('.f1').value.trim(); o[k2] = row.querySelector('.f2').value.trim(); return o;
-    }).filter(function(o){ return o[k1] && o[k2]; });
+  function collectLinks(){
+    return linkRows().map(function(row){
+      return { title: row.querySelector('.f1').value.trim(), url: row.querySelector('.f2').value.trim() };
+    }).filter(function(o){ return o.title && o.url; });
   }
-  document.getElementById('addDoc').addEventListener('click', function(){ repRow(docList,'Document name','File URL / path','',''); });
-  document.getElementById('addLink').addEventListener('click', function(){ repRow(linkList,'Link title','https://…','',''); });
+  addLinkBtn.addEventListener('click', function(){ addLinkRow('',''); });
 
   /* ---------- add / edit ---------- */
   var modal = document.getElementById('ntModal');
@@ -495,6 +552,7 @@ document.addEventListener('DOMContentLoaded', function () {
     form.reset();
     document.getElementById('fDate').value = todayDisplay();
     docList.innerHTML = ''; linkList.innerHTML = '';
+    updateDocUi(); updateLinkUi();
     modal.classList.add('open');
   });
 
@@ -506,8 +564,9 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('fBody').value   = r.content || '';
     document.getElementById('fStatus').value = r.status === 'archived' ? 'archived' : 'published';
     docList.innerHTML = ''; linkList.innerHTML = '';
-    (r.documents||[]).forEach(function(d){ repRow(docList,'Document name','File URL / path', d.name, d.url); });
-    (r.links||[]).forEach(function(l){ repRow(linkList,'Link title','https://…', l.title, l.url); });
+    (r.documents||[]).forEach(function(d){ if (d.file) addExistingDoc(d.name, d.file); });
+    (r.links||[]).forEach(function(l){ addLinkRow(l.title, l.url); });
+    updateDocUi(); updateLinkUi();
     modal.classList.add('open');
   }
 
@@ -519,19 +578,32 @@ document.addEventListener('DOMContentLoaded', function () {
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var btn = document.getElementById('saveBtn');
+
+    // gather kept existing docs + newly-chosen files
+    var keepDocs = docRows().filter(function(r){ return r.classList.contains('doc-existing'); })
+                            .map(function(r){ return r.getAttribute('data-file'); });
+    var newFiles = [];
+    docList.querySelectorAll('.doc-new .dfile').forEach(function(inp){
+      if (inp.files && inp.files.length) newFiles.push(inp.files[0]);
+    });
+
+    if (keepDocs.length + newFiles.length > MAX_DOCS) {
+      alert('A maximum of ' + MAX_DOCS + ' documents is allowed.'); return;
+    }
+
+    var fd = new FormData();
+    fd.append('id', editingId);
+    fd.append('title', document.getElementById('fTitle').value.trim());
+    fd.append('content', document.getElementById('fBody').value.trim());
+    fd.append('category', document.getElementById('fCat').value);
+    fd.append('status', document.getElementById('fStatus').value);
+    fd.append('links', JSON.stringify(collectLinks()));
+    fd.append('keep_docs', JSON.stringify(keepDocs));
+    newFiles.forEach(function(f){ fd.append('documents[]', f); });
+
     btn.disabled = true;
-    fetch(API+'save.php', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        id: editingId,
-        title: document.getElementById('fTitle').value.trim(),
-        content: document.getElementById('fBody').value.trim(),
-        category: document.getElementById('fCat').value,
-        status: document.getElementById('fStatus').value,
-        documents: collect(docList,'name','url'),
-        links: collect(linkList,'title','url')
-      })
-    }).then(function(r){ return r.json(); })
+    fetch(API+'save.php', { method:'POST', body: fd })
+      .then(function(r){ return r.json(); })
       .then(function(d){
         if(!d.success) throw new Error(d.message||'Save failed');
         modal.classList.remove('open'); load();

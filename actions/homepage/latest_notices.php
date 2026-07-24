@@ -27,6 +27,19 @@ function json_arr($raw) {
     return is_array($v) ? array_values(array_filter($v, 'is_array')) : [];
 }
 
+/* Documents stored as {name,file}; homepage lives at the site root. */
+function pub_docs($raw) {
+    $out = [];
+    foreach (json_arr($raw) as $d) {
+        $name = $d['name'] ?? '';
+        $file = $d['file'] ?? '';
+        $url  = ($file !== '') ? 'assets/notices/' . $file : ($d['url'] ?? '');
+        if ($name === '' && $url === '') continue;
+        $out[] = ['name' => $name, 'url' => $url];
+    }
+    return $out;
+}
+
 $rows = [];
 while ($r = $res->fetch_assoc()) {
     $rows[] = [
@@ -35,7 +48,7 @@ while ($r = $res->fetch_assoc()) {
         'content'   => $r['content'],
         'category'  => $r['category'],
         'date'      => fmt_date($r['created_at']),
-        'documents' => json_arr($r['documents']),
+        'documents' => pub_docs($r['documents']),
         'links'     => json_arr($r['links']),
     ];
 }

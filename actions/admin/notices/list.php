@@ -42,7 +42,7 @@ while ($r = $res->fetch_assoc()) {
         'content'   => $r['content'],
         'category'  => $r['category'],
         'links'     => json_list($r['links']),
-        'documents' => json_list($r['documents']),
+        'documents' => map_docs(json_list($r['documents']), '../assets/notices/'),
         'status'    => $r['status'],
         'date'      => fmt_date($r['created_at']),
     ];
