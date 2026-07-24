@@ -17,31 +17,16 @@ if (!isset($_SESSION['user_id'])) {
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="admin.css" rel="stylesheet"/>
 <style>
-/* Selection column */
 .selcol{width:44px;text-align:center;padding-left:16px!important;padding-right:8px!important;}
 .rowchk,#chkAll{width:16px;height:16px;accent-color:var(--primary-container);cursor:pointer;}
 #ntTable tbody td:nth-child(-n+6){cursor:pointer;}
-
-/* Status as a changeable coloured dropdown */
-.status-select{font-weight:700;font-size:12.5px;border-radius:9999px;padding:6px 12px;border:1px solid transparent;cursor:pointer;}
-.status-select:focus{outline:none;box-shadow:0 0 0 2px rgba(0,33,71,.18);}
-.status-select.s-published{background:var(--green-bg);color:var(--green);}
-.status-select.s-archived{background:var(--bg);color:var(--muted);}
-
-/* Read-only form field */
-.finput[readonly]{background:var(--bg);color:var(--on-surface-variant);cursor:default;}
 .tbl td.sno{color:var(--muted);font-weight:700;}
 .ntdate{white-space:nowrap;font-size:13.5px;}
 
-/* Title + short description stacked */
-.ntitle{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.ntitle b{font-size:14px;font-weight:700;color:var(--ink);}
+.ntitle b{display:block;font-size:14px;font-weight:700;color:var(--ink);}
 .ntdesc{font-size:12.5px;line-height:1.45;color:var(--muted);margin-top:3px;max-width:330px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-
-/* Category chip */
 .cat-chip{display:inline-flex;padding:4px 11px;border-radius:9999px;background:var(--bg);color:var(--primary-container);font-size:12px;font-weight:700;text-transform:capitalize;white-space:nowrap;}
 
-/* Attachments: documents + links */
 .attach{display:flex;flex-direction:column;gap:10px;min-width:190px;}
 .attach-group{display:flex;flex-direction:column;gap:4px;}
 .attach-lbl{display:block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
@@ -54,14 +39,18 @@ if (!isset($_SESSION['user_id'])) {
 .chip-link{color:var(--green);}
 .no-attach{color:var(--muted);font-size:13px;}
 
-/* Repeatable document / link rows in the form */
+.status-select{font-weight:700;font-size:12.5px;border-radius:9999px;padding:6px 12px;border:1px solid transparent;cursor:pointer;}
+.status-select:focus{outline:none;box-shadow:0 0 0 2px rgba(0,33,71,.18);}
+.status-select.s-published{background:var(--green-bg);color:var(--green);}
+.status-select.s-archived{background:var(--bg);color:var(--muted);}
+.status-select:disabled{opacity:.6;cursor:wait;}
+
 .rep-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
 .rep-row .finput{flex:1;min-width:0;}
 .rep-del{width:34px;height:34px;border-radius:8px;color:var(--muted);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
 .rep-del:hover{background:var(--red-bg);color:var(--red);}
-.rep-empty{font-size:13px;color:var(--muted);margin-bottom:8px;}
+.finput[readonly]{background:var(--bg);color:var(--on-surface-variant);cursor:default;}
 
-/* Pagination footer */
 .pager{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px 22px;border-top:1px solid var(--line);}
 .pager-info{color:var(--muted);font-size:13px;}
 .pager-left{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
@@ -74,16 +63,23 @@ if (!isset($_SESSION['user_id'])) {
 .page-btn.active{background:var(--primary-container);color:#fff;border-color:var(--primary-container);}
 .page-btn:disabled{opacity:.45;cursor:not-allowed;}
 
-/* Bulk action bar */
 .bulkbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--blue-bg);border:1px solid #c8dcff;color:var(--blue);border-radius:11px;padding:10px 16px;margin-bottom:16px;font-size:14px;font-weight:600;}
 .bulkbar[hidden]{display:none;}
 .bulkbar .spacer{flex:1;}
 .bulkbar b{font-weight:800;}
 .del-count{font-family:var(--font-serif);font-size:40px;font-weight:700;color:var(--red);line-height:1;}
 
-/* View modal bits */
+.info-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
 .vw-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px;}
-.vw-body{font-size:14px;line-height:1.7;color:var(--ink);white-space:pre-wrap;}
+.vw-body{font-size:14px;line-height:1.7;color:var(--ink);white-space:pre-wrap;margin-top:6px;}
+
+.state-box{text-align:center;padding:56px 20px;color:var(--muted);}
+.state-box .material-symbols-outlined{font-size:52px;color:var(--line);}
+.state-box h4{font-family:var(--font-serif);font-size:19px;font-weight:700;color:var(--primary-container);margin-top:10px;}
+.state-box p{margin-top:6px;font-size:14px;}
+.state-box.err h4{color:var(--red);}
+.spin{width:30px;height:30px;border:3px solid var(--line);border-top-color:var(--primary-container);border-radius:50%;animation:sp .7s linear infinite;margin:0 auto;}
+@keyframes sp{to{transform:rotate(360deg);}}
 </style>
 <script src="admin.js" defer></script>
 </head>
@@ -114,7 +110,6 @@ if (!isset($_SESSION['user_id'])) {
 </div>
 </div>
 
-<!-- Bulk actions (appears once one or more rows are selected) -->
 <div class="bulkbar" id="bulkBar" hidden>
 <span class="material-symbols-outlined">check_circle</span>
 <span><b id="bulkCount">0</b> selected</span>
@@ -124,6 +119,23 @@ if (!isset($_SESSION['user_id'])) {
 </div>
 
 <div class="panel">
+
+<div class="state-box" id="loadingBox"><div class="spin"></div><p style="margin-top:12px">Loading notices…</p></div>
+
+<div class="state-box" id="emptyBox" style="display:none">
+<span class="material-symbols-outlined">campaign</span>
+<h4>No Notice Yet</h4>
+<p id="emptyHint">No notices have been published so far.</p>
+</div>
+
+<div class="state-box err" id="errorBox" style="display:none">
+<span class="material-symbols-outlined">error</span>
+<h4>Could not load notices</h4>
+<p id="errorMsg">Please check your connection and try again.</p>
+<button class="btn btn-ghost btn-sm" id="retryBtn" style="margin-top:14px"><span class="material-symbols-outlined">refresh</span> Retry</button>
+</div>
+
+<div id="tableWrap" style="display:none">
 <div class="table-wrap">
 <table class="tbl" id="ntTable">
 <thead>
@@ -138,161 +150,22 @@ if (!isset($_SESSION['user_id'])) {
 <th style="text-align:right">Action</th>
 </tr>
 </thead>
-<tbody>
-<tr data-status="published" data-cat="admission" data-date="24 Oct 2024"
-    data-title="Admissions Open for 2025-26"
-    data-desc="Applications for the 2025-26 academic session are now open for Nursery through Grade 11. Forms may be submitted online or collected from the school office. Last date for submission is 30 November 2024."
-    data-docs='[{"name":"Prospectus 2025-26.pdf","url":"../uploads/notices/prospectus-2025-26.pdf"},{"name":"Fee Structure.pdf","url":"../uploads/notices/fee-structure.pdf"}]'
-    data-links='[{"title":"Apply Online","url":"../admission/admission-form.html"}]'
-    data-name="admissions open for 2025-26 admission applications session nursery grade">
-<td class="selcol"><input type="checkbox" class="rowchk"/></td>
-<td class="sno"></td>
-<td class="ntdate">24 Oct 2024</td>
-<td class="ntcell"></td>
-<td class="ntcat"></td>
-<td class="attachcell"></td>
-<td class="ntstatus"></td>
-<td class="ntacts"></td>
-</tr>
-<tr data-status="published" data-cat="examination" data-date="22 Oct 2024"
-    data-title="Half-Yearly Examination Schedule"
-    data-desc="The half-yearly examinations begin on 11 November 2024. The detailed datesheet for Grades 1 to 12 is attached below. Students must carry their admit cards."
-    data-docs='[{"name":"Exam Datesheet.pdf","url":"../uploads/notices/exam-datesheet.pdf"}]'
-    data-links='[]'
-    data-name="half-yearly examination schedule datesheet grades admit card">
-<td class="selcol"><input type="checkbox" class="rowchk"/></td>
-<td class="sno"></td>
-<td class="ntdate">22 Oct 2024</td>
-<td class="ntcell"></td>
-<td class="ntcat"></td>
-<td class="attachcell"></td>
-<td class="ntstatus"></td>
-<td class="ntacts"></td>
-</tr>
-<tr data-status="published" data-cat="sports" data-date="18 Oct 2024"
-    data-title="Annual Sports Day - 25th October"
-    data-desc="The 32nd Annual Sports Day will be held at the school ground from 8:00 AM. Parents are cordially invited. Students should report in their house uniforms."
-    data-docs='[{"name":"Event Schedule.pdf","url":"../uploads/notices/sports-schedule.pdf"}]'
-    data-links='[{"title":"Live Stream","url":"https://example.com/live"}]'
-    data-name="annual sports day october event ground house uniform parents">
-<td class="selcol"><input type="checkbox" class="rowchk"/></td>
-<td class="sno"></td>
-<td class="ntdate">18 Oct 2024</td>
-<td class="ntcell"></td>
-<td class="ntcat"></td>
-<td class="attachcell"></td>
-<td class="ntstatus"></td>
-<td class="ntacts"></td>
-</tr>
-<tr data-status="published" data-cat="scholarship" data-date="08 Oct 2024"
-    data-title="Merit Scholarship Applications"
-    data-desc="Students scoring above 90% in the previous academic year may apply for the merit scholarship. Completed forms must reach the accounts office by 25 October."
-    data-docs='[{"name":"Scholarship Form.pdf","url":"../uploads/notices/scholarship-form.pdf"}]'
-    data-links='[{"title":"Eligibility Guidelines","url":"https://example.com/scholarship"}]'
-    data-name="merit scholarship applications students percent accounts office form">
-<td class="selcol"><input type="checkbox" class="rowchk"/></td>
-<td class="sno"></td>
-<td class="ntdate">08 Oct 2024</td>
-<td class="ntcell"></td>
-<td class="ntcat"></td>
-<td class="attachcell"></td>
-<td class="ntstatus"></td>
-<td class="ntacts"></td>
-</tr>
-<tr data-status="published" data-cat="holiday" data-date="05 Oct 2024"
-    data-title="Diwali Vacation Notice"
-    data-desc="The school will remain closed from 30 October to 5 November on account of Diwali. Classes resume on 6 November as per the regular timetable."
-    data-docs='[]'
-    data-links='[]'
-    data-name="diwali vacation notice holiday school closed classes resume november">
-<td class="selcol"><input type="checkbox" class="rowchk"/></td>
-<td class="sno"></td>
-<td class="ntdate">05 Oct 2024</td>
-<td class="ntcell"></td>
-<td class="ntcat"></td>
-<td class="attachcell"></td>
-<td class="ntstatus"></td>
-<td class="ntacts"></td>
-</tr>
-<tr data-status="published" data-cat="result" data-date="02 Oct 2024"
-    data-title="Term 1 Result Declaration"
-    data-desc="Term 1 results for all grades will be declared on 10 October. Report cards may be collected during the parent-teacher meeting scheduled the same week."
-    data-docs='[{"name":"Result Analysis.pdf","url":"../uploads/notices/result-analysis.pdf"}]'
-    data-links='[{"title":"Check Result","url":"https://example.com/result"}]'
-    data-name="term 1 result declaration report cards parent teacher meeting grades">
-<td class="selcol"><input type="checkbox" class="rowchk"/></td>
-<td class="sno"></td>
-<td class="ntdate">02 Oct 2024</td>
-<td class="ntcell"></td>
-<td class="ntcat"></td>
-<td class="attachcell"></td>
-<td class="ntstatus"></td>
-<td class="ntacts"></td>
-</tr>
-<tr data-status="published" data-cat="circular" data-date="28 Sep 2024"
-    data-title="Circular: Revised School Timings"
-    data-desc="With effect from 1 October, school timings will be 8:00 AM to 2:15 PM for all grades. Transport routes have been adjusted accordingly."
-    data-docs='[{"name":"Circular No 42.pdf","url":"../uploads/notices/circular-42.pdf"}]'
-    data-links='[]'
-    data-name="circular revised school timings transport routes october grades">
-<td class="selcol"><input type="checkbox" class="rowchk"/></td>
-<td class="sno"></td>
-<td class="ntdate">28 Sep 2024</td>
-<td class="ntcell"></td>
-<td class="ntcat"></td>
-<td class="attachcell"></td>
-<td class="ntstatus"></td>
-<td class="ntacts"></td>
-</tr>
-<tr data-status="archived" data-cat="recruitment" data-date="20 Sep 2024"
-    data-title="Teacher Recruitment Drive 2024"
-    data-desc="Applications are invited for PGT and TGT posts across Science, Mathematics and English. Walk-in interviews were held on 28 September at the main campus."
-    data-docs='[{"name":"Job Description.pdf","url":"../uploads/notices/job-description.pdf"}]'
-    data-links='[{"title":"Careers Page","url":"../career.php"}]'
-    data-name="teacher recruitment drive pgt tgt science mathematics english interview">
-<td class="selcol"><input type="checkbox" class="rowchk"/></td>
-<td class="sno"></td>
-<td class="ntdate">20 Sep 2024</td>
-<td class="ntcell"></td>
-<td class="ntcat"></td>
-<td class="attachcell"></td>
-<td class="ntstatus"></td>
-<td class="ntacts"></td>
-</tr>
-<tr data-status="archived" data-cat="tender" data-date="15 Sep 2024"
-    data-title="Tender for School Bus Procurement"
-    data-desc="Sealed tenders are invited from registered vendors for the supply of four 40-seater school buses. The last date for submission was 30 September 2024."
-    data-docs='[{"name":"Tender Document.pdf","url":"../uploads/notices/tender-doc.pdf"},{"name":"Technical Specs.pdf","url":"../uploads/notices/tender-specs.pdf"}]'
-    data-links='[]'
-    data-name="tender school bus procurement sealed vendors seater supply">
-<td class="selcol"><input type="checkbox" class="rowchk"/></td>
-<td class="sno"></td>
-<td class="ntdate">15 Sep 2024</td>
-<td class="ntcell"></td>
-<td class="ntcat"></td>
-<td class="attachcell"></td>
-<td class="ntstatus"></td>
-<td class="ntacts"></td>
-</tr>
-</tbody>
+<tbody></tbody>
 </table>
 </div>
-<!-- Pagination -->
 <div class="pager">
 <div class="pager-left">
 <label class="perpage">Show
 <select class="perpage-select" id="perPage">
-<option value="5">5</option>
-<option value="10" selected>10</option>
-<option value="25">25</option>
-<option value="50">50</option>
-<option value="all">All</option>
+<option value="5">5</option><option value="10" selected>10</option><option value="25">25</option><option value="50">50</option><option value="all">All</option>
 </select>
 entries</label>
 <span class="pager-info" id="ntInfo"></span>
 </div>
 <div class="pager-btns" id="ntPages"></div>
 </div>
+</div>
+
 </div>
 
 </div>
@@ -309,21 +182,11 @@ entries</label>
 <div class="field-row">
 <div class="field"><label>Category</label>
 <select class="finput" id="fCat">
-<option value="admission">Admission</option>
-<option value="examination">Examination</option>
-<option value="holiday">Holiday</option>
-<option value="event">Event</option>
-<option value="circular">Circular</option>
-<option value="announcement" selected>Announcement</option>
-<option value="academic">Academic</option>
-<option value="fee">Fee</option>
-<option value="result">Result</option>
-<option value="scholarship">Scholarship</option>
-<option value="sports">Sports</option>
-<option value="emergency">Emergency</option>
-<option value="recruitment">Recruitment</option>
-<option value="tender">Tender</option>
-<option value="other">Other</option>
+<option value="admission">Admission</option><option value="examination">Examination</option><option value="holiday">Holiday</option>
+<option value="event">Event</option><option value="circular">Circular</option><option value="announcement" selected>Announcement</option>
+<option value="academic">Academic</option><option value="fee">Fee</option><option value="result">Result</option>
+<option value="scholarship">Scholarship</option><option value="sports">Sports</option><option value="emergency">Emergency</option>
+<option value="recruitment">Recruitment</option><option value="tender">Tender</option><option value="other">Other</option>
 </select>
 </div>
 <div class="field"><label>Date</label><input class="finput" id="fDate" type="text" readonly tabindex="-1" aria-readonly="true"/></div>
@@ -332,20 +195,16 @@ entries</label>
 <div class="field"><label>Status</label>
 <select class="finput" id="fStatus"><option value="published">Published</option><option value="archived">Archived</option></select>
 </div>
-
 <div class="field">
-<label>Documents</label>
-<div id="docList"></div>
+<label>Documents</label><div id="docList"></div>
 <button type="button" class="btn btn-ghost btn-sm" id="addDoc"><span class="material-symbols-outlined">attach_file</span> Add document</button>
 </div>
-
 <div class="field">
-<label>Links</label>
-<div id="linkList"></div>
+<label>Links</label><div id="linkList"></div>
 <button type="button" class="btn btn-ghost btn-sm" id="addLink"><span class="material-symbols-outlined">add_link</span> Add link</button>
 </div>
 </div>
-<div class="modal-foot"><button type="button" class="btn btn-ghost" data-close>Cancel</button><button type="submit" class="btn btn-primary">Save Notice</button></div>
+<div class="modal-foot"><button type="button" class="btn btn-ghost" data-close>Cancel</button><button type="submit" class="btn btn-primary" id="saveBtn">Save Notice</button></div>
 </form>
 </div>
 </div>
@@ -356,19 +215,15 @@ entries</label>
 <div class="modal-head"><h3>Notice Details</h3><button class="modal-close" data-close><span class="material-symbols-outlined">close</span></button></div>
 <div class="modal-body">
 <h2 style="font-family:var(--font-serif);font-size:22px;color:var(--primary-container);margin-bottom:10px" id="vTitle">—</h2>
-<div class="vw-row">
-<span class="cat-chip" id="vCat">—</span>
-<span id="vStatus"></span>
-<span class="muted" id="vDate">—</span>
-</div>
-<div class="field"><label>Description</label><div class="vw-body" id="vDesc">—</div></div>
-<div class="field"><label>Attachments</label><div id="vAttach"></div></div>
+<div class="vw-row"><span class="cat-chip" id="vCat">—</span><span id="vStatus"></span><span class="muted" id="vDate">—</span></div>
+<div><span class="info-label">Description</span><div class="vw-body" id="vDesc">—</div></div>
+<div style="margin-top:18px"><span class="info-label">Attachments</span><div id="vAttach" style="margin-top:8px"></div></div>
 </div>
 <div class="modal-foot"><button class="btn btn-ghost" data-close>Close</button><button class="btn btn-primary" id="vEditBtn"><span class="material-symbols-outlined">edit</span> Edit</button></div>
 </div>
 </div>
 
-<!-- Bulk delete confirmation popup -->
+<!-- Bulk delete popup -->
 <div class="modal" id="bulkDelModal">
 <div class="modal-box" style="max-width:420px">
 <div class="modal-head"><h3>Delete Selected</h3><button class="modal-close" data-close><span class="material-symbols-outlined">close</span></button></div>
@@ -384,336 +239,328 @@ entries</label>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+  var API = '../actions/admin/notices/';
+
   var table = document.getElementById('ntTable');
   var tbody = table.querySelector('tbody');
-  var filter = 'all', term = '', page = 1;
-
-  var STATUS_LABEL = { published: 'Published', archived: 'Archived' };
-  var STATUS_CLASS = { published: 'b-done', archived: 'b-draft' };
-
-  function allRows(){ return Array.prototype.slice.call(tbody.querySelectorAll('tr')); }
-  function esc(s){
-    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
-    });
-  }
-  function parseJSON(s, fallback){ try { return JSON.parse(s) || fallback; } catch (e) { return fallback; } }
-  function rowDocs(tr){ return parseJSON(tr.getAttribute('data-docs'), []); }
-  function rowLinks(tr){ return parseJSON(tr.getAttribute('data-links'), []); }
-
-  function statusBadge(s){
-    return '<span class="badge2 ' + (STATUS_CLASS[s] || 'b-draft') + '">' + (STATUS_LABEL[s] || s) + '</span>';
-  }
-  function statusSelectHtml(s){
-    s = (s === 'archived') ? 'archived' : 'published';
-    return '<select class="status-select s-' + s + '">' +
-           '<option value="published"' + (s === 'published' ? ' selected' : '') + '>Published</option>' +
-           '<option value="archived"' + (s === 'archived' ? ' selected' : '') + '>Archived</option>' +
-           '</select>';
-  }
-
-  /* ---------- Cell painters ---------- */
-  function attachHtml(docs, links){
-    var out = '';
-    if (docs.length) {
-      out += '<div class="attach-group"><span class="attach-lbl">Documents:</span><div class="attach-items">' + docs.map(function (d) {
-        return '<a class="chip chip-doc" href="' + esc(d.url) + '" target="_blank" rel="noopener" title="' + esc(d.name) + '">' +
-               '<span class="material-symbols-outlined">description</span><span class="t">' + esc(d.name) + '</span></a>';
-      }).join('') + '</div></div>';
-    }
-    if (links.length) {
-      out += '<div class="attach-group"><span class="attach-lbl">Links:</span><div class="attach-items">' + links.map(function (l) {
-        return '<a class="chip chip-link" href="' + esc(l.url) + '" target="_blank" rel="noopener" title="' + esc(l.title) + '">' +
-               '<span class="material-symbols-outlined">link</span><span class="t">' + esc(l.title) + '</span></a>';
-      }).join('') + '</div></div>';
-    }
-    return out ? '<div class="attach">' + out + '</div>' : '<span class="no-attach">—</span>';
-  }
-
-  function paintRow(tr){
-    tr.querySelector('.ntdate').textContent = tr.getAttribute('data-date') || '';
-    tr.querySelector('.ntcell').innerHTML =
-      '<div class="ntitle"><b>' + esc(tr.getAttribute('data-title')) + '</b></div>' +
-      '<p class="ntdesc">' + esc(tr.getAttribute('data-desc')) + '</p>';
-    tr.querySelector('.ntcat').innerHTML = '<span class="cat-chip">' + esc(tr.getAttribute('data-cat')) + '</span>';
-    tr.querySelector('.attachcell').innerHTML = attachHtml(rowDocs(tr), rowLinks(tr));
-    tr.querySelector('.ntstatus').innerHTML = statusSelectHtml(tr.getAttribute('data-status'));
-    tr.querySelector('.ntacts').innerHTML =
-      '<div class="acts" style="justify-content:flex-end">' +
-      '<button class="row-act view" title="View"><span class="material-symbols-outlined">visibility</span></button>' +
-      '<button class="row-act edit" title="Edit"><span class="material-symbols-outlined">edit</span></button>' +
-      '<button class="row-act danger" data-del title="Delete"><span class="material-symbols-outlined">delete</span></button>' +
-      '</div>';
-  }
-  allRows().forEach(paintRow);
-
-  /* ---------- Filter / search / pagination ---------- */
-  function matches(r){
-    var okF = filter === 'all' || r.getAttribute('data-status') === filter;
-    var okS = !term || (r.getAttribute('data-name') || '').indexOf(term) > -1;
-    return okF && okS;
-  }
-  function filteredRows(){ return allRows().filter(matches); }
-  function checkedRows(){ return allRows().filter(function (r) { return r.querySelector('.rowchk').checked; }); }
-
   var infoEl = document.getElementById('ntInfo');
   var pagesEl = document.getElementById('ntPages');
   var chkAll = document.getElementById('chkAll');
   var perPageSel = document.getElementById('perPage');
+  var loadingBox = document.getElementById('loadingBox');
+  var emptyBox = document.getElementById('emptyBox');
+  var errorBox = document.getElementById('errorBox');
+  var tableWrap = document.getElementById('tableWrap');
+
+  var STATUSES = [['published','Published'],['archived','Archived']];
+  var state = { status:'all', q:'', page:1, perPage:'10', total:0, pages:1, rows:[] };
+  var byId = {};
+  var selected = {};
+  function selectedIds(){ return Object.keys(selected).filter(function(k){ return selected[k]; }); }
+
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c];
+    });
+  }
+  function show(w){
+    loadingBox.style.display = w==='loading'?'':'none';
+    emptyBox.style.display   = w==='empty'  ?'':'none';
+    errorBox.style.display   = w==='error'  ?'':'none';
+    tableWrap.style.display  = w==='table'  ?'':'none';
+  }
+  function statusBadge(s){
+    return '<span class="badge2 ' + (s==='archived'?'b-draft':'b-done') + '">' + (s==='archived'?'Archived':'Published') + '</span>';
+  }
+  function attachHtml(docs, links){
+    var out = '';
+    if (docs && docs.length) {
+      out += '<div class="attach-group"><span class="attach-lbl">Documents:</span><div class="attach-items">' + docs.map(function(d){
+        return '<a class="chip chip-doc" href="'+esc(d.url)+'" target="_blank" rel="noopener" title="'+esc(d.name)+'"><span class="material-symbols-outlined">description</span><span class="t">'+esc(d.name)+'</span></a>';
+      }).join('') + '</div></div>';
+    }
+    if (links && links.length) {
+      out += '<div class="attach-group"><span class="attach-lbl">Links:</span><div class="attach-items">' + links.map(function(l){
+        return '<a class="chip chip-link" href="'+esc(l.url)+'" target="_blank" rel="noopener" title="'+esc(l.title)+'"><span class="material-symbols-outlined">link</span><span class="t">'+esc(l.title)+'</span></a>';
+      }).join('') + '</div></div>';
+    }
+    return out ? '<div class="attach">'+out+'</div>' : '<span class="no-attach">—</span>';
+  }
+
+  /* ---------- load / render ---------- */
+  function load(){
+    show('loading');
+    var qs = new URLSearchParams({ status:state.status, q:state.q, page:state.page, per_page:state.perPage });
+    fetch(API+'list.php?'+qs.toString(), { headers:{'Accept':'application/json'} })
+      .then(function(r){ return r.json().then(function(d){ return {ok:r.ok,d:d}; }); })
+      .then(function(res){
+        if (!res.ok || !res.d.success) throw new Error(res.d.message || 'Request failed');
+        state.rows = res.d.rows || []; state.total = res.d.total||0;
+        state.pages = res.d.pages||1; state.page = res.d.page||1;
+        byId = {}; state.rows.forEach(function(r){ byId[r.id] = r; });
+        render();
+      })
+      .catch(function(err){
+        document.getElementById('errorMsg').textContent = err.message || 'Please try again.';
+        show('error'); updateBulkBar();
+      });
+  }
 
   function render(){
-    var rows = allRows();
-    var list = rows.filter(matches);
-    var total = list.length;
-    var raw = perPageSel.value;
-    var size = (raw === 'all') ? Math.max(total, 1) : (parseInt(raw, 10) || 10);
-    var pages = Math.max(1, Math.ceil(total / size));
-    if (page > pages) page = pages;
-    if (page < 1) page = 1;
-    var start = (page - 1) * size;
-    var end = start + size;
+    if (state.total === 0) {
+      document.getElementById('emptyHint').textContent =
+        (state.status !== 'all' || state.q !== '') ? 'No notices match this filter or search.' : 'No notices have been published so far.';
+      show('empty'); updateBulkBar(); return;
+    }
+    var per = state.perPage==='all' ? state.total : parseInt(state.perPage,10);
+    var start = state.perPage==='all' ? 0 : (state.page-1)*per;
 
-    rows.forEach(function (r) { r.style.display = 'none'; });
-    list.forEach(function (r, i) {
-      if (i >= start && i < end) {
-        r.style.display = '';
-        r.querySelector('.sno').textContent = i + 1;
-      }
+    tbody.innerHTML = '';
+    state.rows.forEach(function(r,i){
+      var opts = STATUSES.map(function(s){
+        return '<option value="'+s[0]+'"'+(s[0]===r.status?' selected':'')+'>'+s[1]+'</option>';
+      }).join('');
+      var tr = document.createElement('tr');
+      tr.setAttribute('data-id', r.id);
+      tr.innerHTML =
+        '<td class="selcol"><input type="checkbox" class="rowchk"'+(selected[r.id]?' checked':'')+'/></td>'+
+        '<td class="sno">'+(start+i+1)+'</td>'+
+        '<td class="ntdate">'+esc(r.date)+'</td>'+
+        '<td><div class="ntitle"><b>'+esc(r.title)+'</b></div><p class="ntdesc">'+esc(r.content)+'</p></td>'+
+        '<td><span class="cat-chip">'+esc(r.category)+'</span></td>'+
+        '<td>'+attachHtml(r.documents, r.links)+'</td>'+
+        '<td><select class="status-select s-'+r.status+'">'+opts+'</select></td>'+
+        '<td><div class="acts" style="justify-content:flex-end">'+
+          '<button class="row-act view" title="View"><span class="material-symbols-outlined">visibility</span></button>'+
+          '<button class="row-act edit" title="Edit"><span class="material-symbols-outlined">edit</span></button>'+
+          '<button class="row-act danger" data-del title="Delete"><span class="material-symbols-outlined">delete</span></button>'+
+        '</div></td>';
+      tbody.appendChild(tr);
     });
 
-    infoEl.textContent = total === 0
-      ? 'No notices found'
-      : 'Showing ' + (start + 1) + '–' + Math.min(end, total) + ' of ' + total;
+    infoEl.textContent = 'Showing '+(start+1)+'–'+(start+state.rows.length)+' of '+state.total;
 
     pagesEl.innerHTML = '';
-    function addBtn(html, target, opts){
-      opts = opts || {};
-      var b = document.createElement('button');
-      b.className = 'page-btn' + (opts.active ? ' active' : '');
-      b.innerHTML = html;
-      if (opts.disabled) b.disabled = true;
-      else b.addEventListener('click', function () { page = target; render(); });
+    function addBtn(html, target, o){
+      o = o||{}; var b = document.createElement('button');
+      b.className = 'page-btn'+(o.active?' active':''); b.innerHTML = html;
+      if (o.disabled) b.disabled = true; else b.addEventListener('click', function(){ state.page=target; load(); });
       pagesEl.appendChild(b);
     }
-    addBtn('<span class="material-symbols-outlined" style="font-size:18px;">chevron_left</span>', page - 1, {disabled: page === 1});
-    for (var p = 1; p <= pages; p++) addBtn(String(p), p, {active: p === page});
-    addBtn('<span class="material-symbols-outlined" style="font-size:18px;">chevron_right</span>', page + 1, {disabled: page === pages});
+    addBtn('<span class="material-symbols-outlined" style="font-size:18px;">chevron_left</span>', state.page-1, {disabled:state.page===1});
+    for (var p=1;p<=state.pages;p++) addBtn(String(p), p, {active:p===state.page});
+    addBtn('<span class="material-symbols-outlined" style="font-size:18px;">chevron_right</span>', state.page+1, {disabled:state.page===state.pages});
 
-    syncSelectAll();
+    show('table'); syncSelectAll();
   }
 
+  /* ---------- selection ---------- */
+  function pageRows(){ return Array.prototype.slice.call(tbody.querySelectorAll('tr')); }
   function syncSelectAll(){
-    var f = filteredRows();
-    var checked = f.filter(function (r) { return r.querySelector('.rowchk').checked; }).length;
-    chkAll.checked = f.length > 0 && checked === f.length;
-    chkAll.indeterminate = checked > 0 && checked < f.length;
+    var rows = pageRows();
+    var n = rows.filter(function(r){ return r.querySelector('.rowchk').checked; }).length;
+    chkAll.checked = rows.length>0 && n===rows.length;
+    chkAll.indeterminate = n>0 && n<rows.length;
     updateBulkBar();
   }
-
-  chkAll.addEventListener('change', function () {
+  function updateBulkBar(){
+    var n = selectedIds().length;
+    document.getElementById('bulkCount').textContent = n;
+    document.getElementById('bulkBar').hidden = (n===0);
+  }
+  chkAll.addEventListener('change', function(){
     var on = this.checked;
-    filteredRows().forEach(function (r) { r.querySelector('.rowchk').checked = on; });
+    pageRows().forEach(function(tr){
+      tr.querySelector('.rowchk').checked = on;
+      if (on) selected[tr.dataset.id]=true; else delete selected[tr.dataset.id];
+    });
     syncSelectAll();
   });
-
-  // Click a row (up to Attachments) toggles selection; links/actions excluded
-  tbody.addEventListener('click', function (e) {
-    if (e.target.closest('.acts') || e.target.closest('a')) return;
-    var td = e.target.closest('td');
-    if (!td) return;
+  tbody.addEventListener('click', function(e){
+    if (e.target.closest('.acts') || e.target.closest('a') || e.target.closest('.status-select')) return;
+    var td = e.target.closest('td'); if (!td) return;
     var idx = Array.prototype.indexOf.call(td.parentNode.children, td);
     if (idx < 0 || idx > 5) return;
     var chk = td.parentNode.querySelector('.rowchk');
     if (e.target === chk) return;
     chk.checked = !chk.checked;
+    if (chk.checked) selected[td.parentNode.dataset.id]=true; else delete selected[td.parentNode.dataset.id];
     syncSelectAll();
   });
 
-  table.addEventListener('change', function (e) {
-    // status dropdown doubles as the badge
-    if (e.target.classList.contains('status-select')) {
-      var r = e.target.closest('tr');
-      r.setAttribute('data-status', e.target.value);
-      e.target.classList.remove('s-published', 's-archived');
-      e.target.classList.add('s-' + e.target.value);
-      render(); // row may leave the active filter
-      return;
+  /* ---------- status change ---------- */
+  table.addEventListener('change', function(e){
+    if (e.target.classList.contains('rowchk')) {
+      var tr = e.target.closest('tr');
+      if (e.target.checked) selected[tr.dataset.id]=true; else delete selected[tr.dataset.id];
+      syncSelectAll(); return;
     }
-    if (e.target.classList.contains('rowchk')) syncSelectAll();
+    if (!e.target.classList.contains('status-select')) return;
+    var sel = e.target, row = sel.closest('tr'), id = row.dataset.id;
+    var prev = (byId[id]||{}).status, next = sel.value;
+    sel.disabled = true;
+    fetch(API+'update_status.php', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ id:id, status:next })
+    }).then(function(r){ return r.json(); })
+      .then(function(d){ if(!d.success) throw new Error(d.message||'Update failed'); load(); })
+      .catch(function(err){
+        sel.value = prev; sel.className = 'status-select s-'+prev; sel.disabled = false;
+        alert('Could not update status: '+err.message);
+      });
   });
 
-  document.getElementById('ntTabs').addEventListener('click', function (e) {
-    var t = e.target.closest('.tab'); if (!t) return;
-    this.querySelectorAll('.tab').forEach(function (x) { x.classList.remove('active'); });
-    t.classList.add('active'); filter = t.getAttribute('data-f'); page = 1; render();
+  /* ---------- delete ---------- */
+  var pendingDeleteId = null;
+  tbody.addEventListener('click', function(e){
+    var d = e.target.closest('[data-del]');
+    if (d) { var tr = d.closest('tr'); pendingDeleteId = tr ? tr.dataset.id : null; }
   });
-
-  document.getElementById('ntSearch').addEventListener('input', function () {
-    term = this.value.trim().toLowerCase(); page = 1; render();
+  document.addEventListener('admin:rowdeleted', function(e){
+    var id = pendingDeleteId || (e.detail && e.detail.row ? e.detail.row.dataset.id : null);
+    pendingDeleteId = null;
+    if (!id) { load(); return; }
+    postDelete([id]).then(function(){ delete selected[id]; load(); });
   });
-
-  perPageSel.addEventListener('change', function () { page = 1; render(); });
-
-  // admin.js confirms + removes the row -> refresh afterwards
-  document.addEventListener('admin:rowdeleted', render);
-
-  /* ---------- Bulk actions ---------- */
-  var bulkBar = document.getElementById('bulkBar');
-  var bulkCountEl = document.getElementById('bulkCount');
-  var bulkDelModal = document.getElementById('bulkDelModal');
-
-  function updateBulkBar(){
-    var n = checkedRows().length;
-    bulkCountEl.textContent = n;
-    bulkBar.hidden = (n === 0);
+  function postDelete(ids){
+    return fetch(API+'delete.php', {
+      method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ ids:ids })
+    }).then(function(r){ return r.json(); })
+      .then(function(d){ if(!d.success) throw new Error(d.message||'Delete failed'); return d; })
+      .catch(function(err){ alert('Could not delete: '+err.message); });
   }
 
-  document.getElementById('bulkClear').addEventListener('click', function () {
-    allRows().forEach(function (r) { r.querySelector('.rowchk').checked = false; });
-    syncSelectAll();
+  document.getElementById('bulkClear').addEventListener('click', function(){
+    selected = {}; pageRows().forEach(function(tr){ tr.querySelector('.rowchk').checked=false; }); syncSelectAll();
   });
-
-  document.getElementById('bulkDelete').addEventListener('click', function () {
-    var n = checkedRows().length;
-    if (!n) return;
+  var bulkDelModal = document.getElementById('bulkDelModal');
+  document.getElementById('bulkDelete').addEventListener('click', function(){
+    var n = selectedIds().length; if(!n) return;
     document.getElementById('delCount').textContent = n;
-    document.getElementById('delNoun').textContent = n === 1 ? '' : 's';
+    document.getElementById('delNoun').textContent = n===1?'':'s';
     bulkDelModal.classList.add('open');
   });
-
-  document.getElementById('bulkDelConfirm').addEventListener('click', function () {
-    checkedRows().forEach(function (r) { r.remove(); });
-    bulkDelModal.classList.remove('open');
-    render();
+  document.getElementById('bulkDelConfirm').addEventListener('click', function(){
+    var ids = selectedIds(); bulkDelModal.classList.remove('open');
+    if (!ids.length) return;
+    postDelete(ids).then(function(){ selected = {}; load(); });
   });
 
-  /* ---------- Repeatable document / link rows ---------- */
+  /* ---------- filters / search / paging ---------- */
+  document.getElementById('ntTabs').addEventListener('click', function(e){
+    var t = e.target.closest('.tab'); if(!t) return;
+    this.querySelectorAll('.tab').forEach(function(x){ x.classList.remove('active'); });
+    t.classList.add('active'); state.status = t.getAttribute('data-f'); state.page = 1; load();
+  });
+  var timer = null;
+  document.getElementById('ntSearch').addEventListener('input', function(){
+    var v = this.value.trim(); clearTimeout(timer);
+    timer = setTimeout(function(){ state.q = v; state.page = 1; load(); }, 300);
+  });
+  perPageSel.addEventListener('change', function(){ state.perPage = this.value; state.page = 1; load(); });
+  document.getElementById('retryBtn').addEventListener('click', load);
+
+  /* ---------- repeatable document / link rows ---------- */
   var docList = document.getElementById('docList');
   var linkList = document.getElementById('linkList');
-
   function repRow(container, ph1, ph2, v1, v2){
     var row = document.createElement('div');
     row.className = 'rep-row';
-    row.innerHTML =
-      '<input class="finput f1" type="text" placeholder="' + ph1 + '" value="' + esc(v1 || '') + '"/>' +
-      '<input class="finput f2" type="text" placeholder="' + ph2 + '" value="' + esc(v2 || '') + '"/>' +
-      '<button type="button" class="rep-del"><span class="material-symbols-outlined">close</span></button>';
-    row.querySelector('.rep-del').addEventListener('click', function () { row.remove(); });
+    row.innerHTML = '<input class="finput f1" type="text" placeholder="'+ph1+'" value="'+esc(v1||'')+'"/>'+
+                    '<input class="finput f2" type="text" placeholder="'+ph2+'" value="'+esc(v2||'')+'"/>'+
+                    '<button type="button" class="rep-del"><span class="material-symbols-outlined">close</span></button>';
+    row.querySelector('.rep-del').addEventListener('click', function(){ row.remove(); });
     container.appendChild(row);
   }
   function collect(container, k1, k2){
-    return Array.prototype.slice.call(container.querySelectorAll('.rep-row')).map(function (row) {
-      var o = {};
-      o[k1] = row.querySelector('.f1').value.trim();
-      o[k2] = row.querySelector('.f2').value.trim();
-      return o;
-    }).filter(function (o) { return o[k1] && o[k2]; });
+    return Array.prototype.slice.call(container.querySelectorAll('.rep-row')).map(function(row){
+      var o = {}; o[k1] = row.querySelector('.f1').value.trim(); o[k2] = row.querySelector('.f2').value.trim(); return o;
+    }).filter(function(o){ return o[k1] && o[k2]; });
   }
+  document.getElementById('addDoc').addEventListener('click', function(){ repRow(docList,'Document name','File URL / path','',''); });
+  document.getElementById('addLink').addEventListener('click', function(){ repRow(linkList,'Link title','https://…','',''); });
 
-  document.getElementById('addDoc').addEventListener('click', function () {
-    repRow(docList, 'Document name', 'File URL / path', '', '');
-  });
-  document.getElementById('addLink').addEventListener('click', function () {
-    repRow(linkList, 'Link title', 'https://…', '', '');
-  });
-
-  /* ---------- Add / Edit ---------- */
+  /* ---------- add / edit ---------- */
   var modal = document.getElementById('ntModal');
   var form = document.getElementById('ntForm');
   var modalTitle = document.getElementById('ntModalTitle');
-  var editing = null;
+  var editingId = 0;
 
-  function fmtDate(v){
-    if (!v) return '';
-    var d = new Date(v);
-    return isNaN(d) ? v : d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+  function todayDisplay(){
+    return new Date().toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
   }
-  function openAdd(){
-    editing = null;
-    modalTitle.textContent = 'Add Notice';
+
+  document.getElementById('addNotice').addEventListener('click', function(){
+    editingId = 0; modalTitle.textContent = 'Add Notice';
     form.reset();
-    // date is fixed to today and not editable
-    document.getElementById('fDate').value = fmtDate(new Date());
+    document.getElementById('fDate').value = todayDisplay();
     docList.innerHTML = ''; linkList.innerHTML = '';
     modal.classList.add('open');
-  }
-
-  function openEdit(tr){
-    editing = tr;
-    modalTitle.textContent = 'Edit Notice';
-    document.getElementById('fTitle').value  = tr.getAttribute('data-title') || '';
-    document.getElementById('fCat').value    = tr.getAttribute('data-cat') || 'announcement';
-    document.getElementById('fDate').value   = tr.getAttribute('data-date') || '';
-    document.getElementById('fBody').value   = tr.getAttribute('data-desc') || '';
-    document.getElementById('fStatus').value = tr.getAttribute('data-status') || 'published';
-    docList.innerHTML = ''; linkList.innerHTML = '';
-    rowDocs(tr).forEach(function (d) { repRow(docList, 'Document name', 'File URL / path', d.name, d.url); });
-    rowLinks(tr).forEach(function (l) { repRow(linkList, 'Link title', 'https://…', l.title, l.url); });
-    modal.classList.add('open');
-  }
-
-  document.getElementById('addNotice').addEventListener('click', openAdd);
-
-  tbody.addEventListener('click', function (e) {
-    var b = e.target.closest('.edit');
-    if (b) openEdit(b.closest('tr'));
   });
 
-  form.addEventListener('submit', function (e) {
+  function openEdit(r){
+    editingId = r.id; modalTitle.textContent = 'Edit Notice';
+    document.getElementById('fTitle').value  = r.title || '';
+    document.getElementById('fCat').value    = r.category || 'announcement';
+    document.getElementById('fDate').value   = r.date || '';
+    document.getElementById('fBody').value   = r.content || '';
+    document.getElementById('fStatus').value = r.status === 'archived' ? 'archived' : 'published';
+    docList.innerHTML = ''; linkList.innerHTML = '';
+    (r.documents||[]).forEach(function(d){ repRow(docList,'Document name','File URL / path', d.name, d.url); });
+    (r.links||[]).forEach(function(l){ repRow(linkList,'Link title','https://…', l.title, l.url); });
+    modal.classList.add('open');
+  }
+
+  tbody.addEventListener('click', function(e){
+    var b = e.target.closest('.edit'); if(!b) return;
+    var r = byId[b.closest('tr').dataset.id]; if (r) openEdit(r);
+  });
+
+  form.addEventListener('submit', function(e){
     e.preventDefault();
-    var t = document.getElementById('fTitle').value.trim();
-    var c = document.getElementById('fCat').value;
-    var d = document.getElementById('fDate').value;
-    var body = document.getElementById('fBody').value.trim();
-    var s = document.getElementById('fStatus').value;
-    var docs = collect(docList, 'name', 'url');
-    var links = collect(linkList, 'title', 'url');
-
-    var tr = editing;
-    if (!tr) {
-      tr = document.createElement('tr');
-      tr.innerHTML = '<td class="selcol"><input type="checkbox" class="rowchk"/></td>' +
-                     '<td class="sno"></td><td class="ntdate"></td><td class="ntcell"></td>' +
-                     '<td class="ntcat"></td><td class="attachcell"></td><td class="ntstatus"></td><td class="ntacts"></td>';
-      tbody.insertBefore(tr, tbody.firstChild);
-    }
-    tr.setAttribute('data-title', t);
-    tr.setAttribute('data-cat', c);
-    tr.setAttribute('data-date', d || fmtDate(new Date()));
-    tr.setAttribute('data-desc', body);
-    tr.setAttribute('data-status', s);
-    tr.setAttribute('data-docs', JSON.stringify(docs));
-    tr.setAttribute('data-links', JSON.stringify(links));
-    tr.setAttribute('data-name', (t + ' ' + c + ' ' + body).toLowerCase());
-    paintRow(tr);
-
-    modal.classList.remove('open');
-    render();
+    var btn = document.getElementById('saveBtn');
+    btn.disabled = true;
+    fetch(API+'save.php', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        id: editingId,
+        title: document.getElementById('fTitle').value.trim(),
+        content: document.getElementById('fBody').value.trim(),
+        category: document.getElementById('fCat').value,
+        status: document.getElementById('fStatus').value,
+        documents: collect(docList,'name','url'),
+        links: collect(linkList,'title','url')
+      })
+    }).then(function(r){ return r.json(); })
+      .then(function(d){
+        if(!d.success) throw new Error(d.message||'Save failed');
+        modal.classList.remove('open'); load();
+      })
+      .catch(function(err){ alert('Could not save: '+err.message); })
+      .finally(function(){ btn.disabled = false; });
   });
 
-  /* ---------- View ---------- */
+  /* ---------- view ---------- */
   var viewModal = document.getElementById('viewModal');
-  var viewingRow = null;
-
-  tbody.addEventListener('click', function (e) {
-    var v = e.target.closest('.view'); if (!v) return;
-    var tr = v.closest('tr');
-    viewingRow = tr;
-    document.getElementById('vTitle').textContent  = tr.getAttribute('data-title');
-    document.getElementById('vCat').textContent    = tr.getAttribute('data-cat');
-    document.getElementById('vStatus').innerHTML   = statusBadge(tr.getAttribute('data-status'));
-    document.getElementById('vDate').textContent   = tr.getAttribute('data-date');
-    document.getElementById('vDesc').textContent   = tr.getAttribute('data-desc');
-    document.getElementById('vAttach').innerHTML   = attachHtml(rowDocs(tr), rowLinks(tr));
+  var viewingId = 0;
+  tbody.addEventListener('click', function(e){
+    var v = e.target.closest('.view'); if(!v) return;
+    var r = byId[v.closest('tr').dataset.id]; if(!r) return;
+    viewingId = r.id;
+    document.getElementById('vTitle').textContent = r.title;
+    document.getElementById('vCat').textContent = r.category;
+    document.getElementById('vStatus').innerHTML = statusBadge(r.status);
+    document.getElementById('vDate').textContent = r.date;
+    document.getElementById('vDesc').textContent = r.content;
+    document.getElementById('vAttach').innerHTML = attachHtml(r.documents, r.links);
     viewModal.classList.add('open');
   });
-
-  document.getElementById('vEditBtn').addEventListener('click', function () {
+  document.getElementById('vEditBtn').addEventListener('click', function(){
     viewModal.classList.remove('open');
-    if (viewingRow) openEdit(viewingRow);
+    if (byId[viewingId]) openEdit(byId[viewingId]);
   });
 
-  render();
+  load();
 });
 </script>
 </body></html>

@@ -203,7 +203,7 @@ entries</label>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  var API = '../actions/admissions/';
+  var API = '../actions/admin/admissions/';
 
   var table   = document.getElementById('adTable');
   var tbody   = table.querySelector('tbody');
