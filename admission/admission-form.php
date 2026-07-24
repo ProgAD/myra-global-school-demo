@@ -1,3 +1,4 @@
+<?php $page_name = 'admission-form'; $base = '../'; ?>
 <!DOCTYPE html>
 <html class="scroll-smooth" lang="en"><head>
 <meta charset="utf-8"/>
@@ -35,110 +36,80 @@ button{font-family:inherit;background:none;border:none;}address{font-style:norma
 .breadcrumb .material-symbols-outlined{font-size:18px;}
 .breadcrumb-current{color:var(--secondary-fixed);}
 
-.form-page{padding:56px 0 120px;background:var(--surface-container-low);}
-.form-intro{text-align:center;max-width:720px;margin:0 auto 40px;}
-.form-intro-text{font-family:var(--font-serif);font-size:18px;line-height:30px;color:var(--on-surface-variant);}
+.form-page{padding:48px 0 96px;background:var(--surface-container-low);}
+.form-intro{text-align:center;max-width:600px;margin:0 auto 32px;}
+.form-intro .heading-lg{font-size:34px;line-height:42px;margin-bottom:12px;}
+.form-intro-text{font-family:var(--font-serif);font-size:16px;line-height:26px;color:var(--on-surface-variant);}
 
-.form-card{background:#fff;border:1px solid var(--outline-variant);border-radius:16px;padding:16px 40px 40px;box-shadow:0 10px 30px rgba(0,33,71,.06);}
+.form-card{max-width:920px;margin:0 auto;background:#fff;border:1px solid var(--outline-variant);border-radius:20px;padding:8px 44px 40px;box-shadow:0 24px 50px -28px rgba(0,33,71,.30);overflow:hidden;}
 
-.form-section{padding:32px 0;border-top:1px solid var(--outline-variant);}
-.form-section:first-of-type{border-top:none;}
-.form-section-head{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
-.form-section-num{width:34px;height:34px;flex-shrink:0;border-radius:50%;background:var(--primary-container);color:var(--secondary-fixed);display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-weight:700;font-size:16px;}
-.form-section-title{font-family:var(--font-serif);font-size:22px;line-height:1.3;font-weight:600;color:var(--primary);}
+.form-section{padding:30px 0;border-top:1px solid var(--surface-container-highest);}
+.form-section:first-of-type{border-top:none;padding-top:26px;}
+.form-section-head{display:flex;align-items:center;gap:14px;margin-bottom:22px;}
+.form-section-num{width:44px;height:44px;flex-shrink:0;border-radius:13px;background:linear-gradient(145deg,var(--primary-container),#013a72);color:var(--secondary-fixed);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px -6px rgba(0,33,71,.6);}
+.form-section-num .material-symbols-outlined{font-size:23px;}
+.form-section-title{font-family:var(--font-serif);font-size:20px;line-height:1.25;font-weight:700;color:var(--primary-container);}
+.form-section-sub{display:block;font-family:var(--font-sans);font-size:12.5px;font-weight:600;color:var(--on-surface-variant);margin-top:2px;}
 
-.form-grid{display:grid;grid-template-columns:1fr;gap:20px;}
+.form-grid{display:grid;grid-template-columns:1fr;gap:18px;}
 .form-field--full{grid-column:1/-1;}
-.form-label{display:block;font-family:var(--font-sans);font-size:14px;font-weight:600;letter-spacing:.03em;color:var(--primary);margin-bottom:8px;}
+.form-label{display:block;font-family:var(--font-sans);font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--primary);margin-bottom:7px;}
 .req{color:var(--error);}
 .opt{color:var(--on-surface-variant);font-weight:400;text-transform:none;letter-spacing:0;}
-.form-input{width:100%;border:1px solid var(--outline-variant);border-radius:8px;padding:12px 14px;font-family:var(--font-serif);font-size:16px;color:var(--on-background);background:#fff;transition:border-color .2s, box-shadow .2s;}
-.form-input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 1px var(--primary);}
+.form-input{width:100%;border:1px solid var(--outline-variant);border-radius:10px;padding:12px 14px;font-family:var(--font-serif);font-size:15.5px;color:var(--on-background);background:var(--surface-container-low);transition:border-color .2s, box-shadow .2s, background .2s;}
+.form-input:hover{border-color:var(--outline);}
+.form-input:focus{outline:none;border-color:var(--primary-container);background:#fff;box-shadow:0 0 0 3px rgba(0,33,71,.13);}
 select.form-input{cursor:pointer;}
-textarea.form-input{resize:vertical;min-height:88px;}
+textarea.form-input{resize:vertical;min-height:84px;}
 
 /* field-level error */
-.form-field.has-error .form-input,.form-field.has-error .file-drop{border-color:var(--error);}
-.err-msg{display:none;font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--error);margin-top:6px;}
+.form-field.has-error .form-input,.form-field.has-error .file-drop{border-color:var(--error);background:#fff;}
+.err-msg{display:none;font-family:var(--font-sans);font-size:12.5px;font-weight:600;color:var(--error);margin-top:6px;}
 .form-field.has-error .err-msg{display:block;}
 
 /* form-level alert */
-.form-alert{display:none;align-items:flex-start;gap:10px;background:#fdecec;border:1px solid #f3c9c9;color:var(--error);font-family:var(--font-sans);font-size:14px;font-weight:600;padding:14px 16px;border-radius:10px;margin-bottom:8px;}
+.form-alert{display:none;align-items:flex-start;gap:10px;background:#fdecec;border:1px solid #f3c9c9;color:var(--error);font-family:var(--font-sans);font-size:14px;font-weight:600;padding:14px 16px;border-radius:10px;margin:20px 0 0;}
 .form-alert.visible{display:flex;}
 .form-alert .material-symbols-outlined{font-size:20px;flex-shrink:0;}
 
-.upload-grid{display:grid;grid-template-columns:1fr;gap:20px;}
-.file-drop{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;border:2px dashed var(--outline-variant);border-radius:12px;padding:22px 16px;cursor:pointer;background:var(--surface-container-low);transition:border-color .2s, background .2s;}
-.file-drop:hover{border-color:var(--primary);background:var(--surface-container);}
+.upload-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+.file-drop{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;min-height:138px;border:1.5px dashed var(--outline-variant);border-radius:14px;padding:20px 14px;cursor:pointer;background:var(--surface-container-low);transition:border-color .2s, background .2s, box-shadow .2s;}
+.file-drop:hover{border-color:var(--primary-container);background:var(--surface-container);box-shadow:0 6px 16px -10px rgba(0,33,71,.4);}
 .file-drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
-.file-ico{font-size:32px;color:var(--secondary);}
-.file-text{font-family:var(--font-sans);font-size:14px;font-weight:600;color:var(--primary);}
-.file-text small{display:block;font-weight:400;color:var(--on-surface-variant);font-size:12px;margin-top:2px;}
-.file-name{font-family:var(--font-sans);font-size:13px;font-weight:600;color:#227a52;word-break:break-all;}
+.file-ico{font-size:30px;color:var(--secondary);}
+.file-text{font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--primary);line-height:1.4;}
+.file-text small{display:block;font-weight:400;color:var(--on-surface-variant);font-size:11.5px;margin-top:3px;}
+.file-name{font-family:var(--font-sans);font-size:12.5px;font-weight:600;color:#227a52;word-break:break-all;}
 
-.form-actions{display:flex;flex-wrap:wrap;gap:16px;justify-content:flex-end;padding-top:8px;align-items:center;}
-.btn-fill{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--primary-container);color:var(--on-primary);padding:14px 34px;border-radius:8px;font-family:var(--font-sans);font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;box-shadow:0 4px 6px -1px rgba(0,0,0,.1);}
-.btn-fill:hover{background:var(--primary);}
-.btn-fill:disabled{cursor:progress;opacity:.85;}
-.btn-line{background:transparent;border:1px solid var(--primary);color:var(--primary);padding:14px 34px;border-radius:8px;font-family:var(--font-sans);font-size:16px;cursor:pointer;transition:all .2s;}
-.btn-line:hover{background:var(--primary);color:var(--on-primary);}
+.form-actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:flex-end;align-items:center;padding-top:24px;margin-top:8px;border-top:1px solid var(--surface-container-highest);}
+.btn-fill{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--primary-container);color:var(--on-primary);padding:14px 34px;border-radius:10px;font-family:var(--font-sans);font-size:15.5px;font-weight:600;cursor:pointer;transition:all .2s;box-shadow:0 8px 18px -8px rgba(0,33,71,.6);}
+.btn-fill:hover{background:var(--primary);transform:translateY(-1px);}
+.btn-fill:disabled{cursor:progress;opacity:.85;transform:none;}
+.btn-line{background:transparent;border:1px solid var(--outline-variant);color:var(--primary);padding:14px 30px;border-radius:10px;font-family:var(--font-sans);font-size:15.5px;cursor:pointer;transition:all .2s;}
+.btn-line:hover{background:var(--surface-container);border-color:var(--primary);}
 .btn-spinner{display:none;width:18px;height:18px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:sp .6s linear infinite;}
 .btn-fill.loading .btn-spinner{display:inline-block;}
 @keyframes sp{to{transform:rotate(360deg);}}
 
-@media(min-width:768px){
+@media(min-width:720px){
   .form-grid{grid-template-columns:repeat(2,1fr);}
   .upload-grid{grid-template-columns:repeat(2,1fr);}
 }
-@media(min-width:1024px){
-  .form-grid{grid-template-columns:repeat(3,1fr);}
+@media(min-width:1000px){
   .upload-grid{grid-template-columns:repeat(4,1fr);}
+}
+@media(max-width:719px){
+  .container{padding-left:20px;padding-right:20px;}
+  .form-card{padding:6px 22px 30px;border-radius:16px;}
+  .form-intro .heading-lg{font-size:28px;line-height:36px;}
+  .form-actions{justify-content:stretch;}
+  .form-actions .btn-fill,.form-actions .btn-line{flex:1;}
 }
 </style>
 </head>
 <body>
 <!-- Top Navigation Bar -->
-<nav class="site-nav">
-<div class="container nav-inner">
-<div class="nav-brand">
-<a href="../index.php" class="brand-link">
-<img src="../logo/horizontal-logo.png" alt="Myra Global School" class="brand-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';"/>
-<span class="brand-name" style="display:none">Myra Global School</span>
-</a>
-</div>
-<div class="nav-menu">
-<a class="nav-link" href="../index.php">Home</a>
-<div class="nav-item">
-<a class="nav-link nav-link--caret" href="../about.php">About
-<span class="material-symbols-outlined nav-caret">expand_more</span></a>
-<div class="nav-dropdown">
-<div class="nav-dropdown-inner">
-<a class="dropdown-link" href="../about.php#mission">Mission</a>
-<a class="dropdown-link" href="../about.php#vision">Vision</a>
-</div>
-</div>
-</div>
-<div class="nav-item">
-<a class="nav-link nav-link--caret" href="../academics.php">Academics
-<span class="material-symbols-outlined nav-caret">expand_more</span></a>
-<div class="nav-dropdown">
-<div class="nav-dropdown-inner">
-<a class="dropdown-link" href="../academics.php">Curriculum</a>
-<a class="dropdown-link" href="../academics.php">Examinations</a>
-<a class="dropdown-link" href="../academics.php">Facilities</a>
-</div>
-</div>
-</div>
-<a class="nav-link nav-link--active" href="../admission.php">Admissions</a>
-<a class="nav-link" href="../notice.php">Notice</a>
-<a class="nav-link" href="../gallery.php">Gallery</a>
-</div>
-<div class="nav-actions">
-<a class="nav-btn nav-btn--outline" href="../login.html">Portal Login</a>
-<a class="nav-btn nav-btn--solid" href="admission-form.php">Apply Now</a>
-</div>
-</div>
-</nav>
+<?php include '../components/header.php'; ?>
 
 <!-- Page Banner -->
 <header class="page-banner">
@@ -172,8 +143,11 @@ textarea.form-input{resize:vertical;min-height:88px;}
 <!-- 1. Admission details -->
 <div class="form-section">
 <div class="form-section-head">
-<span class="form-section-num">1</span>
+<span class="form-section-num"><span class="material-symbols-outlined">school</span></span>
+<div>
 <h2 class="form-section-title">Admission Details</h2>
+<span class="form-section-sub">The class you are applying for</span>
+</div>
 </div>
 <div class="form-grid">
 <div class="form-field form-field--full" data-field="apply_class">
@@ -196,8 +170,11 @@ textarea.form-input{resize:vertical;min-height:88px;}
 <!-- 2. Student details -->
 <div class="form-section">
 <div class="form-section-head">
-<span class="form-section-num">2</span>
+<span class="form-section-num"><span class="material-symbols-outlined">person</span></span>
+<div>
 <h2 class="form-section-title">Student Details</h2>
+<span class="form-section-sub">Tell us about the applicant</span>
+</div>
 </div>
 <div class="form-grid">
 <div class="form-field form-field--full" data-field="student_name">
@@ -279,8 +256,11 @@ textarea.form-input{resize:vertical;min-height:88px;}
 <!-- 3. Residential address -->
 <div class="form-section">
 <div class="form-section-head">
-<span class="form-section-num">3</span>
+<span class="form-section-num"><span class="material-symbols-outlined">home</span></span>
+<div>
 <h2 class="form-section-title">Residential Address</h2>
+<span class="form-section-sub">Where the family currently lives</span>
+</div>
 </div>
 <div class="form-grid">
 <div class="form-field form-field--full" data-field="address">
@@ -309,8 +289,11 @@ textarea.form-input{resize:vertical;min-height:88px;}
 <!-- 4. Contact details -->
 <div class="form-section">
 <div class="form-section-head">
-<span class="form-section-num">4</span>
+<span class="form-section-num"><span class="material-symbols-outlined">call</span></span>
+<div>
 <h2 class="form-section-title">Contact Details</h2>
+<span class="form-section-sub">How we can reach you</span>
+</div>
 </div>
 <div class="form-grid">
 <div class="form-field" data-field="phone">
@@ -329,8 +312,11 @@ textarea.form-input{resize:vertical;min-height:88px;}
 <!-- 5. Documents -->
 <div class="form-section">
 <div class="form-section-head">
-<span class="form-section-num">5</span>
+<span class="form-section-num"><span class="material-symbols-outlined">upload_file</span></span>
+<div>
 <h2 class="form-section-title">Document Upload</h2>
+<span class="form-section-sub">Photograph and Aadhaar documents</span>
+</div>
 </div>
 <div class="upload-grid">
 <div class="form-field" data-field="student_photo">
@@ -390,73 +376,7 @@ textarea.form-input{resize:vertical;min-height:88px;}
 </section>
 
 <!-- Footer -->
-<footer class="site-footer">
-<div class="container footer-grid">
-<div class="footer-col footer-brand-col">
-<div>
-<img alt="Myra Global School Logo" class="footer-logo" src="../logo/horizontal-logo.png" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"/>
-<span class="footer-heading" style="display:none;color:var(--on-primary);font-family:var(--font-serif);font-size:20px;letter-spacing:0;text-transform:none;margin-bottom:8px;">Myra Global School</span>
-<p class="footer-about">Fostering intellectual curiosity and moral character in a global learning community. Empowering students to lead with integrity and purpose since 1974.</p>
-</div>
-<div class="footer-social">
-<a class="social-btn" href="#"><span class="material-symbols-outlined">share</span></a>
-<a class="social-btn" href="#"><span class="material-symbols-outlined">videocam</span></a>
-<a class="social-btn" href="#"><span class="material-symbols-outlined">photo_camera</span></a>
-</div>
-</div>
-<div class="footer-col">
-<h3 class="footer-heading">Academic Excellence</h3>
-<ul class="footer-links">
-<li><a href="../academics.php">Academics</a></li>
-<li><a href="../admission.php">Admissions Process</a></li>
-<li><a href="../notice.php">Notice &amp; News</a></li>
-<li><a href="../gallery.php">Gallery</a></li>
-<li><a href="../career.php">Careers</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h3 class="footer-heading">Community &amp; Legal</h3>
-<ul class="footer-links">
-<li><a href="#">Academic Resources</a></li>
-<li><a href="../career.php">Careers at Myra</a></li>
-<li><a href="../login.html">Parent Portal</a></li>
-<li><a href="#">Contact Us</a></li>
-<li><a href="#">Privacy Policy</a></li>
-<li><a href="#">Terms of Service</a></li>
-</ul>
-</div>
-<div class="footer-col footer-contact-col">
-<div>
-<h3 class="footer-heading">Stay Informed</h3>
-<form class="footer-newsletter">
-<div class="newsletter-field">
-<input class="newsletter-input" placeholder="Email Address" type="email"/>
-<button class="newsletter-btn" type="submit"><span class="material-symbols-outlined">arrow_forward</span></button>
-</div>
-<span class="footer-note">Sign up for our monthly academic newsletter.</span>
-</form>
-</div>
-<div class="footer-contact">
-<div class="footer-address-row">
-<span class="material-symbols-outlined footer-loc-ico">location_on</span>
-<address class="footer-address">2150 Torquay Mews,<br/>Mississauga, ON L5N 2M6</address>
-</div>
-<div class="footer-map">
-<div class="footer-map-img" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCC9wkb5cJpu--KeH2ALKMUZqdY1fjydn7su0YqS-ots1OjNUDSHDhPuISmmpQlYArJ_wRjT2vugBAhzp7_L-pN5grRjre2kOaYN8-f3-UWox4Qaf_rWwxLuUZ3okoG0ZhX5PAnKdS7EPRl-GJffs_58nwtpcxBRTv0zTwOw3fmEcgzVO3RYocK09Q1eq3HsG-4e4zwS9EMVswq8kbLJUJIH5YX-MubTpvewA-et_AV8j3wool4nnPnpQ')"></div>
-<div class="footer-map-overlay"><span class="footer-map-pill">VIEW MAP</span></div>
-</div>
-</div>
-</div>
-</div>
-<div class="container footer-bottom">
-<p class="footer-copy">© 2024 Myra Global School. All rights reserved.</p>
-<div class="footer-badges">
-<span class="footer-badge">IB WORLD SCHOOL</span>
-<span class="footer-sep">|</span>
-<span class="footer-badge">CAIS ACCREDITED</span>
-</div>
-</div>
-</footer>
+<?php include '../components/footer.php'; ?>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
