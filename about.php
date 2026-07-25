@@ -1,4 +1,8 @@
-<?php $page_name = 'about'; ?>
+<?php
+$page_name = 'about';
+require_once __DIR__ . '/components/about-data.php';
+$about = about_data();
+?>
 <!DOCTYPE html>
 <html class="scroll-smooth" lang="en"><head>
 <meta charset="utf-8"/>
@@ -383,13 +387,13 @@ address{font-style:normal;}
 <div class="container">
 <div class="about-grid">
 <div class="about-media reveal reveal--left">
-<img alt="Principal, Myra Global School" class="about-img" src="assets/images/principal.jpeg"/>
+<img alt="Principal, Myra Global School" class="about-img" src="<?= htmlspecialchars($about['principal']['photo']) ?>"/>
 </div>
 <div class="reveal reveal--right">
 <span class="eyebrow">Leadership</span>
 <h2 class="heading-lg">Principal's Message</h2>
-<p class="about-lead">Dear Parents, at our school we believe every child has the potential to achieve greatness. With your support and our commitment to quality education, we aim to nurture confident, creative, and responsible individuals who are ready to succeed in the future. Together, let us inspire young minds and build a brighter tomorrow.</p>
-<p class="about-text">We pride ourselves on maintaining the highest standards of academic rigour while fostering an environment of inclusivity and moral integrity, guiding every student to grow with knowledge, values and confidence.</p>
+<p class="about-lead"><?= nl2br(htmlspecialchars($about['principal']['message'])) ?></p>
+<p class="about-text"><?= nl2br(htmlspecialchars($about['principal']['sub'])) ?></p>
 <div class="about-features">
 <div class="about-feature">
 <span class="material-symbols-outlined about-feature-ico">verified</span>
@@ -412,8 +416,8 @@ address{font-style:normal;}
 <div class="reveal reveal--left">
 <span class="eyebrow">Leadership</span>
 <h2 class="heading-lg">Vice Principal's Message</h2>
-<p class="about-lead">Dear Parents, every child is special, and our goal is to help them discover their strengths, build confidence, and grow with strong values. With your support and our dedication, we can create a joyful learning journey that prepares students for a bright future.</p>
-<p class="about-text">We pride ourselves on maintaining the highest standards of academic rigour while fostering an environment of inclusivity and moral integrity, ensuring learning that is both meaningful and impactful.</p>
+<p class="about-lead"><?= nl2br(htmlspecialchars($about['vice']['message'])) ?></p>
+<p class="about-text"><?= nl2br(htmlspecialchars($about['vice']['sub'])) ?></p>
 <div class="about-features">
 <div class="about-feature">
 <span class="material-symbols-outlined about-feature-ico">verified</span>
@@ -426,7 +430,7 @@ address{font-style:normal;}
 </div>
 </div>
 <div class="about-media reveal reveal--right">
-<img alt="Vice Principal, Myra Global School" class="about-img" src="assets/images/viceprincipal.png"/>
+<img alt="Vice Principal, Myra Global School" class="about-img" src="<?= htmlspecialchars($about['vice']['photo']) ?>"/>
 </div>
 </div>
 </div>
@@ -439,10 +443,10 @@ address{font-style:normal;}
 <span class="eyebrow eyebrow--tight">The People Behind Myra</span>
 </div>
 <div class="team-photo-wrap">
-<img class="team-photo" src="assets/images/school-team.jpg" alt="The teaching and leadership team of Myra Global School" loading="lazy"/>
+<img class="team-photo" src="<?= htmlspecialchars($about['team']['photo']) ?>" alt="The teaching and leadership team of Myra Global School" loading="lazy"/>
 <div class="team-caption">
-<div class="team-caption-title">Myra Global School Faculty</div>
-<div class="team-caption-text">Committed to guiding every student towards a brighter future.</div>
+<div class="team-caption-title"><?= htmlspecialchars($about['team']['captionTitle']) ?></div>
+<div class="team-caption-text"><?= htmlspecialchars($about['team']['captionText']) ?></div>
 </div>
 </div>
 </div>
@@ -455,12 +459,12 @@ address{font-style:normal;}
 <div id="mission" class="mv-card mv-card--dark reveal reveal--up">
 <span class="material-symbols-outlined mv-ico mv-ico--gold">psychology</span>
 <h3 class="heading-lg heading-lg--light">Our Mission</h3>
-<p class="mv-text">"To empower students with the knowledge, skills, and character necessary to excel in a rapidly changing global society, through a curriculum that emphasizes critical thinking, creativity, and compassionate leadership."</p>
+<p class="mv-text">"<?= nl2br(htmlspecialchars($about['mission'])) ?>"</p>
 </div>
 <div id="vision" class="mv-card mv-card--light reveal reveal--up" data-delay="1">
 <span class="material-symbols-outlined mv-ico mv-ico--primary">visibility</span>
 <h3 class="heading-lg">Our Vision</h3>
-<p class="mv-text">"To be a global leader in transformative education, where tradition and innovation converge to inspire generations of thinkers who solve the world's most pressing challenges with wisdom and empathy."</p>
+<p class="mv-text">"<?= nl2br(htmlspecialchars($about['vision'])) ?>"</p>
 </div>
 </div>
 </div>

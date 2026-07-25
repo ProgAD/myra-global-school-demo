@@ -13,6 +13,7 @@ $ADMIN_TITLES = [
     'album'      => 'Album',
     'enquiries'  => 'Enquiries',
     'career'     => 'Careers',
+    'about'      => 'About Page',
 ];
 $page_heading = $ADMIN_TITLES[$page_name ?? ''] ?? 'Admin';
 ?>

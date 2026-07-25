@@ -22,6 +22,8 @@ $cur = $page_name ?? '';
 <a class="nav-a<?= ($cur === 'gallery' || $cur === 'album') ? ' active' : '' ?>" href="gallery.php"><span class="material-symbols-outlined">photo_library</span> Gallery</a>
 <a class="nav-a<?= $cur === 'enquiries' ? ' active' : '' ?>" href="enquiries.php"><span class="material-symbols-outlined">mail</span> Enquiries</a>
 <a class="nav-a<?= $cur === 'career' ? ' active' : '' ?>" href="career.php"><span class="material-symbols-outlined">work</span> Careers</a>
+<div class="side-label" style="margin-top:18px;">Website</div>
+<a class="nav-a<?= $cur === 'about' ? ' active' : '' ?>" href="about.php"><span class="material-symbols-outlined">info</span> About Page</a>
 </div>
 <div class="side-foot">
 <a class="nav-a" href="../index.php" target="_blank"><span class="material-symbols-outlined">open_in_new</span> View Website</a>
