@@ -756,8 +756,8 @@ address{font-style:normal;}
 <h1 class="hero-title">Where Tradition Meets Innovation</h1>
 <p class="hero-sub">Cultivating intellectual curiosity and moral character in the leaders of tomorrow. Join a community dedicated to academic excellence and personal growth.</p>
 <div class="hero-actions">
-<button class="btn-hero btn-hero--gold">Admission Now</button>
-<button class="btn-hero btn-hero--glass">Virtual Campus Tour</button>
+<button class="btn-hero btn-hero--gold" onclick="window.location.href='admission.php'">Admission Now</button>
+<!-- <button class="btn-hero btn-hero--glass">Virtual Campus Tour</button> -->
 </div>
 </div>
 </div>
